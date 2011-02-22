@@ -13,48 +13,9 @@ static const char *RcsId = "$Header$";
 //
 // $Author$     $N.Leclercq - SOLEIL
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$ 
 // 
 // $Log$
-// Revision 1.23  2010/09/28 08:44:41  nleclercq
-// Fix an indexing bug in image of string
-// Crash reporting test commands are now expert commands
-//
-// Revision 1.22  2010/09/21 12:04:45  taurel
-// - Added GPL header for next source distribution
-//
-// Revision 1.21  2010/09/10 17:23:57  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.20  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.19  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
 // Revision 1.18  2009/04/04 17:42:36  taurel
 // Device now inherits from Device_4Impl.
 // Environment variable got from Tango library (To manage tangorc files)
@@ -101,6 +62,11 @@ static const char *RcsId = "$Header$";
 //
 // Revision 1.1.1.1  2004/05/07 12:43:44  taurel
 // Initial import
+//
+//
+// copyleft :     European Synchrotron Radiation Facility
+//                BP 220, Grenoble 38043
+//                FRANCE
 // 
 //-=============================================================================
 //
@@ -116,47 +82,40 @@ static const char *RcsId = "$Header$";
 //	The following table gives the correspondence
 //	between commands and method name.
 //
-//  Command name               |  Method name
+//  Command name             |  Method name
 //	----------------------------------------
-//  State                      |  dev_state()
-//  Status                     |  dev_status()
-//  CrashFromDevelopperThread  |  crash_from_developper_thread()
-//  CrashFromOmniThread        |  crash_from_omni_thread()
-//  DevBoolean                 |  dev_boolean()
-//  DevDouble                  |  dev_double()
-//  DevFloat                   |  dev_float()
-//  DevLong                    |  dev_long()
-//  DevLong64                  |  dev_long64()
-//  DevShort                   |  dev_short()
-//  DevString                  |  dev_string()
-//  DevULong                   |  dev_ulong()
-//  DevULong64                 |  dev_ulong64()
-//  DevUShort                  |  dev_ushort()
-//  DevVarCharArray            |  dev_var_char_array()
-//  DevVarDoubleArray          |  dev_var_double_array()
-//  DevVarDoubleStringArray    |  dev_var_double_string_array()
-//  DevVarFloatArray           |  dev_var_float_array()
-//  DevVarLong64Array          |  dev_var_long64_array()
-//  DevVarLongArray            |  dev_var_long_array()
-//  DevVarLongStringArray      |  dev_var_long_string_array()
-//  DevVarShortArray           |  dev_var_short_array()
-//  DevVarStringArray          |  dev_var_string_array()
-//  DevVarULong64Array         |  dev_var_ulong64_array()
-//  DevVarULongArray           |  dev_var_ulong_array()
-//  DevVarUShortArray          |  dev_var_ushort_array()
-//  DevVoid                    |  dev_void()
-//  DumpExecutionState         |  dump_execution_state()
-//  SwitchStates               |  switch_states()
+//  State                    |  dev_state()
+//  Status                   |  dev_status()
+//  DevBoolean               |  dev_boolean()
+//  DevDouble                |  dev_double()
+//  DevFloat                 |  dev_float()
+//  DevLong                  |  dev_long()
+//  DevLong64                |  dev_long64()
+//  DevShort                 |  dev_short()
+//  DevString                |  dev_string()
+//  DevULong                 |  dev_ulong()
+//  DevULong64               |  dev_ulong64()
+//  DevUShort                |  dev_ushort()
+//  DevVarCharArray          |  dev_var_char_array()
+//  DevVarDoubleArray        |  dev_var_double_array()
+//  DevVarDoubleStringArray  |  dev_var_double_string_array()
+//  DevVarFloatArray         |  dev_var_float_array()
+//  DevVarLong64Array        |  dev_var_long64_array()
+//  DevVarLongArray          |  dev_var_long_array()
+//  DevVarLongStringArray    |  dev_var_long_string_array()
+//  DevVarShortArray         |  dev_var_short_array()
+//  DevVarStringArray        |  dev_var_string_array()
+//  DevVarULong64Array       |  dev_var_ulong64_array()
+//  DevVarULongArray         |  dev_var_ulong_array()
+//  DevVarUShortArray        |  dev_var_ushort_array()
+//  DevVoid                  |  dev_void()
+//  SwitchStates             |  switch_states()
 //
 //===================================================================
 #include <math.h>
 #include <tango.h>
 #include <TangoTest.h>
 #include <TangoTestClass.h>
-
-#if defined(ENABLE_CRASH_REPORT)
-# include <crashreporting/crash_report.h>
-#endif
 
 static const long kSpecLen = 256;
 static const long kImagLen = 251;
@@ -248,8 +207,7 @@ public:
       Tango::LogAdapter(&dev), 
       go_on_(1), 
       dev_(dev), 
-      sleep_time_(sleep_time),
-      generate_crash_ (false)
+      sleep_time_(sleep_time)
   {
     // noop ctor
   }
@@ -260,22 +218,11 @@ public:
     start_undetached();
   }  
 
-  void crash (void) 
-  {
-    WARN_STREAM << "DataGenerator::crash" << endl;
-    generate_crash_ = true;
-  }  
-
   virtual void* run_undetached (void *) 
   {
-    static int * __invalid_ptr__ = 0;
-
     DEBUG_STREAM << "DataGenerator::run_undetached" << endl;
     do 
     {
-      if (generate_crash_)
-        *__invalid_ptr__ = 0;
-
       { //- enter critical section
         omni_mutex_lock guard(dev_.lock);
         if (! go_on_) break;
@@ -304,7 +251,6 @@ private:
   int go_on_;
   TangoTest& dev_;
   long sleep_time_;  
-  bool generate_crash_;
 };
 
 //=============================================================================
@@ -1404,7 +1350,7 @@ void TangoTest::write_string_image(Tango::WAttribute &attr)
   {
     for (i = 0; i < dimXStringImage; i++)
     {
-      str_index = i + j * dimXStringImage;
+      str_index = i + j * dimYStringImage;
       CORBA::string_free(attr_string_image_read[str_index]);
       attr_string_image_read[str_index] = CORBA::string_dup(p[str_index]);
     }
@@ -3306,84 +3252,7 @@ Tango::DevVarULong64Array *TangoTest::dev_var_ulong64_array(const Tango::DevVarU
   return argout;
 }
 
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::crash_from_developper_thread
- *
- *	description:	method to execute "CrashFromDevelopperThread"
- *	Crashes the device!
- *
- *
- */
-//+------------------------------------------------------------------
-void TangoTest::crash_from_developper_thread()
-{
-	DEBUG_STREAM << "TangoTest::crash_from_developper_thread(): entering... !" << endl;
 
-	//	Add your own code to control device here
-
-#if defined(ENABLE_CRASH_REPORT)
-  if (data_gen)
-    data_gen->crash();
-#else
-  ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
-               << std::endl;
-#endif
-}
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::crash_from_omni_thread
- *
- *	description:	method to execute "CrashFromOmniThread"
- *	Crashes the device!
- *
- *
- */
-//+------------------------------------------------------------------
-void TangoTest::crash_from_omni_thread()
-{
-	DEBUG_STREAM << "TangoTest::crash_from_omni_thread(): entering... !" << endl;
-
-#if defined(ENABLE_CRASH_REPORT)
-	//	Add your own code to control device here
-  int * invalid_ptr = 0;
-  *invalid_ptr = 0;
-#else
-  ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
-               << std::endl;
-#endif
-}
-
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::dump_execution_state
- *
- *	description:	method to execute "DumpExecutionState"
- *	Forces mini dump generation
- *
- *
- */
-//+------------------------------------------------------------------
-void TangoTest::dump_execution_state()
-{
-	DEBUG_STREAM << "TangoTest::dump_execution_state(): entering... !" << endl;
-
-	//	Add your own code to control device here
-#if defined(ENABLE_CRASH_REPORT)
-  TangoCrashHandler::dump_current_exec_state();
-#else
-  ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
-               << std::endl;
-#endif
-}
 
 
 }	//	namespace

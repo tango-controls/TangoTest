@@ -8,37 +8,9 @@
 //
 // $Author$N.Leclecq - SOLEIL
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$1.0  
 //
 // $Log$
-// Revision 1.14  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.13  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
 // Revision 1.12  2009/04/04 17:42:36  taurel
 // Device now inherits from Device_4Impl.
 // Environment variable got from Tango library (To manage tangorc files)
@@ -69,6 +41,11 @@
 //
 // Revision 1.1.1.1  2004/05/07 12:43:45  taurel
 // Initial import
+//
+//
+// copyleft :    European Synchrotron Radiation Facility
+//               BP 220, Grenoble 38043
+//               FRANCE
 //
 //=============================================================================
 //
@@ -904,14 +881,6 @@ public :
  */
 	virtual bool is_ushort_image_ro_allowed(Tango::AttReqType type);
 /**
- *	Execution allowed for CrashFromDevelopperThread command.
- */
-	virtual bool is_CrashFromDevelopperThread_allowed(const CORBA::Any &any);
-/**
- *	Execution allowed for CrashFromOmniThread command.
- */
-	virtual bool is_CrashFromOmniThread_allowed(const CORBA::Any &any);
-/**
  *	Execution allowed for DevBoolean command.
  */
 	virtual bool is_DevBoolean_allowed(const CORBA::Any &any);
@@ -1004,23 +973,9 @@ public :
  */
 	virtual bool is_DevVoid_allowed(const CORBA::Any &any);
 /**
- *	Execution allowed for DumpExecutionState command.
- */
-	virtual bool is_DumpExecutionState_allowed(const CORBA::Any &any);
-/**
  *	Execution allowed for SwitchStates command.
  */
 	virtual bool is_SwitchStates_allowed(const CORBA::Any &any);
-/**
- * Crashes the device!
- *	@exception DevFailed
- */
-	void	crash_from_developper_thread();
-/**
- * Crashes the device!
- *	@exception DevFailed
- */
-	void	crash_from_omni_thread();
 /**
  * A DevBoolean comand example
  *	@param	argin	Any boolean value
@@ -1180,11 +1135,6 @@ public :
  *	@exception DevFailed
  */
 	void	dev_void();
-/**
- * Forces mini dump generation
- *	@exception DevFailed
- */
-	void	dump_execution_state();
 /**
  * This command changes the device state from RUNNING to FAULT or from FAULT to RUNNING
  *	@exception DevFailed

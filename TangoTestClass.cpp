@@ -25,40 +25,9 @@ static const char *RCSfile = "$RCSfile$";
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.14  2010/09/21 12:04:45  taurel
-// - Added GPL header for next source distribution
-//
-// Revision 1.13  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.12  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
 // Revision 1.11  2008/02/20 16:00:34  pierrejoseph
 // Add a property (UShort_image_ro_size) which determines the size of the ushort_image_ro attribute.
 //
@@ -73,6 +42,11 @@ static const char *RCSfile = "$RCSfile$";
 //
 // Revision 1.7  2006/02/08 16:14:28  nleclercq
 // Minor modifs in RW spectrum and image attributes
+//
+//
+// copyleft :     Synchrotron SOLEIL
+//                L'Orme des Merisiers
+//                Saint-Aubin - BP 48
 //
 //-=============================================================================
 //
@@ -91,73 +65,6 @@ static const char *RCSfile = "$RCSfile$";
 
 namespace TangoTest_ns
 {
-//+----------------------------------------------------------------------------
-//
-// method : 		DumpExecutionStateCmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *DumpExecutionStateCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "DumpExecutionStateCmd::execute(): arrived" << endl;
-
-	((static_cast<TangoTest *>(device))->dump_execution_state());
-	return new CORBA::Any();
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		CrashFromOmniThreadCmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *CrashFromOmniThreadCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "CrashFromOmniThreadCmd::execute(): arrived" << endl;
-
-	((static_cast<TangoTest *>(device))->crash_from_omni_thread());
-	return new CORBA::Any();
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		CrashFromDevelopperThreadCmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *CrashFromDevelopperThreadCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "CrashFromDevelopperThreadCmd::execute(): arrived" << endl;
-
-	((static_cast<TangoTest *>(device))->crash_from_developper_thread());
-	return new CORBA::Any();
-}
-
-
 //+----------------------------------------------------------------------------
 //
 // method : 		DevVarULong64ArrayCmd::execute()
@@ -817,16 +724,6 @@ TangoTestClass *TangoTestClass::instance()
 //-----------------------------------------------------------------------------
 void TangoTestClass::command_factory()
 {
-	command_list.push_back(new CrashFromDevelopperThreadCmd("CrashFromDevelopperThread",
-		Tango::DEV_VOID, Tango::DEV_VOID,
-		"",
-		"",
-		Tango::EXPERT));
-	command_list.push_back(new CrashFromOmniThreadCmd("CrashFromOmniThread",
-		Tango::DEV_VOID, Tango::DEV_VOID,
-		"",
-		"",
-		Tango::EXPERT));
 	command_list.push_back(new DevBooleanCmd("DevBoolean",
 		Tango::DEV_BOOLEAN, Tango::DEV_BOOLEAN,
 		"Any boolean value",
@@ -942,11 +839,6 @@ void TangoTestClass::command_factory()
 		"N/A",
 		"N/A",
 		Tango::OPERATOR));
-	command_list.push_back(new DumpExecutionStateCmd("DumpExecutionState",
-		Tango::DEV_VOID, Tango::DEV_VOID,
-		"",
-		"",
-		Tango::EXPERT));
 	command_list.push_back(new SwitchStatesClass("SwitchStates",
 		Tango::DEV_VOID, Tango::DEV_VOID,
 		"",

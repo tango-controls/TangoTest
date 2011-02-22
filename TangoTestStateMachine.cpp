@@ -10,37 +10,9 @@ static const char *RcsId = "$Header$";
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.9  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.8  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
 // Revision 1.7  2007/12/11 19:07:52  nleclercq
 // added a "no_value" and a "throw_exception" attribute
 //
@@ -52,6 +24,11 @@ static const char *RcsId = "$Header$";
 //
 // Revision 1.4  2006/02/08 16:14:28  nleclercq
 // Minor modifs in RW spectrum and image attributes
+//
+//
+// copyleft :     Synchrotron SOLEIL
+//                L'Orme des Merisiers
+//                Saint-Aubin - BP 48
 //
 //-=============================================================================
 //
@@ -1582,48 +1559,6 @@ bool TangoTest::is_DevULong64_allowed(const CORBA::Any &any)
 //
 //-----------------------------------------------------------------------------
 bool TangoTest::is_DevLong_allowed(const CORBA::Any &any)
-{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_CrashFromDevelopperThread_allowed
-// 
-// description : 	Execution allowed for CrashFromDevelopperThread command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_CrashFromDevelopperThread_allowed(const CORBA::Any &any)
-{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_CrashFromOmniThread_allowed
-// 
-// description : 	Execution allowed for CrashFromOmniThread command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_CrashFromOmniThread_allowed(const CORBA::Any &any)
-{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_DumpExecutionState_allowed
-// 
-// description : 	Execution allowed for DumpExecutionState command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_DumpExecutionState_allowed(const CORBA::Any &any)
 {
 		//	End of Generated Code
 
