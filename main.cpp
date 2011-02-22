@@ -35,9 +35,6 @@ static const char *RcsId = "$Header$";
 // $Revision$ $
 //
 // $Log$
-// Revision 1.9  2010/09/21 12:04:45  taurel
-// - Added GPL header for next source distribution
-//
 // Revision 1.8  2010/09/10 17:21:30  nleclercq
 // Added support for crash report  (i.e. google breakpad)
 // Added ClassID to the cvs repository
@@ -65,7 +62,7 @@ static const char *RcsId = "$Header$";
 #include <tango.h>
 
 #if defined(ENABLE_CRASH_REPORT)
-# include <crashreporting/crash_report.h>
+# include <crash_report.h>
 #else
 # define DECLARE_CRASH_HANDLER
 # define INSTALL_CRASH_HANDLER

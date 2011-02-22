@@ -9,7 +9,7 @@
 
     <groupId>fr.soleil.device</groupId>
     <artifactId>TangoTest-${aol}-${mode}</artifactId>
-    <version>1.4.5</version>
+    <version>1.4.4</version>
 
     <packaging>nar</packaging>
     <name>TangoTest</name> <!-- use for the name of executable -->
@@ -21,46 +21,47 @@
                 <groupId>org.freehep</groupId>
                 <artifactId>freehep-nar-plugin</artifactId>
                 <configuration>
-                    <output>${project.name}</output>
                     <cpp>
                         <includePaths>
                             <includePath>${project.basedir}</includePath>
+                            <!-- <includePath>/home/tango/dist-breakpad-linux/include</includePath> -->
+                            <!-- <includePath>c:\soleil\breakpad\dist-breakpad-win32\include</includePath> -->
                         </includePaths>
+                        <options>
+                          <!-- linuc-gcc option : modif super pom -->
+                          <!-- <option>-gstabs</option> -->
+                          <!-- visual c++ option: modif super pom -->
+                          <!-- <option>/Zi</option> -->
+                          <!-- visual c++ option: modif super pom -->
+                          <!-- <option>/Fd"${project.basedir}\${project.name}.pdb"</option> -->
+                        </options>
+                        <defines>
+                          <!-- <define>ENABLE_CRASH_REPORT</define> -->
+                        </defines>
                         <sourceDirectory>${project.basedir}</sourceDirectory>
                     </cpp>
+                    <linker>
+                      <options>
+                        <!-- visual c++ option: modif super pom -->
+                        <!-- <option>/PDB:"${project.basedir}\${project.name}.pdb"</option> -->
+                      </options>
+                      <libs>
+                        <!-- <lib>
+                          <name>breakpad_client</name>
+                          <type>static</type>
+                          <directory>/home/tango/dist-breakpad-linux/lib</directory>
+                        </lib> -->
+                         <!-- <lib>
+                          <name>breakpad_client</name>
+                          <type>static</type>
+                          <directory>c:\soleil\breakpad\dist-breakpad-win32\lib</directory>
+                        </lib> -->
+                      </libs>
+                    </linker>    
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>Execute</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.freehep</groupId>
-                        <artifactId>freehep-nar-plugin</artifactId>
-                        <configuration>
-                            <libraries>
-                                <library>
-                                    <type>executable</type>
-                                    <run>true</run>
-                                    <args>
-                                        <arg>2</arg>
-                                    </args>
-                                    <envs>
-                                        <env>TANGO_HOST=${env.TANGO_HOST}</env>
-                                        <env>TANGO_CRASH_PATH=${project.build.directory}\breakpad</env>
-                                    </envs>
-                                </library>
-                            </libraries>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 <!-- By default
     <dependencies>

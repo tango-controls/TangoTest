@@ -36,10 +36,6 @@ static const char *RcsId = "$Header$";
 // $Revision$ 
 // 
 // $Log$
-// Revision 1.23  2010/09/28 08:44:41  nleclercq
-// Fix an indexing bug in image of string
-// Crash reporting test commands are now expert commands
-//
 // Revision 1.22  2010/09/21 12:04:45  taurel
 // - Added GPL header for next source distribution
 //
@@ -155,7 +151,7 @@ static const char *RcsId = "$Header$";
 #include <TangoTestClass.h>
 
 #if defined(ENABLE_CRASH_REPORT)
-# include <crashreporting/crash_report.h>
+# include <crash_report.h>
 #endif
 
 static const long kSpecLen = 256;
