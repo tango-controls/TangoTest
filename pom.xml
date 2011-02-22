@@ -9,11 +9,11 @@
 
     <groupId>fr.soleil.device</groupId>
     <artifactId>TangoTest-${aol}-${mode}</artifactId>
-    <version>1.4.5</version>
+    <version>1.4.3</version>
 
     <packaging>nar</packaging>
     <name>TangoTest</name> <!-- use for the name of executable -->
-    <description>TangoTest Device</description>
+    <description>TangoTest device</description>
 
     <build>
         <plugins>
@@ -21,7 +21,6 @@
                 <groupId>org.freehep</groupId>
                 <artifactId>freehep-nar-plugin</artifactId>
                 <configuration>
-                    <output>${project.name}</output>
                     <cpp>
                         <includePaths>
                             <includePath>${project.basedir}</includePath>
@@ -32,35 +31,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>Execute</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.freehep</groupId>
-                        <artifactId>freehep-nar-plugin</artifactId>
-                        <configuration>
-                            <libraries>
-                                <library>
-                                    <type>executable</type>
-                                    <run>true</run>
-                                    <args>
-                                        <arg>2</arg>
-                                    </args>
-                                    <envs>
-                                        <env>TANGO_HOST=${env.TANGO_HOST}</env>
-                                        <env>TANGO_CRASH_PATH=${project.build.directory}\breakpad</env>
-                                    </envs>
-                                </library>
-                            </libraries>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 <!-- By default
     <dependencies>
