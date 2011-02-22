@@ -12,37 +12,9 @@
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.11  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.10  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
 // Revision 1.9  2008/02/20 16:00:34  pierrejoseph
 // Add a property (UShort_image_ro_size) which determines the size of the ushort_image_ro attribute.
 //
@@ -892,30 +864,6 @@ public:
 
 
 
-class DumpExecutionStateCmd : public Tango::Command
-{
-public:
-	DumpExecutionStateCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DumpExecutionStateCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DumpExecutionStateCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DumpExecutionState_allowed(any);}
-};
-
-
-
 class DevVoidCmd : public Tango::Command
 {
 public:
@@ -1464,54 +1412,6 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<TangoTest *>(dev))->is_DevBoolean_allowed(any);}
-};
-
-
-
-class CrashFromOmniThreadCmd : public Tango::Command
-{
-public:
-	CrashFromOmniThreadCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	CrashFromOmniThreadCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~CrashFromOmniThreadCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_CrashFromOmniThread_allowed(any);}
-};
-
-
-
-class CrashFromDevelopperThreadCmd : public Tango::Command
-{
-public:
-	CrashFromDevelopperThreadCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	CrashFromDevelopperThreadCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~CrashFromDevelopperThreadCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_CrashFromDevelopperThread_allowed(any);}
 };
 
 
