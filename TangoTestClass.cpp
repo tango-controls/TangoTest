@@ -48,9 +48,6 @@ static const char *RCSfile = "$RCSfile$";
 // $Revision$
 //
 // $Log$
-// Revision 1.14  2010/09/21 12:04:45  taurel
-// - Added GPL header for next source distribution
-//
 // Revision 1.13  2010/09/10 17:21:30  nleclercq
 // Added support for crash report  (i.e. google breakpad)
 // Added ClassID to the cvs repository
@@ -821,12 +818,12 @@ void TangoTestClass::command_factory()
 		Tango::DEV_VOID, Tango::DEV_VOID,
 		"",
 		"",
-		Tango::EXPERT));
+		Tango::OPERATOR));
 	command_list.push_back(new CrashFromOmniThreadCmd("CrashFromOmniThread",
 		Tango::DEV_VOID, Tango::DEV_VOID,
 		"",
 		"",
-		Tango::EXPERT));
+		Tango::OPERATOR));
 	command_list.push_back(new DevBooleanCmd("DevBoolean",
 		Tango::DEV_BOOLEAN, Tango::DEV_BOOLEAN,
 		"Any boolean value",

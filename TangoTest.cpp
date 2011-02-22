@@ -36,13 +36,6 @@ static const char *RcsId = "$Header$";
 // $Revision$ 
 // 
 // $Log$
-// Revision 1.23  2010/09/28 08:44:41  nleclercq
-// Fix an indexing bug in image of string
-// Crash reporting test commands are now expert commands
-//
-// Revision 1.22  2010/09/21 12:04:45  taurel
-// - Added GPL header for next source distribution
-//
 // Revision 1.21  2010/09/10 17:23:57  nleclercq
 // Added support for crash report  (i.e. google breakpad)
 // Added ClassID to the cvs repository
@@ -155,7 +148,7 @@ static const char *RcsId = "$Header$";
 #include <TangoTestClass.h>
 
 #if defined(ENABLE_CRASH_REPORT)
-# include <crashreporting/crash_report.h>
+# include <crash_report.h>
 #endif
 
 static const long kSpecLen = 256;
@@ -1404,7 +1397,7 @@ void TangoTest::write_string_image(Tango::WAttribute &attr)
   {
     for (i = 0; i < dimXStringImage; i++)
     {
-      str_index = i + j * dimXStringImage;
+      str_index = i + j * dimYStringImage;
       CORBA::string_free(attr_string_image_read[str_index]);
       attr_string_image_read[str_index] = CORBA::string_dup(p[str_index]);
     }
@@ -3384,6 +3377,5 @@ void TangoTest::dump_execution_state()
                << std::endl;
 #endif
 }
-
 
 }	//	namespace
