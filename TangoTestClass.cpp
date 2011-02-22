@@ -1,6 +1,3 @@
-static const char *ClassId    = "$Id$";
-static const char *CvsPath    = "$Source$";
-static const char *SvnPath    = "$HeadURL: $";
 
 static const char *RcsId = "$Header$";
 
@@ -25,43 +22,9 @@ static const char *RCSfile = "$RCSfile$";
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.14  2010/09/21 12:04:45  taurel
-// - Added GPL header for next source distribution
-//
-// Revision 1.13  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.12  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
-// Revision 1.11  2008/02/20 16:00:34  pierrejoseph
-// Add a property (UShort_image_ro_size) which determines the size of the ushort_image_ro attribute.
-//
 // Revision 1.10  2007/12/11 19:07:52  nleclercq
 // added a "no_value" and a "throw_exception" attribute
 //
@@ -73,6 +36,11 @@ static const char *RCSfile = "$RCSfile$";
 //
 // Revision 1.7  2006/02/08 16:14:28  nleclercq
 // Minor modifs in RW spectrum and image attributes
+//
+//
+// copyleft :     Synchrotron SOLEIL
+//                L'Orme des Merisiers
+//                Saint-Aubin - BP 48
 //
 //-=============================================================================
 //
@@ -91,169 +59,6 @@ static const char *RCSfile = "$RCSfile$";
 
 namespace TangoTest_ns
 {
-//+----------------------------------------------------------------------------
-//
-// method : 		DumpExecutionStateCmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *DumpExecutionStateCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "DumpExecutionStateCmd::execute(): arrived" << endl;
-
-	((static_cast<TangoTest *>(device))->dump_execution_state());
-	return new CORBA::Any();
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		CrashFromOmniThreadCmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *CrashFromOmniThreadCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "CrashFromOmniThreadCmd::execute(): arrived" << endl;
-
-	((static_cast<TangoTest *>(device))->crash_from_omni_thread());
-	return new CORBA::Any();
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		CrashFromDevelopperThreadCmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *CrashFromDevelopperThreadCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "CrashFromDevelopperThreadCmd::execute(): arrived" << endl;
-
-	((static_cast<TangoTest *>(device))->crash_from_developper_thread());
-	return new CORBA::Any();
-}
-
-
-//+----------------------------------------------------------------------------
-//
-// method : 		DevVarULong64ArrayCmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *DevVarULong64ArrayCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "DevVarULong64ArrayCmd::execute(): arrived" << endl;
-
-	const Tango::DevVarULong64Array	*argin;
-	extract(in_any, argin);
-
-	return insert((static_cast<TangoTest *>(device))->dev_var_ulong64_array(argin));
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		DevVarLong64ArrayCmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *DevVarLong64ArrayCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "DevVarLong64ArrayCmd::execute(): arrived" << endl;
-
-	const Tango::DevVarLong64Array	*argin;
-	extract(in_any, argin);
-
-	return insert((static_cast<TangoTest *>(device))->dev_var_long64_array(argin));
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		DevULong64Cmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *DevULong64Cmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "DevULong64Cmd::execute(): arrived" << endl;
-
-	Tango::DevULong64	argin;
-	extract(in_any, argin);
-
-	return insert((static_cast<TangoTest *>(device))->dev_ulong64(argin));
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		DevLong64Cmd::execute()
-// 
-// description : 	method to trigger the execution of the command.
-//                PLEASE DO NOT MODIFY this method core without pogo   
-//
-// in : - device : The device on which the command must be executed
-//		- in_any : The command input data
-//
-// returns : The command output data (packed in the Any object)
-//
-//-----------------------------------------------------------------------------
-CORBA::Any *DevLong64Cmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
-{
-
-	cout2 << "DevLong64Cmd::execute(): arrived" << endl;
-
-	Tango::DevLong64	argin;
-	extract(in_any, argin);
-
-	return insert((static_cast<TangoTest *>(device))->dev_long64(argin));
-}
-
 
 //+----------------------------------------------------------------------------
 //
@@ -817,39 +622,14 @@ TangoTestClass *TangoTestClass::instance()
 //-----------------------------------------------------------------------------
 void TangoTestClass::command_factory()
 {
-	command_list.push_back(new CrashFromDevelopperThreadCmd("CrashFromDevelopperThread",
+	command_list.push_back(new DevVoidCmd("DevVoid",
 		Tango::DEV_VOID, Tango::DEV_VOID,
-		"",
-		"",
-		Tango::EXPERT));
-	command_list.push_back(new CrashFromOmniThreadCmd("CrashFromOmniThread",
-		Tango::DEV_VOID, Tango::DEV_VOID,
-		"",
-		"",
-		Tango::EXPERT));
+		"N/A",
+		"N/A",
+		Tango::OPERATOR));
 	command_list.push_back(new DevBooleanCmd("DevBoolean",
 		Tango::DEV_BOOLEAN, Tango::DEV_BOOLEAN,
 		"Any boolean value",
-		"Echo of the argin value",
-		Tango::OPERATOR));
-	command_list.push_back(new DevDoubleCmd("DevDouble",
-		Tango::DEV_DOUBLE, Tango::DEV_DOUBLE,
-		"Any DevDouble value",
-		"Echo of the argin value",
-		Tango::OPERATOR));
-	command_list.push_back(new DevFloatCmd("DevFloat",
-		Tango::DEV_FLOAT, Tango::DEV_FLOAT,
-		"Any DevFloat value",
-		"Echo of the argin value",
-		Tango::OPERATOR));
-	command_list.push_back(new DevLongCmd("DevLong",
-		Tango::DEV_LONG, Tango::DEV_LONG,
-		"Any DevLong value",
-		"Echo of the argin value",
-		Tango::OPERATOR));
-	command_list.push_back(new DevLong64Cmd("DevLong64",
-		Tango::DEV_LONG64, Tango::DEV_LONG64,
-		"Any DevLong64 value",
 		"Echo of the argin value",
 		Tango::OPERATOR));
 	command_list.push_back(new DevShortCmd("DevShort",
@@ -857,58 +637,38 @@ void TangoTestClass::command_factory()
 		"Any DevShort value",
 		"Echo of the argin value",
 		Tango::OPERATOR));
-	command_list.push_back(new DevStringCmd("DevString",
-		Tango::DEV_STRING, Tango::DEV_STRING,
-		"-",
-		"-",
+	command_list.push_back(new DevUShortCmd("DevUShort",
+		Tango::DEV_USHORT, Tango::DEV_USHORT,
+		"Any DevUShort value",
+		"Echo of the argin value",
+		Tango::OPERATOR));
+	command_list.push_back(new DevLongCmd("DevLong",
+		Tango::DEV_LONG, Tango::DEV_LONG,
+		"Any DevLong value",
+		"Echo of the argin value",
 		Tango::OPERATOR));
 	command_list.push_back(new DevULongCmd("DevULong",
 		Tango::DEV_ULONG, Tango::DEV_ULONG,
 		"Any DevULong",
 		"Echo of the argin value",
 		Tango::OPERATOR));
-	command_list.push_back(new DevULong64Cmd("DevULong64",
-		Tango::DEV_ULONG64, Tango::DEV_ULONG64,
-		"Any DevULong64 value",
+	command_list.push_back(new DevFloatCmd("DevFloat",
+		Tango::DEV_FLOAT, Tango::DEV_FLOAT,
+		"Any DevFloat value",
 		"Echo of the argin value",
 		Tango::OPERATOR));
-	command_list.push_back(new DevUShortCmd("DevUShort",
-		Tango::DEV_USHORT, Tango::DEV_USHORT,
-		"Any DevUShort value",
+	command_list.push_back(new DevDoubleCmd("DevDouble",
+		Tango::DEV_DOUBLE, Tango::DEV_DOUBLE,
+		"Any DevDouble value",
 		"Echo of the argin value",
+		Tango::OPERATOR));
+	command_list.push_back(new DevStringCmd("DevString",
+		Tango::DEV_STRING, Tango::DEV_STRING,
+		"-",
+		"-",
 		Tango::OPERATOR));
 	command_list.push_back(new DevVarCharArrayCmd("DevVarCharArray",
 		Tango::DEVVAR_CHARARRAY, Tango::DEVVAR_CHARARRAY,
-		"-",
-		"-",
-		Tango::OPERATOR));
-	command_list.push_back(new DevVarDoubleArrayCmd("DevVarDoubleArray",
-		Tango::DEVVAR_DOUBLEARRAY, Tango::DEVVAR_DOUBLEARRAY,
-		"-",
-		"-",
-		Tango::OPERATOR));
-	command_list.push_back(new DevVarDoubleStringArrayCmd("DevVarDoubleStringArray",
-		Tango::DEVVAR_DOUBLESTRINGARRAY, Tango::DEVVAR_DOUBLESTRINGARRAY,
-		"-",
-		"-",
-		Tango::OPERATOR));
-	command_list.push_back(new DevVarFloatArrayCmd("DevVarFloatArray",
-		Tango::DEVVAR_FLOATARRAY, Tango::DEVVAR_FLOATARRAY,
-		"-",
-		"-",
-		Tango::OPERATOR));
-	command_list.push_back(new DevVarLong64ArrayCmd("DevVarLong64Array",
-		Tango::DEVVAR_LONG64ARRAY, Tango::DEVVAR_LONG64ARRAY,
-		"",
-		"",
-		Tango::OPERATOR));
-	command_list.push_back(new DevVarLongArrayCmd("DevVarLongArray",
-		Tango::DEVVAR_LONGARRAY, Tango::DEVVAR_LONGARRAY,
-		"-",
-		"-",
-		Tango::OPERATOR));
-	command_list.push_back(new DevVarLongStringArrayCmd("DevVarLongStringArray",
-		Tango::DEVVAR_LONGSTRINGARRAY, Tango::DEVVAR_LONGSTRINGARRAY,
 		"-",
 		"-",
 		Tango::OPERATOR));
@@ -917,36 +677,46 @@ void TangoTestClass::command_factory()
 		"-",
 		"-",
 		Tango::OPERATOR));
-	command_list.push_back(new DevVarStringArrayCmd("DevVarStringArray",
-		Tango::DEVVAR_STRINGARRAY, Tango::DEVVAR_STRINGARRAY,
+	command_list.push_back(new DevVarUShortArrayCmd("DevVarUShortArray",
+		Tango::DEVVAR_USHORTARRAY, Tango::DEVVAR_USHORTARRAY,
 		"-",
 		"-",
 		Tango::OPERATOR));
-	command_list.push_back(new DevVarULong64ArrayCmd("DevVarULong64Array",
-		Tango::DEVVAR_ULONG64ARRAY, Tango::DEVVAR_ULONG64ARRAY,
-		"",
-		"",
+	command_list.push_back(new DevVarLongArrayCmd("DevVarLongArray",
+		Tango::DEVVAR_LONGARRAY, Tango::DEVVAR_LONGARRAY,
+		"-",
+		"-",
 		Tango::OPERATOR));
 	command_list.push_back(new DevVarULongArrayCmd("DevVarULongArray",
 		Tango::DEVVAR_ULONGARRAY, Tango::DEVVAR_ULONGARRAY,
 		"-",
 		"-",
 		Tango::OPERATOR));
-	command_list.push_back(new DevVarUShortArrayCmd("DevVarUShortArray",
-		Tango::DEVVAR_USHORTARRAY, Tango::DEVVAR_USHORTARRAY,
+	command_list.push_back(new DevVarFloatArrayCmd("DevVarFloatArray",
+		Tango::DEVVAR_FLOATARRAY, Tango::DEVVAR_FLOATARRAY,
 		"-",
 		"-",
 		Tango::OPERATOR));
-	command_list.push_back(new DevVoidCmd("DevVoid",
-		Tango::DEV_VOID, Tango::DEV_VOID,
-		"N/A",
-		"N/A",
+	command_list.push_back(new DevVarDoubleArrayCmd("DevVarDoubleArray",
+		Tango::DEVVAR_DOUBLEARRAY, Tango::DEVVAR_DOUBLEARRAY,
+		"-",
+		"-",
 		Tango::OPERATOR));
-	command_list.push_back(new DumpExecutionStateCmd("DumpExecutionState",
-		Tango::DEV_VOID, Tango::DEV_VOID,
-		"",
-		"",
-		Tango::EXPERT));
+	command_list.push_back(new DevVarStringArrayCmd("DevVarStringArray",
+		Tango::DEVVAR_STRINGARRAY, Tango::DEVVAR_STRINGARRAY,
+		"-",
+		"-",
+		Tango::OPERATOR));
+	command_list.push_back(new DevVarLongStringArrayCmd("DevVarLongStringArray",
+		Tango::DEVVAR_LONGSTRINGARRAY, Tango::DEVVAR_LONGSTRINGARRAY,
+		"-",
+		"-",
+		Tango::OPERATOR));
+	command_list.push_back(new DevVarDoubleStringArrayCmd("DevVarDoubleStringArray",
+		Tango::DEVVAR_DOUBLESTRINGARRAY, Tango::DEVVAR_DOUBLESTRINGARRAY,
+		"-",
+		"-",
+		Tango::OPERATOR));
 	command_list.push_back(new SwitchStatesClass("SwitchStates",
 		Tango::DEV_VOID, Tango::DEV_VOID,
 		"",
@@ -1047,9 +817,49 @@ void TangoTestClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
 //-----------------------------------------------------------------------------
 void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 {
-	//	Attribute : ampli
-	ampliAttrib	*ampli = new ampliAttrib();
-	att_list.push_back(ampli);
+	//	Attribute : short_scalar_ro
+	short_scalar_roAttrib	*short_scalar_ro = new short_scalar_roAttrib();
+	att_list.push_back(short_scalar_ro);
+
+	//	Attribute : short_scalar
+	short_scalarAttrib	*short_scalar = new short_scalarAttrib();
+	att_list.push_back(short_scalar);
+
+	//	Attribute : short_scalar_w
+	short_scalar_wAttrib	*short_scalar_w = new short_scalar_wAttrib();
+	att_list.push_back(short_scalar_w);
+
+	//	Attribute : short_scalar_rww
+	short_scalar_rwwAttrib	*short_scalar_rww = new short_scalar_rwwAttrib();
+	att_list.push_back(short_scalar_rww);
+
+	//	Attribute : long_scalar
+	long_scalarAttrib	*long_scalar = new long_scalarAttrib();
+	att_list.push_back(long_scalar);
+
+	//	Attribute : long_scalar_w
+	long_scalar_wAttrib	*long_scalar_w = new long_scalar_wAttrib();
+	att_list.push_back(long_scalar_w);
+
+	//	Attribute : long_scalar_rww
+	long_scalar_rwwAttrib	*long_scalar_rww = new long_scalar_rwwAttrib();
+	att_list.push_back(long_scalar_rww);
+
+	//	Attribute : double_scalar
+	double_scalarAttrib	*double_scalar = new double_scalarAttrib();
+	att_list.push_back(double_scalar);
+
+	//	Attribute : double_scalar_w
+	double_scalar_wAttrib	*double_scalar_w = new double_scalar_wAttrib();
+	att_list.push_back(double_scalar_w);
+
+	//	Attribute : double_scalar_rww
+	double_scalar_rwwAttrib	*double_scalar_rww = new double_scalar_rwwAttrib();
+	att_list.push_back(double_scalar_rww);
+
+	//	Attribute : string_scalar
+	string_scalarAttrib	*string_scalar = new string_scalarAttrib();
+	att_list.push_back(string_scalar);
 
 	//	Attribute : boolean_scalar
 	boolean_scalarAttrib	*boolean_scalar = new boolean_scalarAttrib();
@@ -1059,18 +869,6 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	boolean_scalar->set_default_properties(boolean_scalar_prop);
 	att_list.push_back(boolean_scalar);
 
-	//	Attribute : double_scalar
-	double_scalarAttrib	*double_scalar = new double_scalarAttrib();
-	att_list.push_back(double_scalar);
-
-	//	Attribute : double_scalar_rww
-	double_scalar_rwwAttrib	*double_scalar_rww = new double_scalar_rwwAttrib();
-	att_list.push_back(double_scalar_rww);
-
-	//	Attribute : double_scalar_w
-	double_scalar_wAttrib	*double_scalar_w = new double_scalar_wAttrib();
-	att_list.push_back(double_scalar_w);
-
 	//	Attribute : float_scalar
 	float_scalarAttrib	*float_scalar = new float_scalarAttrib();
 	Tango::UserDefaultAttrProp	float_scalar_prop;
@@ -1079,60 +877,12 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	float_scalar->set_default_properties(float_scalar_prop);
 	att_list.push_back(float_scalar);
 
-	//	Attribute : long64_scalar
-	long64_scalarAttrib	*long64_scalar = new long64_scalarAttrib();
-	att_list.push_back(long64_scalar);
-
-	//	Attribute : long_scalar
-	long_scalarAttrib	*long_scalar = new long_scalarAttrib();
-	att_list.push_back(long_scalar);
-
-	//	Attribute : long_scalar_rww
-	long_scalar_rwwAttrib	*long_scalar_rww = new long_scalar_rwwAttrib();
-	att_list.push_back(long_scalar_rww);
-
-	//	Attribute : long_scalar_w
-	long_scalar_wAttrib	*long_scalar_w = new long_scalar_wAttrib();
-	att_list.push_back(long_scalar_w);
-
-	//	Attribute : no_value
-	no_valueAttrib	*no_value = new no_valueAttrib();
-	att_list.push_back(no_value);
-
-	//	Attribute : short_scalar
-	short_scalarAttrib	*short_scalar = new short_scalarAttrib();
-	att_list.push_back(short_scalar);
-
-	//	Attribute : short_scalar_ro
-	short_scalar_roAttrib	*short_scalar_ro = new short_scalar_roAttrib();
-	att_list.push_back(short_scalar_ro);
-
-	//	Attribute : short_scalar_rww
-	short_scalar_rwwAttrib	*short_scalar_rww = new short_scalar_rwwAttrib();
-	att_list.push_back(short_scalar_rww);
-
-	//	Attribute : short_scalar_w
-	short_scalar_wAttrib	*short_scalar_w = new short_scalar_wAttrib();
-	att_list.push_back(short_scalar_w);
-
-	//	Attribute : string_scalar
-	string_scalarAttrib	*string_scalar = new string_scalarAttrib();
-	att_list.push_back(string_scalar);
-
-	//	Attribute : throw_exception
-	throw_exceptionAttrib	*throw_exception = new throw_exceptionAttrib();
-	att_list.push_back(throw_exception);
-
 	//	Attribute : uchar_scalar
 	uchar_scalarAttrib	*uchar_scalar = new uchar_scalarAttrib();
 	Tango::UserDefaultAttrProp	uchar_scalar_prop;
 	uchar_scalar_prop.set_label("uchar_scalar");
 	uchar_scalar->set_default_properties(uchar_scalar_prop);
 	att_list.push_back(uchar_scalar);
-
-	//	Attribute : ulong64_scalar
-	ulong64_scalarAttrib	*ulong64_scalar = new ulong64_scalarAttrib();
-	att_list.push_back(ulong64_scalar);
 
 	//	Attribute : ushort_scalar
 	ushort_scalarAttrib	*ushort_scalar = new ushort_scalarAttrib();
@@ -1141,9 +891,29 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	ushort_scalar->set_default_properties(ushort_scalar_prop);
 	att_list.push_back(ushort_scalar);
 
-	//	Attribute : ulong_scalar
-	ulong_scalarAttrib	*ulong_scalar = new ulong_scalarAttrib();
-	att_list.push_back(ulong_scalar);
+	//	Attribute : ampli
+	ampliAttrib	*ampli = new ampliAttrib();
+	att_list.push_back(ampli);
+
+	//	Attribute : no_value
+	no_valueAttrib	*no_value = new no_valueAttrib();
+	att_list.push_back(no_value);
+
+	//	Attribute : throw_exception
+	throw_exceptionAttrib	*throw_exception = new throw_exceptionAttrib();
+	att_list.push_back(throw_exception);
+
+	//	Attribute : short_spectrum
+	short_spectrumAttrib	*short_spectrum = new short_spectrumAttrib();
+	att_list.push_back(short_spectrum);
+
+	//	Attribute : long_spectrum
+	long_spectrumAttrib	*long_spectrum = new long_spectrumAttrib();
+	att_list.push_back(long_spectrum);
+
+	//	Attribute : double_spectrum
+	double_spectrumAttrib	*double_spectrum = new double_spectrumAttrib();
+	att_list.push_back(double_spectrum);
 
 	//	Attribute : boolean_spectrum
 	boolean_spectrumAttrib	*boolean_spectrum = new boolean_spectrumAttrib();
@@ -1151,58 +921,6 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	boolean_spectrum_prop.set_label("boolean_spectrum");
 	boolean_spectrum->set_default_properties(boolean_spectrum_prop);
 	att_list.push_back(boolean_spectrum);
-
-	//	Attribute : boolean_spectrum_ro
-	boolean_spectrum_roAttrib	*boolean_spectrum_ro = new boolean_spectrum_roAttrib();
-	att_list.push_back(boolean_spectrum_ro);
-
-	//	Attribute : double_spectrum
-	double_spectrumAttrib	*double_spectrum = new double_spectrumAttrib();
-	att_list.push_back(double_spectrum);
-
-	//	Attribute : double_spectrum_ro
-	double_spectrum_roAttrib	*double_spectrum_ro = new double_spectrum_roAttrib();
-	att_list.push_back(double_spectrum_ro);
-
-	//	Attribute : float_spectrum
-	float_spectrumAttrib	*float_spectrum = new float_spectrumAttrib();
-	Tango::UserDefaultAttrProp	float_spectrum_prop;
-	float_spectrum_prop.set_label("float_spectrum");
-	float_spectrum_prop.set_description("A float spectrum attribute");
-	float_spectrum->set_default_properties(float_spectrum_prop);
-	att_list.push_back(float_spectrum);
-
-	//	Attribute : float_spectrum_ro
-	float_spectrum_roAttrib	*float_spectrum_ro = new float_spectrum_roAttrib();
-	att_list.push_back(float_spectrum_ro);
-
-	//	Attribute : long64_spectrum_ro
-	long64_spectrum_roAttrib	*long64_spectrum_ro = new long64_spectrum_roAttrib();
-	att_list.push_back(long64_spectrum_ro);
-
-	//	Attribute : long_spectrum
-	long_spectrumAttrib	*long_spectrum = new long_spectrumAttrib();
-	att_list.push_back(long_spectrum);
-
-	//	Attribute : long_spectrum_ro
-	long_spectrum_roAttrib	*long_spectrum_ro = new long_spectrum_roAttrib();
-	att_list.push_back(long_spectrum_ro);
-
-	//	Attribute : short_spectrum
-	short_spectrumAttrib	*short_spectrum = new short_spectrumAttrib();
-	att_list.push_back(short_spectrum);
-
-	//	Attribute : short_spectrum_ro
-	short_spectrum_roAttrib	*short_spectrum_ro = new short_spectrum_roAttrib();
-	att_list.push_back(short_spectrum_ro);
-
-	//	Attribute : string_spectrum
-	string_spectrumAttrib	*string_spectrum = new string_spectrumAttrib();
-	att_list.push_back(string_spectrum);
-
-	//	Attribute : string_spectrum_ro
-	string_spectrum_roAttrib	*string_spectrum_ro = new string_spectrum_roAttrib();
-	att_list.push_back(string_spectrum_ro);
 
 	//	Attribute : uchar_spectrum
 	uchar_spectrumAttrib	*uchar_spectrum = new uchar_spectrumAttrib();
@@ -1214,18 +932,6 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	uchar_spectrum->set_default_properties(uchar_spectrum_prop);
 	att_list.push_back(uchar_spectrum);
 
-	//	Attribute : uchar_spectrum_ro
-	uchar_spectrum_roAttrib	*uchar_spectrum_ro = new uchar_spectrum_roAttrib();
-	att_list.push_back(uchar_spectrum_ro);
-
-	//	Attribute : ulong64_spectrum_ro
-	ulong64_spectrum_roAttrib	*ulong64_spectrum_ro = new ulong64_spectrum_roAttrib();
-	att_list.push_back(ulong64_spectrum_ro);
-
-	//	Attribute : ulong_spectrum_ro
-	ulong_spectrum_roAttrib	*ulong_spectrum_ro = new ulong_spectrum_roAttrib();
-	att_list.push_back(ulong_spectrum_ro);
-
 	//	Attribute : ushort_spectrum
 	ushort_spectrumAttrib	*ushort_spectrum = new ushort_spectrumAttrib();
 	Tango::UserDefaultAttrProp	ushort_spectrum_prop;
@@ -1234,80 +940,53 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	ushort_spectrum->set_default_properties(ushort_spectrum_prop);
 	att_list.push_back(ushort_spectrum);
 
-	//	Attribute : ushort_spectrum_ro
-	ushort_spectrum_roAttrib	*ushort_spectrum_ro = new ushort_spectrum_roAttrib();
-	att_list.push_back(ushort_spectrum_ro);
+	//	Attribute : float_spectrum
+	float_spectrumAttrib	*float_spectrum = new float_spectrumAttrib();
+	Tango::UserDefaultAttrProp	float_spectrum_prop;
+	float_spectrum_prop.set_label("float_spectrum");
+	float_spectrum_prop.set_description("A float spectrum attribute");
+	float_spectrum->set_default_properties(float_spectrum_prop);
+	att_list.push_back(float_spectrum);
 
 	//	Attribute : wave
 	waveAttrib	*wave = new waveAttrib();
 	att_list.push_back(wave);
 
-	//	Attribute : boolean_image
-	boolean_imageAttrib	*boolean_image = new boolean_imageAttrib();
-	att_list.push_back(boolean_image);
+	//	Attribute : short_spectrum_ro
+	short_spectrum_roAttrib	*short_spectrum_ro = new short_spectrum_roAttrib();
+	att_list.push_back(short_spectrum_ro);
 
-	//	Attribute : boolean_image_ro
-	boolean_image_roAttrib	*boolean_image_ro = new boolean_image_roAttrib();
-	Tango::UserDefaultAttrProp	boolean_image_ro_prop;
-	boolean_image_ro_prop.set_label("boolean_image");
-	boolean_image_ro_prop.set_max_value("1");
-	boolean_image_ro_prop.set_min_value("0");
-	boolean_image_ro->set_default_properties(boolean_image_ro_prop);
-	att_list.push_back(boolean_image_ro);
+	//	Attribute : float_spectrum_ro
+	float_spectrum_roAttrib	*float_spectrum_ro = new float_spectrum_roAttrib();
+	att_list.push_back(float_spectrum_ro);
 
-	//	Attribute : double_image
-	double_imageAttrib	*double_image = new double_imageAttrib();
-	att_list.push_back(double_image);
+	//	Attribute : long_spectrum_ro
+	long_spectrum_roAttrib	*long_spectrum_ro = new long_spectrum_roAttrib();
+	att_list.push_back(long_spectrum_ro);
 
-	//	Attribute : double_image_ro
-	double_image_roAttrib	*double_image_ro = new double_image_roAttrib();
-	att_list.push_back(double_image_ro);
+	//	Attribute : double_spectrum_ro
+	double_spectrum_roAttrib	*double_spectrum_ro = new double_spectrum_roAttrib();
+	att_list.push_back(double_spectrum_ro);
 
-	//	Attribute : float_image
-	float_imageAttrib	*float_image = new float_imageAttrib();
-	att_list.push_back(float_image);
+	//	Attribute : boolean_spectrum_ro
+	boolean_spectrum_roAttrib	*boolean_spectrum_ro = new boolean_spectrum_roAttrib();
+	att_list.push_back(boolean_spectrum_ro);
 
-	//	Attribute : float_image_ro
-	float_image_roAttrib	*float_image_ro = new float_image_roAttrib();
-	Tango::UserDefaultAttrProp	float_image_ro_prop;
-	float_image_ro_prop.set_label("float_image");
-	float_image_ro_prop.set_max_value("255");
-	float_image_ro_prop.set_min_value("0");
-	float_image_ro_prop.set_description("A float image attribute");
-	float_image_ro->set_default_properties(float_image_ro_prop);
-	att_list.push_back(float_image_ro);
+	//	Attribute : uchar_spectrum_ro
+	uchar_spectrum_roAttrib	*uchar_spectrum_ro = new uchar_spectrum_roAttrib();
+	att_list.push_back(uchar_spectrum_ro);
 
-	//	Attribute : long64_image_ro
-	long64_image_roAttrib	*long64_image_ro = new long64_image_roAttrib();
-	att_list.push_back(long64_image_ro);
+	//	Attribute : ushort_spectrum_ro
+	ushort_spectrum_roAttrib	*ushort_spectrum_ro = new ushort_spectrum_roAttrib();
+	att_list.push_back(ushort_spectrum_ro);
 
-	//	Attribute : long_image
-	long_imageAttrib	*long_image = new long_imageAttrib();
-	att_list.push_back(long_image);
+	//	Attribute : string_spectrum
+	string_spectrumAttrib	*string_spectrum = new string_spectrumAttrib();
+	att_list.push_back(string_spectrum);
 
-	//	Attribute : long_image_ro
-	long_image_roAttrib	*long_image_ro = new long_image_roAttrib();
-	att_list.push_back(long_image_ro);
-
-	//	Attribute : short_image
-	short_imageAttrib	*short_image = new short_imageAttrib();
-	att_list.push_back(short_image);
-
-	//	Attribute : short_image_ro
-	short_image_roAttrib	*short_image_ro = new short_image_roAttrib();
-	att_list.push_back(short_image_ro);
-
-	//	Attribute : string_image
-	string_imageAttrib	*string_image = new string_imageAttrib();
-	att_list.push_back(string_image);
-
-	//	Attribute : string_image_ro
-	string_image_roAttrib	*string_image_ro = new string_image_roAttrib();
-	att_list.push_back(string_image_ro);
-
-	//	Attribute : uchar_image
-	uchar_imageAttrib	*uchar_image = new uchar_imageAttrib();
-	att_list.push_back(uchar_image);
+	//	Attribute : string_spectrum_ro
+	string_spectrum_roAttrib	*string_spectrum_ro = new string_spectrum_roAttrib();
+	att_list.push_back(string_spectrum_ro);
 
 	//	Attribute : uchar_image_ro
 	uchar_image_roAttrib	*uchar_image_ro = new uchar_image_roAttrib();
@@ -1319,18 +998,6 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	uchar_image_ro->set_default_properties(uchar_image_ro_prop);
 	att_list.push_back(uchar_image_ro);
 
-	//	Attribute : ulong64_image_ro
-	ulong64_image_roAttrib	*ulong64_image_ro = new ulong64_image_roAttrib();
-	att_list.push_back(ulong64_image_ro);
-
-	//	Attribute : ulong_image_ro
-	ulong_image_roAttrib	*ulong_image_ro = new ulong_image_roAttrib();
-	att_list.push_back(ulong_image_ro);
-
-	//	Attribute : ushort_image
-	ushort_imageAttrib	*ushort_image = new ushort_imageAttrib();
-	att_list.push_back(ushort_image);
-
 	//	Attribute : ushort_image_ro
 	ushort_image_roAttrib	*ushort_image_ro = new ushort_image_roAttrib();
 	Tango::UserDefaultAttrProp	ushort_image_ro_prop;
@@ -1340,6 +1007,73 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	ushort_image_ro_prop.set_description("An unsigned short image attribute");
 	ushort_image_ro->set_default_properties(ushort_image_ro_prop);
 	att_list.push_back(ushort_image_ro);
+
+	//	Attribute : float_image_ro
+	float_image_roAttrib	*float_image_ro = new float_image_roAttrib();
+	Tango::UserDefaultAttrProp	float_image_ro_prop;
+	float_image_ro_prop.set_label("float_image");
+	float_image_ro_prop.set_max_value("255");
+	float_image_ro_prop.set_min_value("0");
+	float_image_ro_prop.set_description("A float image attribute");
+	float_image_ro->set_default_properties(float_image_ro_prop);
+	att_list.push_back(float_image_ro);
+
+	//	Attribute : short_image_ro
+	short_image_roAttrib	*short_image_ro = new short_image_roAttrib();
+	att_list.push_back(short_image_ro);
+
+	//	Attribute : long_image_ro
+	long_image_roAttrib	*long_image_ro = new long_image_roAttrib();
+	att_list.push_back(long_image_ro);
+
+	//	Attribute : double_image_ro
+	double_image_roAttrib	*double_image_ro = new double_image_roAttrib();
+	att_list.push_back(double_image_ro);
+
+	//	Attribute : boolean_image_ro
+	boolean_image_roAttrib	*boolean_image_ro = new boolean_image_roAttrib();
+	Tango::UserDefaultAttrProp	boolean_image_ro_prop;
+	boolean_image_ro_prop.set_label("boolean_image");
+	boolean_image_ro_prop.set_max_value("1");
+	boolean_image_ro_prop.set_min_value("0");
+	boolean_image_ro->set_default_properties(boolean_image_ro_prop);
+	att_list.push_back(boolean_image_ro);
+
+	//	Attribute : boolean_image
+	boolean_imageAttrib	*boolean_image = new boolean_imageAttrib();
+	att_list.push_back(boolean_image);
+
+	//	Attribute : uchar_image
+	uchar_imageAttrib	*uchar_image = new uchar_imageAttrib();
+	att_list.push_back(uchar_image);
+
+	//	Attribute : short_image
+	short_imageAttrib	*short_image = new short_imageAttrib();
+	att_list.push_back(short_image);
+
+	//	Attribute : ushort_image
+	ushort_imageAttrib	*ushort_image = new ushort_imageAttrib();
+	att_list.push_back(ushort_image);
+
+	//	Attribute : long_image
+	long_imageAttrib	*long_image = new long_imageAttrib();
+	att_list.push_back(long_image);
+
+	//	Attribute : float_image
+	float_imageAttrib	*float_image = new float_imageAttrib();
+	att_list.push_back(float_image);
+
+	//	Attribute : double_image
+	double_imageAttrib	*double_image = new double_imageAttrib();
+	att_list.push_back(double_image);
+
+	//	Attribute : string_image
+	string_imageAttrib	*string_image = new string_imageAttrib();
+	att_list.push_back(string_image);
+
+	//	Attribute : string_image_ro
+	string_image_roAttrib	*string_image_ro = new string_image_roAttrib();
+	att_list.push_back(string_image_ro);
 
 	//	End of Automatic code generation
 	//-------------------------------------------------------------
@@ -1395,7 +1129,6 @@ void TangoTestClass::set_default_property()
 	prop_name = "Mthreaded_impl";
 	prop_desc = "Multi-threaded implementation (true/false";
 	prop_def  = "";
-	vect_data.clear();
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1409,7 +1142,6 @@ void TangoTestClass::set_default_property()
 	prop_name = "Sleep_period";
 	prop_desc = "Data generation period (in ms";
 	prop_def  = "";
-	vect_data.clear();
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1469,23 +1201,17 @@ void TangoTestClass::write_class_property()
 	description << str_desc;
 	data.push_back(description);
 		
-	//	put cvs or svn location
+	//	put cvs location
+	string	rcsId(RcsId);
 	string	filename(classname);
-	filename += "Class.cpp";
-	
-	// Create a string with the class ID to
-	// get the string into the binary
-	string	class_id(ClassId);
-	
-	// check for cvs information
-	string	src_path(CvsPath);
-	start = src_path.find("/");
+	start = rcsId.find("/");
 	if (start!=string::npos)
 	{
-		end   = src_path.find(filename);
+		filename += "Class.cpp";
+		end   = rcsId.find(filename);
 		if (end>start)
 		{
-			string	strloc = src_path.substr(start, end-start);
+			string	strloc = rcsId.substr(start, end-start);
 			//	Check if specific repository
 			start = strloc.find("/cvsroot/");
 			if (start!=string::npos && start>0)
@@ -1499,35 +1225,12 @@ void TangoTestClass::write_class_property()
 			data.push_back(cvs_loc);
 		}
 	}
-	// check for svn information
-	else
-	{
-		string	src_path(SvnPath);
-		start = src_path.find("://");
-		if (start!=string::npos)
-		{
-			end = src_path.find(filename);
-			if (end>start)
-			{
-				header = "$HeadURL: ";
-				start = header.length();
-				string	strloc = src_path.substr(start, (end-start));
-				
-				Tango::DbDatum	svn_loc("svn_location");
-				svn_loc << strloc;
-				data.push_back(svn_loc);
-			}
-		}
-	}
 
-	//	Get CVS or SVN revision tag
-	
-	// CVS tag
+	//	Get CVS tag revision
 	string	tagname(TagName);
 	header = "$Name: ";
 	start = header.length();
 	string	endstr(" $");
-	
 	end   = tagname.find(endstr);
 	if (end!=string::npos && end>start)
 	{
@@ -1535,30 +1238,6 @@ void TangoTestClass::write_class_property()
 		Tango::DbDatum	cvs_tag("cvs_tag");
 		cvs_tag << strtag;
 		data.push_back(cvs_tag);
-	}
-	
-	// SVN tag
-	string	svnpath(SvnPath);
-	header = "$HeadURL: ";
-	start = header.length();
-	
-	end   = svnpath.find(endstr);
-	if (end!=string::npos && end>start)
-	{
-		string	strloc = svnpath.substr(start, end-start);
-		
-		string tagstr ("/tags/");
-		start = strloc.find(tagstr);
-		if ( start!=string::npos )
-		{
-			start = start + tagstr.length();
-			end   = strloc.find(filename);
-			string	strtag = strloc.substr(start, end-start-1);
-			
-			Tango::DbDatum	svn_tag("svn_tag");
-			svn_tag << strtag;
-			data.push_back(svn_tag);
-		}
 	}
 
 	//	Get URL location
@@ -1573,7 +1252,7 @@ void TangoTestClass::write_class_property()
 	//  Put inheritance
 	Tango::DbDatum	inher_datum("InheritedFrom");
 	vector<string> inheritance;
-	inheritance.push_back("Device_4Impl");
+	inheritance.push_back("Device_3Impl");
 	inher_datum << inheritance;
 	data.push_back(inher_datum);
 

@@ -10,40 +10,9 @@ static const char *RcsId = "$Header$";
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.9  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.8  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
-// Revision 1.7  2007/12/11 19:07:52  nleclercq
-// added a "no_value" and a "throw_exception" attribute
-//
 // Revision 1.6  2007/12/04 11:30:40  nleclercq
 // Added string spectrum and image attributes
 //
@@ -52,6 +21,11 @@ static const char *RcsId = "$Header$";
 //
 // Revision 1.4  2006/02/08 16:14:28  nleclercq
 // Minor modifs in RW spectrum and image attributes
+//
+//
+// copyleft :     Synchrotron SOLEIL
+//                L'Orme des Merisiers
+//                Saint-Aubin - BP 48
 //
 //-=============================================================================
 //
@@ -92,13 +66,9 @@ namespace TangoTest_ns
 //-----------------------------------------------------------------------------
 bool TangoTest::is_short_scalar_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -110,13 +80,9 @@ bool TangoTest::is_short_scalar_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_short_scalar_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -128,13 +94,9 @@ bool TangoTest::is_short_scalar_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_long_scalar_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -146,13 +108,9 @@ bool TangoTest::is_long_scalar_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_double_scalar_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -164,13 +122,9 @@ bool TangoTest::is_double_scalar_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_string_scalar_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 
@@ -183,13 +137,9 @@ bool TangoTest::is_string_scalar_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_short_scalar_w_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -201,13 +151,9 @@ bool TangoTest::is_short_scalar_w_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_short_scalar_rww_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -219,13 +165,9 @@ bool TangoTest::is_short_scalar_rww_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_long_scalar_w_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -237,13 +179,9 @@ bool TangoTest::is_long_scalar_w_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_long_scalar_rww_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -255,13 +193,9 @@ bool TangoTest::is_long_scalar_rww_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_double_scalar_w_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -273,13 +207,9 @@ bool TangoTest::is_double_scalar_w_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_double_scalar_rww_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -291,13 +221,9 @@ bool TangoTest::is_double_scalar_rww_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_ampli_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -309,13 +235,9 @@ bool TangoTest::is_ampli_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_wave_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -327,13 +249,9 @@ bool TangoTest::is_wave_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_boolean_scalar_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -345,13 +263,9 @@ bool TangoTest::is_boolean_scalar_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_float_scalar_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -363,13 +277,9 @@ bool TangoTest::is_float_scalar_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_uchar_scalar_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -381,13 +291,9 @@ bool TangoTest::is_uchar_scalar_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_ushort_scalar_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 
@@ -401,13 +307,9 @@ bool TangoTest::is_ushort_scalar_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_short_spectrum_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -419,13 +321,9 @@ bool TangoTest::is_short_spectrum_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_long_spectrum_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -437,13 +335,9 @@ bool TangoTest::is_long_spectrum_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_double_spectrum_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -455,13 +349,9 @@ bool TangoTest::is_double_spectrum_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_boolean_spectrum_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -473,13 +363,9 @@ bool TangoTest::is_boolean_spectrum_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_uchar_spectrum_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -491,13 +377,9 @@ bool TangoTest::is_uchar_spectrum_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_ushort_spectrum_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -509,13 +391,9 @@ bool TangoTest::is_ushort_spectrum_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_float_spectrum_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -527,13 +405,9 @@ bool TangoTest::is_float_spectrum_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_short_spectrum_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -545,13 +419,9 @@ bool TangoTest::is_short_spectrum_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_float_spectrum_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -563,13 +433,9 @@ bool TangoTest::is_float_spectrum_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_long_spectrum_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -581,13 +447,9 @@ bool TangoTest::is_long_spectrum_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_double_spectrum_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -599,13 +461,9 @@ bool TangoTest::is_double_spectrum_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_boolean_spectrum_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -617,13 +475,9 @@ bool TangoTest::is_boolean_spectrum_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_uchar_spectrum_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -635,13 +489,9 @@ bool TangoTest::is_uchar_spectrum_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_ushort_spectrum_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -653,13 +503,9 @@ bool TangoTest::is_ushort_spectrum_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_uchar_image_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -671,13 +517,9 @@ bool TangoTest::is_uchar_image_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_ushort_image_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -689,13 +531,9 @@ bool TangoTest::is_ushort_image_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_float_image_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -707,13 +545,9 @@ bool TangoTest::is_float_image_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_short_image_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -725,13 +559,9 @@ bool TangoTest::is_short_image_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_long_image_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -743,13 +573,9 @@ bool TangoTest::is_long_image_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_double_image_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -761,13 +587,9 @@ bool TangoTest::is_double_image_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_boolean_image_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -779,13 +601,9 @@ bool TangoTest::is_boolean_image_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_boolean_image_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -797,13 +615,9 @@ bool TangoTest::is_boolean_image_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_uchar_image_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -815,13 +629,9 @@ bool TangoTest::is_uchar_image_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_short_image_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -833,13 +643,9 @@ bool TangoTest::is_short_image_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_ushort_image_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -851,13 +657,9 @@ bool TangoTest::is_ushort_image_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_long_image_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -869,13 +671,9 @@ bool TangoTest::is_long_image_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_float_image_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -887,13 +685,9 @@ bool TangoTest::is_float_image_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_double_image_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -905,13 +699,9 @@ bool TangoTest::is_double_image_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_string_spectrum_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -923,13 +713,9 @@ bool TangoTest::is_string_spectrum_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_string_spectrum_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -941,13 +727,9 @@ bool TangoTest::is_string_spectrum_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_string_image_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -959,13 +741,9 @@ bool TangoTest::is_string_image_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_string_image_ro_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -977,13 +755,9 @@ bool TangoTest::is_string_image_ro_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_no_value_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -995,171 +769,9 @@ bool TangoTest::is_no_value_allowed(Tango::AttReqType type)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_throw_exception_allowed(Tango::AttReqType type)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_long64_scalar_allowed
-// 
-// description : 	Read/Write allowed for long64_scalar attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_long64_scalar_allowed(Tango::AttReqType type)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_ulong64_scalar_allowed
-// 
-// description : 	Read/Write allowed for ulong64_scalar attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_ulong64_scalar_allowed(Tango::AttReqType type)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_long64_spectrum_ro_allowed
-// 
-// description : 	Read/Write allowed for long64_spectrum_ro attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_long64_spectrum_ro_allowed(Tango::AttReqType type)
-{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_ulong64_spectrum_ro_allowed
-// 
-// description : 	Read/Write allowed for ulong64_spectrum_ro attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_ulong64_spectrum_ro_allowed(Tango::AttReqType type)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_ulong_spectrum_ro_allowed
-// 
-// description : 	Read/Write allowed for ulong_spectrum_ro attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_ulong_spectrum_ro_allowed(Tango::AttReqType type)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_long64_image_ro_allowed
-// 
-// description : 	Read/Write allowed for long64_image_ro attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_long64_image_ro_allowed(Tango::AttReqType type)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_ulong64_image_ro_allowed
-// 
-// description : 	Read/Write allowed for ulong64_image_ro attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_ulong64_image_ro_allowed(Tango::AttReqType type)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_ulong_image_ro_allowed
-// 
-// description : 	Read/Write allowed for ulong_image_ro attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_ulong_image_ro_allowed(Tango::AttReqType type)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_ulong_scalar_allowed
-// 
-// description : 	Read/Write allowed for ulong_scalar attribute.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_ulong_scalar_allowed(Tango::AttReqType type)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 
@@ -1393,13 +1005,9 @@ bool TangoTest::is_DevVarDoubleStringArray_allowed(const CORBA::Any &any)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_SwitchStates_allowed(const CORBA::Any &any)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -1411,13 +1019,9 @@ bool TangoTest::is_SwitchStates_allowed(const CORBA::Any &any)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_DevBoolean_allowed(const CORBA::Any &any)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -1429,13 +1033,9 @@ bool TangoTest::is_DevBoolean_allowed(const CORBA::Any &any)
 //-----------------------------------------------------------------------------
 bool TangoTest::is_DevShort_allowed(const CORBA::Any &any)
 {
-	if (get_state() == Tango::FAULT)
-	{
 		//	End of Generated Code
 
 		//	Re-Start of Generated Code
-		return false;
-	}
 	return true;
 }
 //+----------------------------------------------------------------------------
@@ -1446,128 +1046,6 @@ bool TangoTest::is_DevShort_allowed(const CORBA::Any &any)
 //
 //-----------------------------------------------------------------------------
 bool TangoTest::is_DevUShort_allowed(const CORBA::Any &any)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_DevULong_allowed
-// 
-// description : 	Execution allowed for DevULong command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_DevULong_allowed(const CORBA::Any &any)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_DevFloat_allowed
-// 
-// description : 	Execution allowed for DevFloat command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_DevFloat_allowed(const CORBA::Any &any)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_DevDouble_allowed
-// 
-// description : 	Execution allowed for DevDouble command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_DevDouble_allowed(const CORBA::Any &any)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_DevVarLong64Array_allowed
-// 
-// description : 	Execution allowed for DevVarLong64Array command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_DevVarLong64Array_allowed(const CORBA::Any &any)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_DevVarULong64Array_allowed
-// 
-// description : 	Execution allowed for DevVarULong64Array command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_DevVarULong64Array_allowed(const CORBA::Any &any)
-{
-	if (get_state() == Tango::FAULT)
-	{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-		return false;
-	}
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_DevLong64_allowed
-// 
-// description : 	Execution allowed for DevLong64 command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_DevLong64_allowed(const CORBA::Any &any)
-{
-		//	End of Generated Code
-
-		//	Re-Start of Generated Code
-	return true;
-}
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::is_DevULong64_allowed
-// 
-// description : 	Execution allowed for DevULong64 command.
-//
-//-----------------------------------------------------------------------------
-bool TangoTest::is_DevULong64_allowed(const CORBA::Any &any)
 {
 		//	End of Generated Code
 
@@ -1590,12 +1068,12 @@ bool TangoTest::is_DevLong_allowed(const CORBA::Any &any)
 }
 //+----------------------------------------------------------------------------
 //
-// method : 		TangoTest::is_CrashFromDevelopperThread_allowed
+// method : 		TangoTest::is_DevULong_allowed
 // 
-// description : 	Execution allowed for CrashFromDevelopperThread command.
+// description : 	Execution allowed for DevULong command.
 //
 //-----------------------------------------------------------------------------
-bool TangoTest::is_CrashFromDevelopperThread_allowed(const CORBA::Any &any)
+bool TangoTest::is_DevULong_allowed(const CORBA::Any &any)
 {
 		//	End of Generated Code
 
@@ -1604,12 +1082,12 @@ bool TangoTest::is_CrashFromDevelopperThread_allowed(const CORBA::Any &any)
 }
 //+----------------------------------------------------------------------------
 //
-// method : 		TangoTest::is_CrashFromOmniThread_allowed
+// method : 		TangoTest::is_DevFloat_allowed
 // 
-// description : 	Execution allowed for CrashFromOmniThread command.
+// description : 	Execution allowed for DevFloat command.
 //
 //-----------------------------------------------------------------------------
-bool TangoTest::is_CrashFromOmniThread_allowed(const CORBA::Any &any)
+bool TangoTest::is_DevFloat_allowed(const CORBA::Any &any)
 {
 		//	End of Generated Code
 
@@ -1618,12 +1096,12 @@ bool TangoTest::is_CrashFromOmniThread_allowed(const CORBA::Any &any)
 }
 //+----------------------------------------------------------------------------
 //
-// method : 		TangoTest::is_DumpExecutionState_allowed
+// method : 		TangoTest::is_DevDouble_allowed
 // 
-// description : 	Execution allowed for DumpExecutionState command.
+// description : 	Execution allowed for DevDouble command.
 //
 //-----------------------------------------------------------------------------
-bool TangoTest::is_DumpExecutionState_allowed(const CORBA::Any &any)
+bool TangoTest::is_DevDouble_allowed(const CORBA::Any &any)
 {
 		//	End of Generated Code
 

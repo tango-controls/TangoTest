@@ -12,40 +12,9 @@
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.11  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.10  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
-// Revision 1.9  2008/02/20 16:00:34  pierrejoseph
-// Add a property (UShort_image_ro_size) which determines the size of the ushort_image_ro attribute.
-//
 // Revision 1.8  2007/12/11 19:07:52  nleclercq
 // added a "no_value" and a "throw_exception" attribute
 //
@@ -83,82 +52,6 @@ namespace TangoTest_ns
 //=====================================
 //	Define classes for attributes
 //=====================================
-class ushort_image_roAttrib: public Tango::ImageAttr
-{
-public:
-	ushort_image_roAttrib():ImageAttr("ushort_image_ro", Tango::DEV_USHORT, Tango::READ, 8192, 8192) {};
-	~ushort_image_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ushort_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ushort_image_ro_allowed(ty);}
-};
-
-class ushort_imageAttrib: public Tango::ImageAttr
-{
-public:
-	ushort_imageAttrib():ImageAttr("ushort_image", Tango::DEV_USHORT, Tango::READ_WRITE, 251, 251) {};
-	~ushort_imageAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ushort_image(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_ushort_image(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ushort_image_allowed(ty);}
-};
-
-class ulong_image_roAttrib: public Tango::ImageAttr
-{
-public:
-	ulong_image_roAttrib():ImageAttr("ulong_image_ro", Tango::DEV_ULONG, Tango::READ, 251, 251) {};
-	~ulong_image_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ulong_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ulong_image_ro_allowed(ty);}
-};
-
-class ulong64_image_roAttrib: public Tango::ImageAttr
-{
-public:
-	ulong64_image_roAttrib():ImageAttr("ulong64_image_ro", Tango::DEV_ULONG64, Tango::READ, 251, 251) {};
-	~ulong64_image_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ulong64_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ulong64_image_ro_allowed(ty);}
-};
-
-class uchar_image_roAttrib: public Tango::ImageAttr
-{
-public:
-	uchar_image_roAttrib():ImageAttr("uchar_image_ro", Tango::DEV_UCHAR, Tango::READ, 251, 251) {};
-	~uchar_image_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_uchar_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_uchar_image_ro_allowed(ty);}
-};
-
-class uchar_imageAttrib: public Tango::ImageAttr
-{
-public:
-	uchar_imageAttrib():ImageAttr("uchar_image", Tango::DEV_UCHAR, Tango::READ_WRITE, 251, 251) {};
-	~uchar_imageAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_uchar_image(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_uchar_image(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_uchar_image_allowed(ty);}
-};
-
 class string_image_roAttrib: public Tango::ImageAttr
 {
 public:
@@ -185,80 +78,18 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_string_image_allowed(ty);}
 };
 
-class short_image_roAttrib: public Tango::ImageAttr
+class double_imageAttrib: public Tango::ImageAttr
 {
 public:
-	short_image_roAttrib():ImageAttr("short_image_ro", Tango::DEV_SHORT, Tango::READ, 251, 251) {};
-	~short_image_roAttrib() {};
+	double_imageAttrib():ImageAttr("double_image", Tango::DEV_DOUBLE, Tango::READ_WRITE, 251, 251) {};
+	~double_imageAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_short_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_short_image_ro_allowed(ty);}
-};
-
-class short_imageAttrib: public Tango::ImageAttr
-{
-public:
-	short_imageAttrib():ImageAttr("short_image", Tango::DEV_SHORT, Tango::READ_WRITE, 251, 251) {};
-	~short_imageAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_short_image(att);}
+	{(static_cast<TangoTest *>(dev))->read_double_image(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_short_image(att);}
+	{(static_cast<TangoTest *>(dev))->write_double_image(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_short_image_allowed(ty);}
-};
-
-class long_image_roAttrib: public Tango::ImageAttr
-{
-public:
-	long_image_roAttrib():ImageAttr("long_image_ro", Tango::DEV_LONG, Tango::READ, 251, 251) {};
-	~long_image_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long_image_ro_allowed(ty);}
-};
-
-class long_imageAttrib: public Tango::ImageAttr
-{
-public:
-	long_imageAttrib():ImageAttr("long_image", Tango::DEV_LONG, Tango::READ_WRITE, 251, 251) {};
-	~long_imageAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long_image(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_long_image(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long_image_allowed(ty);}
-};
-
-class long64_image_roAttrib: public Tango::ImageAttr
-{
-public:
-	long64_image_roAttrib():ImageAttr("long64_image_ro", Tango::DEV_LONG64, Tango::READ, 251, 251) {};
-	~long64_image_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long64_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long64_image_ro_allowed(ty);}
-};
-
-class float_image_roAttrib: public Tango::ImageAttr
-{
-public:
-	float_image_roAttrib():ImageAttr("float_image_ro", Tango::DEV_FLOAT, Tango::READ, 251, 251) {};
-	~float_image_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_float_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_float_image_ro_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_double_image_allowed(ty);}
 };
 
 class float_imageAttrib: public Tango::ImageAttr
@@ -275,42 +106,60 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_float_image_allowed(ty);}
 };
 
-class double_image_roAttrib: public Tango::ImageAttr
+class long_imageAttrib: public Tango::ImageAttr
 {
 public:
-	double_image_roAttrib():ImageAttr("double_image_ro", Tango::DEV_DOUBLE, Tango::READ, 251, 251) {};
-	~double_image_roAttrib() {};
+	long_imageAttrib():ImageAttr("long_image", Tango::DEV_LONG, Tango::READ_WRITE, 251, 251) {};
+	~long_imageAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_double_image_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_double_image_ro_allowed(ty);}
-};
-
-class double_imageAttrib: public Tango::ImageAttr
-{
-public:
-	double_imageAttrib():ImageAttr("double_image", Tango::DEV_DOUBLE, Tango::READ_WRITE, 251, 251) {};
-	~double_imageAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_double_image(att);}
+	{(static_cast<TangoTest *>(dev))->read_long_image(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_double_image(att);}
+	{(static_cast<TangoTest *>(dev))->write_long_image(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_double_image_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_long_image_allowed(ty);}
 };
 
-class boolean_image_roAttrib: public Tango::ImageAttr
+class ushort_imageAttrib: public Tango::ImageAttr
 {
 public:
-	boolean_image_roAttrib():ImageAttr("boolean_image_ro", Tango::DEV_BOOLEAN, Tango::READ, 251, 251) {};
-	~boolean_image_roAttrib() {};
+	ushort_imageAttrib():ImageAttr("ushort_image", Tango::DEV_USHORT, Tango::READ_WRITE, 251, 251) {};
+	~ushort_imageAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_boolean_image_ro(att);}
+	{(static_cast<TangoTest *>(dev))->read_ushort_image(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_ushort_image(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_boolean_image_ro_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_ushort_image_allowed(ty);}
+};
+
+class short_imageAttrib: public Tango::ImageAttr
+{
+public:
+	short_imageAttrib():ImageAttr("short_image", Tango::DEV_SHORT, Tango::READ_WRITE, 251, 251) {};
+	~short_imageAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_short_image(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_short_image(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_short_image_allowed(ty);}
+};
+
+class uchar_imageAttrib: public Tango::ImageAttr
+{
+public:
+	uchar_imageAttrib():ImageAttr("uchar_image", Tango::DEV_UCHAR, Tango::READ_WRITE, 251, 251) {};
+	~uchar_imageAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_uchar_image(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_uchar_image(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_uchar_image_allowed(ty);}
 };
 
 class boolean_imageAttrib: public Tango::ImageAttr
@@ -327,92 +176,88 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_boolean_image_allowed(ty);}
 };
 
-class waveAttrib: public Tango::SpectrumAttr
+class boolean_image_roAttrib: public Tango::ImageAttr
 {
 public:
-	waveAttrib():SpectrumAttr("wave", Tango::DEV_DOUBLE, Tango::READ, 4096) {};
-	~waveAttrib() {};
+	boolean_image_roAttrib():ImageAttr("boolean_image_ro", Tango::DEV_BOOLEAN, Tango::READ, 251, 251) {};
+	~boolean_image_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_wave(att);}
+	{(static_cast<TangoTest *>(dev))->read_boolean_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_wave_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_boolean_image_ro_allowed(ty);}
 };
 
-class ushort_spectrum_roAttrib: public Tango::SpectrumAttr
+class double_image_roAttrib: public Tango::ImageAttr
 {
 public:
-	ushort_spectrum_roAttrib():SpectrumAttr("ushort_spectrum_ro", Tango::DEV_USHORT, Tango::READ, 4096) {};
-	~ushort_spectrum_roAttrib() {};
+	double_image_roAttrib():ImageAttr("double_image_ro", Tango::DEV_DOUBLE, Tango::READ, 251, 251) {};
+	~double_image_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ushort_spectrum_ro(att);}
+	{(static_cast<TangoTest *>(dev))->read_double_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ushort_spectrum_ro_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_double_image_ro_allowed(ty);}
 };
 
-class ushort_spectrumAttrib: public Tango::SpectrumAttr
+class long_image_roAttrib: public Tango::ImageAttr
 {
 public:
-	ushort_spectrumAttrib():SpectrumAttr("ushort_spectrum", Tango::DEV_USHORT, Tango::READ_WRITE, 4096) {};
-	~ushort_spectrumAttrib() {};
+	long_image_roAttrib():ImageAttr("long_image_ro", Tango::DEV_LONG, Tango::READ, 251, 251) {};
+	~long_image_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ushort_spectrum(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_ushort_spectrum(att);}
+	{(static_cast<TangoTest *>(dev))->read_long_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ushort_spectrum_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_long_image_ro_allowed(ty);}
 };
 
-class ulong_spectrum_roAttrib: public Tango::SpectrumAttr
+class short_image_roAttrib: public Tango::ImageAttr
 {
 public:
-	ulong_spectrum_roAttrib():SpectrumAttr("ulong_spectrum_ro", Tango::DEV_ULONG, Tango::READ, 4096) {};
-	~ulong_spectrum_roAttrib() {};
+	short_image_roAttrib():ImageAttr("short_image_ro", Tango::DEV_SHORT, Tango::READ, 251, 251) {};
+	~short_image_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ulong_spectrum_ro(att);}
+	{(static_cast<TangoTest *>(dev))->read_short_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ulong_spectrum_ro_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_short_image_ro_allowed(ty);}
 };
 
-class ulong64_spectrum_roAttrib: public Tango::SpectrumAttr
+class float_image_roAttrib: public Tango::ImageAttr
 {
 public:
-	ulong64_spectrum_roAttrib():SpectrumAttr("ulong64_spectrum_ro", Tango::DEV_ULONG64, Tango::READ, 4096) {};
-	~ulong64_spectrum_roAttrib() {};
+	float_image_roAttrib():ImageAttr("float_image_ro", Tango::DEV_FLOAT, Tango::READ, 251, 251) {};
+	~float_image_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ulong64_spectrum_ro(att);}
+	{(static_cast<TangoTest *>(dev))->read_float_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ulong64_spectrum_ro_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_float_image_ro_allowed(ty);}
 };
 
-class uchar_spectrum_roAttrib: public Tango::SpectrumAttr
+class ushort_image_roAttrib: public Tango::ImageAttr
 {
 public:
-	uchar_spectrum_roAttrib():SpectrumAttr("uchar_spectrum_ro", Tango::DEV_UCHAR, Tango::READ, 4096) {};
-	~uchar_spectrum_roAttrib() {};
+	ushort_image_roAttrib():ImageAttr("ushort_image_ro", Tango::DEV_USHORT, Tango::READ, 8192, 8192) {};
+	~ushort_image_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_uchar_spectrum_ro(att);}
+	{(static_cast<TangoTest *>(dev))->read_ushort_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_uchar_spectrum_ro_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_ushort_image_ro_allowed(ty);}
 };
 
-class uchar_spectrumAttrib: public Tango::SpectrumAttr
+class uchar_image_roAttrib: public Tango::ImageAttr
 {
 public:
-	uchar_spectrumAttrib():SpectrumAttr("uchar_spectrum", Tango::DEV_UCHAR, Tango::READ_WRITE, 4096) {};
-	~uchar_spectrumAttrib() {};
+	uchar_image_roAttrib():ImageAttr("uchar_image_ro", Tango::DEV_UCHAR, Tango::READ, 251, 251) {};
+	~uchar_image_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_uchar_spectrum(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_uchar_spectrum(att);}
+	{(static_cast<TangoTest *>(dev))->read_uchar_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_uchar_spectrum_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_uchar_image_ro_allowed(ty);}
 };
 
 class string_spectrum_roAttrib: public Tango::SpectrumAttr
@@ -441,30 +286,52 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_string_spectrum_allowed(ty);}
 };
 
-class short_spectrum_roAttrib: public Tango::SpectrumAttr
+class ushort_spectrum_roAttrib: public Tango::SpectrumAttr
 {
 public:
-	short_spectrum_roAttrib():SpectrumAttr("short_spectrum_ro", Tango::DEV_SHORT, Tango::READ, 4096) {};
-	~short_spectrum_roAttrib() {};
+	ushort_spectrum_roAttrib():SpectrumAttr("ushort_spectrum_ro", Tango::DEV_USHORT, Tango::READ, 4096) {};
+	~ushort_spectrum_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_short_spectrum_ro(att);}
+	{(static_cast<TangoTest *>(dev))->read_ushort_spectrum_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_short_spectrum_ro_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_ushort_spectrum_ro_allowed(ty);}
 };
 
-class short_spectrumAttrib: public Tango::SpectrumAttr
+class uchar_spectrum_roAttrib: public Tango::SpectrumAttr
 {
 public:
-	short_spectrumAttrib():SpectrumAttr("short_spectrum", Tango::DEV_SHORT, Tango::READ_WRITE, 4096) {};
-	~short_spectrumAttrib() {};
+	uchar_spectrum_roAttrib():SpectrumAttr("uchar_spectrum_ro", Tango::DEV_UCHAR, Tango::READ, 4096) {};
+	~uchar_spectrum_roAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_short_spectrum(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_short_spectrum(att);}
+	{(static_cast<TangoTest *>(dev))->read_uchar_spectrum_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_short_spectrum_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_uchar_spectrum_ro_allowed(ty);}
+};
+
+class boolean_spectrum_roAttrib: public Tango::SpectrumAttr
+{
+public:
+	boolean_spectrum_roAttrib():SpectrumAttr("boolean_spectrum_ro", Tango::DEV_BOOLEAN, Tango::READ, 4096) {};
+	~boolean_spectrum_roAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_boolean_spectrum_ro(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_boolean_spectrum_ro_allowed(ty);}
+};
+
+class double_spectrum_roAttrib: public Tango::SpectrumAttr
+{
+public:
+	double_spectrum_roAttrib():SpectrumAttr("double_spectrum_ro", Tango::DEV_DOUBLE, Tango::READ, 4096) {};
+	~double_spectrum_roAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_double_spectrum_ro(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_double_spectrum_ro_allowed(ty);}
 };
 
 class long_spectrum_roAttrib: public Tango::SpectrumAttr
@@ -479,32 +346,6 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_long_spectrum_ro_allowed(ty);}
 };
 
-class long_spectrumAttrib: public Tango::SpectrumAttr
-{
-public:
-	long_spectrumAttrib():SpectrumAttr("long_spectrum", Tango::DEV_LONG, Tango::READ_WRITE, 4096) {};
-	~long_spectrumAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long_spectrum(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_long_spectrum(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long_spectrum_allowed(ty);}
-};
-
-class long64_spectrum_roAttrib: public Tango::SpectrumAttr
-{
-public:
-	long64_spectrum_roAttrib():SpectrumAttr("long64_spectrum_ro", Tango::DEV_LONG64, Tango::READ, 4096) {};
-	~long64_spectrum_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long64_spectrum_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long64_spectrum_ro_allowed(ty);}
-};
-
 class float_spectrum_roAttrib: public Tango::SpectrumAttr
 {
 public:
@@ -515,6 +356,30 @@ public:
 	{(static_cast<TangoTest *>(dev))->read_float_spectrum_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 	{return (static_cast<TangoTest *>(dev))->is_float_spectrum_ro_allowed(ty);}
+};
+
+class short_spectrum_roAttrib: public Tango::SpectrumAttr
+{
+public:
+	short_spectrum_roAttrib():SpectrumAttr("short_spectrum_ro", Tango::DEV_SHORT, Tango::READ, 4096) {};
+	~short_spectrum_roAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_short_spectrum_ro(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_short_spectrum_ro_allowed(ty);}
+};
+
+class waveAttrib: public Tango::SpectrumAttr
+{
+public:
+	waveAttrib():SpectrumAttr("wave", Tango::DEV_DOUBLE, Tango::READ, 4096) {};
+	~waveAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_wave(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_wave_allowed(ty);}
 };
 
 class float_spectrumAttrib: public Tango::SpectrumAttr
@@ -531,42 +396,32 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_float_spectrum_allowed(ty);}
 };
 
-class double_spectrum_roAttrib: public Tango::SpectrumAttr
+class ushort_spectrumAttrib: public Tango::SpectrumAttr
 {
 public:
-	double_spectrum_roAttrib():SpectrumAttr("double_spectrum_ro", Tango::DEV_DOUBLE, Tango::READ, 4096) {};
-	~double_spectrum_roAttrib() {};
+	ushort_spectrumAttrib():SpectrumAttr("ushort_spectrum", Tango::DEV_USHORT, Tango::READ_WRITE, 4096) {};
+	~ushort_spectrumAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_double_spectrum_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_double_spectrum_ro_allowed(ty);}
-};
-
-class double_spectrumAttrib: public Tango::SpectrumAttr
-{
-public:
-	double_spectrumAttrib():SpectrumAttr("double_spectrum", Tango::DEV_DOUBLE, Tango::READ_WRITE, 4096) {};
-	~double_spectrumAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_double_spectrum(att);}
+	{(static_cast<TangoTest *>(dev))->read_ushort_spectrum(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_double_spectrum(att);}
+	{(static_cast<TangoTest *>(dev))->write_ushort_spectrum(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_double_spectrum_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_ushort_spectrum_allowed(ty);}
 };
 
-class boolean_spectrum_roAttrib: public Tango::SpectrumAttr
+class uchar_spectrumAttrib: public Tango::SpectrumAttr
 {
 public:
-	boolean_spectrum_roAttrib():SpectrumAttr("boolean_spectrum_ro", Tango::DEV_BOOLEAN, Tango::READ, 4096) {};
-	~boolean_spectrum_roAttrib() {};
+	uchar_spectrumAttrib():SpectrumAttr("uchar_spectrum", Tango::DEV_UCHAR, Tango::READ_WRITE, 4096) {};
+	~uchar_spectrumAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_boolean_spectrum_ro(att);}
+	{(static_cast<TangoTest *>(dev))->read_uchar_spectrum(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_uchar_spectrum(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_boolean_spectrum_ro_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_uchar_spectrum_allowed(ty);}
 };
 
 class boolean_spectrumAttrib: public Tango::SpectrumAttr
@@ -583,18 +438,84 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_boolean_spectrum_allowed(ty);}
 };
 
-class ulong_scalarAttrib: public Tango::Attr
+class double_spectrumAttrib: public Tango::SpectrumAttr
 {
 public:
-	ulong_scalarAttrib():Attr("ulong_scalar", Tango::DEV_ULONG, Tango::READ_WRITE) {};
-	~ulong_scalarAttrib() {};
+	double_spectrumAttrib():SpectrumAttr("double_spectrum", Tango::DEV_DOUBLE, Tango::READ_WRITE, 4096) {};
+	~double_spectrumAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ulong_scalar(att);}
+	{(static_cast<TangoTest *>(dev))->read_double_spectrum(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_ulong_scalar(att);}
+	{(static_cast<TangoTest *>(dev))->write_double_spectrum(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ulong_scalar_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_double_spectrum_allowed(ty);}
+};
+
+class long_spectrumAttrib: public Tango::SpectrumAttr
+{
+public:
+	long_spectrumAttrib():SpectrumAttr("long_spectrum", Tango::DEV_LONG, Tango::READ_WRITE, 4096) {};
+	~long_spectrumAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_long_spectrum(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_long_spectrum(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_long_spectrum_allowed(ty);}
+};
+
+class short_spectrumAttrib: public Tango::SpectrumAttr
+{
+public:
+	short_spectrumAttrib():SpectrumAttr("short_spectrum", Tango::DEV_SHORT, Tango::READ_WRITE, 4096) {};
+	~short_spectrumAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_short_spectrum(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_short_spectrum(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_short_spectrum_allowed(ty);}
+};
+
+class throw_exceptionAttrib: public Tango::Attr
+{
+public:
+	throw_exceptionAttrib():Attr("throw_exception", Tango::DEV_LONG, Tango::READ) {};
+	~throw_exceptionAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_throw_exception(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_throw_exception_allowed(ty);}
+};
+
+class no_valueAttrib: public Tango::Attr
+{
+public:
+	no_valueAttrib():Attr("no_value", Tango::DEV_LONG, Tango::READ) {};
+	~no_valueAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_no_value(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_no_value_allowed(ty);}
+};
+
+class ampliAttrib: public Tango::Attr
+{
+public:
+	ampliAttrib():Attr("ampli", Tango::DEV_DOUBLE, Tango::WRITE) {};
+	~ampliAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_ampli(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_ampli(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_ampli_allowed(ty);}
 };
 
 class ushort_scalarAttrib: public Tango::Attr
@@ -611,20 +532,6 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_ushort_scalar_allowed(ty);}
 };
 
-class ulong64_scalarAttrib: public Tango::Attr
-{
-public:
-	ulong64_scalarAttrib():Attr("ulong64_scalar", Tango::DEV_ULONG64, Tango::READ_WRITE) {};
-	~ulong64_scalarAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ulong64_scalar(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_ulong64_scalar(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ulong64_scalar_allowed(ty);}
-};
-
 class uchar_scalarAttrib: public Tango::Attr
 {
 public:
@@ -637,150 +544,6 @@ public:
 	{(static_cast<TangoTest *>(dev))->write_uchar_scalar(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 	{return (static_cast<TangoTest *>(dev))->is_uchar_scalar_allowed(ty);}
-};
-
-class throw_exceptionAttrib: public Tango::Attr
-{
-public:
-	throw_exceptionAttrib():Attr("throw_exception", Tango::DEV_LONG, Tango::READ) {};
-	~throw_exceptionAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_throw_exception(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_throw_exception_allowed(ty);}
-};
-
-class string_scalarAttrib: public Tango::Attr
-{
-public:
-	string_scalarAttrib():Attr("string_scalar", Tango::DEV_STRING, Tango::READ_WRITE) {};
-	~string_scalarAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_string_scalar(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_string_scalar(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_string_scalar_allowed(ty);}
-};
-
-class short_scalar_wAttrib: public Tango::Attr
-{
-public:
-	short_scalar_wAttrib():Attr("short_scalar_w", Tango::DEV_SHORT, Tango::WRITE) {};
-	~short_scalar_wAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_short_scalar_w(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_short_scalar_w(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_short_scalar_w_allowed(ty);}
-};
-
-class short_scalar_rwwAttrib: public Tango::Attr
-{
-public:
-	short_scalar_rwwAttrib():Attr("short_scalar_rww", Tango::DEV_SHORT, Tango::READ_WITH_WRITE, "short_scalar_w") {};
-	~short_scalar_rwwAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_short_scalar_rww(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_short_scalar_rww_allowed(ty);}
-};
-
-class short_scalar_roAttrib: public Tango::Attr
-{
-public:
-	short_scalar_roAttrib():Attr("short_scalar_ro", Tango::DEV_SHORT, Tango::READ) {};
-	~short_scalar_roAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_short_scalar_ro(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_short_scalar_ro_allowed(ty);}
-};
-
-class short_scalarAttrib: public Tango::Attr
-{
-public:
-	short_scalarAttrib():Attr("short_scalar", Tango::DEV_SHORT, Tango::READ_WRITE) {};
-	~short_scalarAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_short_scalar(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_short_scalar(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_short_scalar_allowed(ty);}
-};
-
-class no_valueAttrib: public Tango::Attr
-{
-public:
-	no_valueAttrib():Attr("no_value", Tango::DEV_LONG, Tango::READ) {};
-	~no_valueAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_no_value(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_no_value_allowed(ty);}
-};
-
-class long_scalar_wAttrib: public Tango::Attr
-{
-public:
-	long_scalar_wAttrib():Attr("long_scalar_w", Tango::DEV_LONG, Tango::WRITE) {};
-	~long_scalar_wAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long_scalar_w(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_long_scalar_w(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long_scalar_w_allowed(ty);}
-};
-
-class long_scalar_rwwAttrib: public Tango::Attr
-{
-public:
-	long_scalar_rwwAttrib():Attr("long_scalar_rww", Tango::DEV_LONG, Tango::READ_WITH_WRITE, "long_scalar_w") {};
-	~long_scalar_rwwAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long_scalar_rww(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long_scalar_rww_allowed(ty);}
-};
-
-class long_scalarAttrib: public Tango::Attr
-{
-public:
-	long_scalarAttrib():Attr("long_scalar", Tango::DEV_LONG, Tango::READ_WRITE) {};
-	~long_scalarAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long_scalar(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_long_scalar(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long_scalar_allowed(ty);}
-};
-
-class long64_scalarAttrib: public Tango::Attr
-{
-public:
-	long64_scalarAttrib():Attr("long64_scalar", Tango::DEV_LONG64, Tango::READ_WRITE) {};
-	~long64_scalarAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_long64_scalar(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_long64_scalar(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_long64_scalar_allowed(ty);}
 };
 
 class float_scalarAttrib: public Tango::Attr
@@ -797,18 +560,32 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_float_scalar_allowed(ty);}
 };
 
-class double_scalar_wAttrib: public Tango::Attr
+class boolean_scalarAttrib: public Tango::Attr
 {
 public:
-	double_scalar_wAttrib():Attr("double_scalar_w", Tango::DEV_DOUBLE, Tango::WRITE) {};
-	~double_scalar_wAttrib() {};
+	boolean_scalarAttrib():Attr("boolean_scalar", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~boolean_scalarAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_double_scalar_w(att);}
+	{(static_cast<TangoTest *>(dev))->read_boolean_scalar(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_double_scalar_w(att);}
+	{(static_cast<TangoTest *>(dev))->write_boolean_scalar(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_double_scalar_w_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_boolean_scalar_allowed(ty);}
+};
+
+class string_scalarAttrib: public Tango::Attr
+{
+public:
+	string_scalarAttrib():Attr("string_scalar", Tango::DEV_STRING, Tango::READ_WRITE) {};
+	~string_scalarAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_string_scalar(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_string_scalar(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_string_scalar_allowed(ty);}
 };
 
 class double_scalar_rwwAttrib: public Tango::Attr
@@ -821,6 +598,20 @@ public:
 	{(static_cast<TangoTest *>(dev))->read_double_scalar_rww(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 	{return (static_cast<TangoTest *>(dev))->is_double_scalar_rww_allowed(ty);}
+};
+
+class double_scalar_wAttrib: public Tango::Attr
+{
+public:
+	double_scalar_wAttrib():Attr("double_scalar_w", Tango::DEV_DOUBLE, Tango::WRITE) {};
+	~double_scalar_wAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_double_scalar_w(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_double_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_double_scalar_w_allowed(ty);}
 };
 
 class double_scalarAttrib: public Tango::Attr
@@ -837,32 +628,96 @@ public:
 	{return (static_cast<TangoTest *>(dev))->is_double_scalar_allowed(ty);}
 };
 
-class boolean_scalarAttrib: public Tango::Attr
+class long_scalar_rwwAttrib: public Tango::Attr
 {
 public:
-	boolean_scalarAttrib():Attr("boolean_scalar", Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
-	~boolean_scalarAttrib() {};
+	long_scalar_rwwAttrib():Attr("long_scalar_rww", Tango::DEV_LONG, Tango::READ_WITH_WRITE, "long_scalar_w") {};
+	~long_scalar_rwwAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_boolean_scalar(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_boolean_scalar(att);}
+	{(static_cast<TangoTest *>(dev))->read_long_scalar_rww(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_boolean_scalar_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_long_scalar_rww_allowed(ty);}
 };
 
-class ampliAttrib: public Tango::Attr
+class long_scalar_wAttrib: public Tango::Attr
 {
 public:
-	ampliAttrib():Attr("ampli", Tango::DEV_DOUBLE, Tango::WRITE) {};
-	~ampliAttrib() {};
+	long_scalar_wAttrib():Attr("long_scalar_w", Tango::DEV_LONG, Tango::WRITE) {};
+	~long_scalar_wAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-	{(static_cast<TangoTest *>(dev))->read_ampli(att);}
+	{(static_cast<TangoTest *>(dev))->read_long_scalar_w(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-	{(static_cast<TangoTest *>(dev))->write_ampli(att);}
+	{(static_cast<TangoTest *>(dev))->write_long_scalar_w(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-	{return (static_cast<TangoTest *>(dev))->is_ampli_allowed(ty);}
+	{return (static_cast<TangoTest *>(dev))->is_long_scalar_w_allowed(ty);}
+};
+
+class long_scalarAttrib: public Tango::Attr
+{
+public:
+	long_scalarAttrib():Attr("long_scalar", Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~long_scalarAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_long_scalar(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_long_scalar(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_long_scalar_allowed(ty);}
+};
+
+class short_scalar_rwwAttrib: public Tango::Attr
+{
+public:
+	short_scalar_rwwAttrib():Attr("short_scalar_rww", Tango::DEV_SHORT, Tango::READ_WITH_WRITE, "short_scalar_w") {};
+	~short_scalar_rwwAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_short_scalar_rww(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_short_scalar_rww_allowed(ty);}
+};
+
+class short_scalar_wAttrib: public Tango::Attr
+{
+public:
+	short_scalar_wAttrib():Attr("short_scalar_w", Tango::DEV_SHORT, Tango::WRITE) {};
+	~short_scalar_wAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_short_scalar_w(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_short_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_short_scalar_w_allowed(ty);}
+};
+
+class short_scalarAttrib: public Tango::Attr
+{
+public:
+	short_scalarAttrib():Attr("short_scalar", Tango::DEV_SHORT, Tango::READ_WRITE) {};
+	~short_scalarAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_short_scalar(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+	{(static_cast<TangoTest *>(dev))->write_short_scalar(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_short_scalar_allowed(ty);}
+};
+
+class short_scalar_roAttrib: public Tango::Attr
+{
+public:
+	short_scalar_roAttrib():Attr("short_scalar_ro", Tango::DEV_SHORT, Tango::READ) {};
+	~short_scalar_roAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+	{(static_cast<TangoTest *>(dev))->read_short_scalar_ro(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+	{return (static_cast<TangoTest *>(dev))->is_short_scalar_ro_allowed(ty);}
 };
 
 //=========================================
@@ -892,10 +747,10 @@ public:
 
 
 
-class DumpExecutionStateCmd : public Tango::Command
+class DevVarDoubleStringArrayCmd : public Tango::Command
 {
 public:
-	DumpExecutionStateCmd(const char   *name,
+	DevVarDoubleStringArrayCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out,
 				   const char        *in_desc,
@@ -903,159 +758,15 @@ public:
 				   Tango::DispLevel  level)
 	:Command(name,in,out,in_desc,out_desc, level)	{};
 
-	DumpExecutionStateCmd(const char   *name,
+	DevVarDoubleStringArrayCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out)
 	:Command(name,in,out)	{};
-	~DumpExecutionStateCmd() {};
+	~DevVarDoubleStringArrayCmd() {};
 	
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DumpExecutionState_allowed(any);}
-};
-
-
-
-class DevVoidCmd : public Tango::Command
-{
-public:
-	DevVoidCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVoidCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVoidCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVoid_allowed(any);}
-};
-
-
-
-class DevVarUShortArrayCmd : public Tango::Command
-{
-public:
-	DevVarUShortArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVarUShortArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVarUShortArrayCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarUShortArray_allowed(any);}
-};
-
-
-
-class DevVarULongArrayCmd : public Tango::Command
-{
-public:
-	DevVarULongArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVarULongArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVarULongArrayCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarULongArray_allowed(any);}
-};
-
-
-
-class DevVarULong64ArrayCmd : public Tango::Command
-{
-public:
-	DevVarULong64ArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVarULong64ArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVarULong64ArrayCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarULong64Array_allowed(any);}
-};
-
-
-
-class DevVarStringArrayCmd : public Tango::Command
-{
-public:
-	DevVarStringArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVarStringArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVarStringArrayCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarStringArray_allowed(any);}
-};
-
-
-
-class DevVarShortArrayCmd : public Tango::Command
-{
-public:
-	DevVarShortArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVarShortArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVarShortArrayCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarShortArray_allowed(any);}
+	{return (static_cast<TangoTest *>(dev))->is_DevVarDoubleStringArray_allowed(any);}
 };
 
 
@@ -1084,10 +795,10 @@ public:
 
 
 
-class DevVarLongArrayCmd : public Tango::Command
+class DevVarStringArrayCmd : public Tango::Command
 {
 public:
-	DevVarLongArrayCmd(const char   *name,
+	DevVarStringArrayCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out,
 				   const char        *in_desc,
@@ -1095,87 +806,15 @@ public:
 				   Tango::DispLevel  level)
 	:Command(name,in,out,in_desc,out_desc, level)	{};
 
-	DevVarLongArrayCmd(const char   *name,
+	DevVarStringArrayCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out)
 	:Command(name,in,out)	{};
-	~DevVarLongArrayCmd() {};
+	~DevVarStringArrayCmd() {};
 	
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarLongArray_allowed(any);}
-};
-
-
-
-class DevVarLong64ArrayCmd : public Tango::Command
-{
-public:
-	DevVarLong64ArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVarLong64ArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVarLong64ArrayCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarLong64Array_allowed(any);}
-};
-
-
-
-class DevVarFloatArrayCmd : public Tango::Command
-{
-public:
-	DevVarFloatArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVarFloatArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVarFloatArrayCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarFloatArray_allowed(any);}
-};
-
-
-
-class DevVarDoubleStringArrayCmd : public Tango::Command
-{
-public:
-	DevVarDoubleStringArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevVarDoubleStringArrayCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevVarDoubleStringArrayCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevVarDoubleStringArray_allowed(any);}
+	{return (static_cast<TangoTest *>(dev))->is_DevVarStringArray_allowed(any);}
 };
 
 
@@ -1204,6 +843,126 @@ public:
 
 
 
+class DevVarFloatArrayCmd : public Tango::Command
+{
+public:
+	DevVarFloatArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DevVarFloatArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DevVarFloatArrayCmd() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<TangoTest *>(dev))->is_DevVarFloatArray_allowed(any);}
+};
+
+
+
+class DevVarULongArrayCmd : public Tango::Command
+{
+public:
+	DevVarULongArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DevVarULongArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DevVarULongArrayCmd() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<TangoTest *>(dev))->is_DevVarULongArray_allowed(any);}
+};
+
+
+
+class DevVarLongArrayCmd : public Tango::Command
+{
+public:
+	DevVarLongArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DevVarLongArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DevVarLongArrayCmd() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<TangoTest *>(dev))->is_DevVarLongArray_allowed(any);}
+};
+
+
+
+class DevVarUShortArrayCmd : public Tango::Command
+{
+public:
+	DevVarUShortArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DevVarUShortArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DevVarUShortArrayCmd() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<TangoTest *>(dev))->is_DevVarUShortArray_allowed(any);}
+};
+
+
+
+class DevVarShortArrayCmd : public Tango::Command
+{
+public:
+	DevVarShortArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DevVarShortArrayCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DevVarShortArrayCmd() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<TangoTest *>(dev))->is_DevVarShortArray_allowed(any);}
+};
+
+
+
 class DevVarCharArrayCmd : public Tango::Command
 {
 public:
@@ -1224,78 +983,6 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<TangoTest *>(dev))->is_DevVarCharArray_allowed(any);}
-};
-
-
-
-class DevUShortCmd : public Tango::Command
-{
-public:
-	DevUShortCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevUShortCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevUShortCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevUShort_allowed(any);}
-};
-
-
-
-class DevULong64Cmd : public Tango::Command
-{
-public:
-	DevULong64Cmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevULong64Cmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevULong64Cmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevULong64_allowed(any);}
-};
-
-
-
-class DevULongCmd : public Tango::Command
-{
-public:
-	DevULongCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevULongCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevULongCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevULong_allowed(any);}
 };
 
 
@@ -1324,10 +1011,10 @@ public:
 
 
 
-class DevShortCmd : public Tango::Command
+class DevDoubleCmd : public Tango::Command
 {
 public:
-	DevShortCmd(const char   *name,
+	DevDoubleCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out,
 				   const char        *in_desc,
@@ -1335,63 +1022,15 @@ public:
 				   Tango::DispLevel  level)
 	:Command(name,in,out,in_desc,out_desc, level)	{};
 
-	DevShortCmd(const char   *name,
+	DevDoubleCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out)
 	:Command(name,in,out)	{};
-	~DevShortCmd() {};
+	~DevDoubleCmd() {};
 	
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevShort_allowed(any);}
-};
-
-
-
-class DevLong64Cmd : public Tango::Command
-{
-public:
-	DevLong64Cmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevLong64Cmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevLong64Cmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevLong64_allowed(any);}
-};
-
-
-
-class DevLongCmd : public Tango::Command
-{
-public:
-	DevLongCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	DevLongCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~DevLongCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevLong_allowed(any);}
+	{return (static_cast<TangoTest *>(dev))->is_DevDouble_allowed(any);}
 };
 
 
@@ -1420,10 +1059,10 @@ public:
 
 
 
-class DevDoubleCmd : public Tango::Command
+class DevULongCmd : public Tango::Command
 {
 public:
-	DevDoubleCmd(const char   *name,
+	DevULongCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out,
 				   const char        *in_desc,
@@ -1431,15 +1070,87 @@ public:
 				   Tango::DispLevel  level)
 	:Command(name,in,out,in_desc,out_desc, level)	{};
 
-	DevDoubleCmd(const char   *name,
+	DevULongCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out)
 	:Command(name,in,out)	{};
-	~DevDoubleCmd() {};
+	~DevULongCmd() {};
 	
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_DevDouble_allowed(any);}
+	{return (static_cast<TangoTest *>(dev))->is_DevULong_allowed(any);}
+};
+
+
+
+class DevLongCmd : public Tango::Command
+{
+public:
+	DevLongCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DevLongCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DevLongCmd() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<TangoTest *>(dev))->is_DevLong_allowed(any);}
+};
+
+
+
+class DevUShortCmd : public Tango::Command
+{
+public:
+	DevUShortCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DevUShortCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DevUShortCmd() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<TangoTest *>(dev))->is_DevUShort_allowed(any);}
+};
+
+
+
+class DevShortCmd : public Tango::Command
+{
+public:
+	DevShortCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DevShortCmd(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DevShortCmd() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<TangoTest *>(dev))->is_DevShort_allowed(any);}
 };
 
 
@@ -1468,10 +1179,10 @@ public:
 
 
 
-class CrashFromOmniThreadCmd : public Tango::Command
+class DevVoidCmd : public Tango::Command
 {
 public:
-	CrashFromOmniThreadCmd(const char   *name,
+	DevVoidCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out,
 				   const char        *in_desc,
@@ -1479,39 +1190,15 @@ public:
 				   Tango::DispLevel  level)
 	:Command(name,in,out,in_desc,out_desc, level)	{};
 
-	CrashFromOmniThreadCmd(const char   *name,
+	DevVoidCmd(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out)
 	:Command(name,in,out)	{};
-	~CrashFromOmniThreadCmd() {};
+	~DevVoidCmd() {};
 	
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_CrashFromOmniThread_allowed(any);}
-};
-
-
-
-class CrashFromDevelopperThreadCmd : public Tango::Command
-{
-public:
-	CrashFromDevelopperThreadCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out,
-				   const char        *in_desc,
-				   const char        *out_desc,
-				   Tango::DispLevel  level)
-	:Command(name,in,out,in_desc,out_desc, level)	{};
-
-	CrashFromDevelopperThreadCmd(const char   *name,
-	               Tango::CmdArgType in,
-				   Tango::CmdArgType out)
-	:Command(name,in,out)	{};
-	~CrashFromDevelopperThreadCmd() {};
-	
-	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
-	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoTest *>(dev))->is_CrashFromDevelopperThread_allowed(any);}
+	{return (static_cast<TangoTest *>(dev))->is_DevVoid_allowed(any);}
 };
 
 
@@ -1520,11 +1207,7 @@ public:
 // The TangoTestClass singleton definition
 //
 
-class
-#ifdef WIN32
-	__declspec(dllexport)
-#endif
-	TangoTestClass : public Tango::DeviceClass
+class TangoTestClass : public Tango::DeviceClass
 {
 public:
 //	properties member data
@@ -1553,8 +1236,6 @@ protected:
 	void attribute_factory(vector<Tango::Attr *> &);
 	void write_class_property();
 	void set_default_property();
-	string get_cvstag();
-	string get_cvsroot();
 
 private:
 	void device_factory(const Tango::DevVarStringArray *);

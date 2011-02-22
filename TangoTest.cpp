@@ -13,52 +13,9 @@ static const char *RcsId = "$Header$";
 //
 // $Author$     $N.Leclercq - SOLEIL
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						Synchrotron SOLEIL
-//                		L'Orme des Merisiers
-//                		Saint-Aubin - BP 48 - France
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$ 
 // 
 // $Log$
-// Revision 1.23  2010/09/28 08:44:41  nleclercq
-// Fix an indexing bug in image of string
-// Crash reporting test commands are now expert commands
-//
-// Revision 1.22  2010/09/21 12:04:45  taurel
-// - Added GPL header for next source distribution
-//
-// Revision 1.21  2010/09/10 17:23:57  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.20  2010/09/10 17:21:30  nleclercq
-// Added support for crash report  (i.e. google breakpad)
-// Added ClassID to the cvs repository
-//
-// Revision 1.19  2010/03/01 16:57:18  nleclercq
-// Added 64bits attributes (scalars, spectra & images)
-// Tested from a 64bits Matlab session (seems to work :-)
-//
-// Revision 1.18  2009/04/04 17:42:36  taurel
-// Device now inherits from Device_4Impl.
-// Environment variable got from Tango library (To manage tangorc files)
-//
 // Revision 1.17  2009/03/02 08:14:34  jensmeyer
 // Corrected writing of String spectrum and image attributes.
 //
@@ -101,6 +58,11 @@ static const char *RcsId = "$Header$";
 //
 // Revision 1.1.1.1  2004/05/07 12:43:44  taurel
 // Initial import
+//
+//
+// copyleft :     European Synchrotron Radiation Facility
+//                BP 220, Grenoble 38043
+//                FRANCE
 // 
 //-=============================================================================
 //
@@ -113,50 +75,39 @@ static const char *RcsId = "$Header$";
 
 //===================================================================
 //
-//	The following table gives the correspondence
-//	between commands and method name.
+//	The following table gives the correspondance
+//	between commands and method's name.
 //
-//  Command name               |  Method name
+//  Command's name           |  Method's name
 //	----------------------------------------
-//  State                      |  dev_state()
-//  Status                     |  dev_status()
-//  CrashFromDevelopperThread  |  crash_from_developper_thread()
-//  CrashFromOmniThread        |  crash_from_omni_thread()
-//  DevBoolean                 |  dev_boolean()
-//  DevDouble                  |  dev_double()
-//  DevFloat                   |  dev_float()
-//  DevLong                    |  dev_long()
-//  DevLong64                  |  dev_long64()
-//  DevShort                   |  dev_short()
-//  DevString                  |  dev_string()
-//  DevULong                   |  dev_ulong()
-//  DevULong64                 |  dev_ulong64()
-//  DevUShort                  |  dev_ushort()
-//  DevVarCharArray            |  dev_var_char_array()
-//  DevVarDoubleArray          |  dev_var_double_array()
-//  DevVarDoubleStringArray    |  dev_var_double_string_array()
-//  DevVarFloatArray           |  dev_var_float_array()
-//  DevVarLong64Array          |  dev_var_long64_array()
-//  DevVarLongArray            |  dev_var_long_array()
-//  DevVarLongStringArray      |  dev_var_long_string_array()
-//  DevVarShortArray           |  dev_var_short_array()
-//  DevVarStringArray          |  dev_var_string_array()
-//  DevVarULong64Array         |  dev_var_ulong64_array()
-//  DevVarULongArray           |  dev_var_ulong_array()
-//  DevVarUShortArray          |  dev_var_ushort_array()
-//  DevVoid                    |  dev_void()
-//  DumpExecutionState         |  dump_execution_state()
-//  SwitchStates               |  switch_states()
+//  State                    |  dev_state()
+//  Status                   |  dev_status()
+//  DevVoid                  |  dev_void()
+//  DevBoolean               |  dev_boolean()
+//  DevShort                 |  dev_short()
+//  DevUShort                |  dev_ushort()
+//  DevLong                  |  dev_long()
+//  DevULong                 |  dev_ulong()
+//  DevFloat                 |  dev_float()
+//  DevDouble                |  dev_double()
+//  DevString                |  dev_string()
+//  DevVarCharArray          |  dev_var_char_array()
+//  DevVarShortArray         |  dev_var_short_array()
+//  DevVarUShortArray        |  dev_var_ushort_array()
+//  DevVarLongArray          |  dev_var_long_array()
+//  DevVarULongArray         |  dev_var_ulong_array()
+//  DevVarFloatArray         |  dev_var_float_array()
+//  DevVarDoubleArray        |  dev_var_double_array()
+//  DevVarStringArray        |  dev_var_string_array()
+//  DevVarLongStringArray    |  dev_var_long_string_array()
+//  DevVarDoubleStringArray  |  dev_var_double_string_array()
+//  SwitchStates             |  switch_states()
 //
 //===================================================================
 #include <math.h>
 #include <tango.h>
 #include <TangoTest.h>
 #include <TangoTestClass.h>
-
-#if defined(ENABLE_CRASH_REPORT)
-# include <crashreporting/crash_report.h>
-#endif
 
 static const long kSpecLen = 256;
 static const long kImagLen = 251;
@@ -169,11 +120,9 @@ namespace TangoTest_ns
 //=============================================================================
 template<typename T> inline T randomize (T max)
 {
-  if (max > 0) 
-  {
-    int r = ::rand();
-	  r = r < 0 ? -r : r;
-	  return static_cast<T>(r % static_cast<int>(max));
+  if (max > 0) {
+	int r = ((r = ::rand()) < 0) ? -r : r;
+	return (T)(r % (int)max);
   }
   return 0;
 }
@@ -189,8 +138,7 @@ void generate_full_image (T* buffer, long max_xy, long max_value)
 	{
 		for(long j=0; j<max_xy; j++)
 		{
-      int r = ::rand();
-			r = r < 0 ? -r : r;
+			int r = ((r = ::rand()) < 0) ? -r : r;
 			buffer[i * max_xy + j] = (long)(r % (int)max_value);
 		}
 	}
@@ -246,10 +194,9 @@ public:
   DataGenerator (TangoTest& dev, long sleep_time)
     : omni_thread(), 
       Tango::LogAdapter(&dev), 
-      go_on_(1), 
       dev_(dev), 
-      sleep_time_(sleep_time),
-      generate_crash_ (false)
+      sleep_time_(sleep_time), 
+      go_on_(1) 
   {
     // noop ctor
   }
@@ -260,26 +207,15 @@ public:
     start_undetached();
   }  
 
-  void crash (void) 
-  {
-    WARN_STREAM << "DataGenerator::crash" << endl;
-    generate_crash_ = true;
-  }  
-
   virtual void* run_undetached (void *) 
   {
-    static int * __invalid_ptr__ = 0;
-
     DEBUG_STREAM << "DataGenerator::run_undetached" << endl;
     do 
     {
-      if (generate_crash_)
-        *__invalid_ptr__ = 0;
-
       { //- enter critical section
         omni_mutex_lock guard(dev_.lock);
-        if (! go_on_) break;
-        DEBUG_STREAM << "DataGenerator::generating data" << endl;
+        if (!go_on_) break;
+        	DEBUG_STREAM << "DataGenerator::generating data" << endl;
         dev_.gen_data();
       } //- leave critical section
       sleep(0, sleep_time_ * 1000000);
@@ -304,7 +240,6 @@ private:
   int go_on_;
   TangoTest& dev_;
   long sleep_time_;  
-  bool generate_crash_;
 };
 
 //=============================================================================
@@ -336,15 +271,6 @@ void TangoTest::gen_data ()
  	*attr_long_scalar_read =
      randomize(attr_long_scalar_write);
 
-  *attr_ulong_scalar_read =
-     randomize(attr_ulong_scalar_write);
-     
-  *attr_long64_scalar_read =
-     randomize(attr_long_scalar_write);
-     
-  *attr_ulong64_scalar_read =
-     randomize(attr_ulong_scalar_write);
-     
  	*attr_double_scalar_read =
      attr_double_scalar_write * ::sin(kpi_deg * (k%360));
 
@@ -357,7 +283,7 @@ void TangoTest::gen_data ()
   *attr_float_scalar_read =
      randomize(attr_float_scalar_write);
 
- 	int i, j;
+ 	size_t i, j;
 
 	for (i = 0; i < kSpecLen; i++)
 		attr_short_spectrum_ro_read[i] = randomize(int_generation_max_value);
@@ -365,15 +291,6 @@ void TangoTest::gen_data ()
 	for (i = 0; i < kSpecLen; i++)
 		attr_long_spectrum_ro_read[i] = randomize(int_generation_max_value);
 
-  for (i = 0; i < kSpecLen; i++)
-    attr_ulong_spectrum_ro_read[i] = randomize(int_generation_max_value);
-    
-  for (i = 0; i < kSpecLen; i++)
-    attr_long64_spectrum_ro_read[i] = randomize(int_generation_max_value);
-    
-  for (i = 0; i < kSpecLen; i++)
-    attr_ulong64_spectrum_ro_read[i] = randomize(int_generation_max_value);
-    
 	for (i = 0; i < kSpecLen; i++)
 		attr_double_spectrum_ro_read[i] = randomize(int_generation_max_value);
 
@@ -381,28 +298,30 @@ void TangoTest::gen_data ()
      attr_wave_read[i] = attr_ampli_write * ::sin(kpi_deg * (i + (k%360)));
 
 	for (i = 0; i < kSpecLen; i++)
+	{
 		attr_boolean_spectrum_ro_read[i] = 
             randomize(boolean_generation_max_value) ? true : false;
+	}
 
 	for (i = 0; i < kSpecLen; i++)
+	{
 		attr_ushort_spectrum_ro_read[i] = randomize(int_generation_max_value);
+	}
 
 	for (i = 0; i < kSpecLen; i++)
+	{
 		attr_uchar_spectrum_ro_read[i] = randomize(int_generation_max_value);
+	}
 
 	for (i = 0; i < kSpecLen; i++)
+	{
 		attr_float_spectrum_ro_read[i] = (float) randomize(int_generation_max_value);
+	}
 
   generate_image(attr_short_image_ro_read,  kImagLen);
 
   generate_image(attr_long_image_ro_read,  kImagLen);
 
-  generate_image(attr_ulong_image_ro_read,  kImagLen);
-  
-  generate_image(attr_long64_image_ro_read,  kImagLen);
-  
-  generate_image(attr_ulong64_image_ro_read,  kImagLen);
-  
   generate_image(attr_float_image_ro_read, kImagLen);
 
   generate_image(attr_double_image_ro_read,  kImagLen);
@@ -418,11 +337,7 @@ void TangoTest::gen_data ()
 
   for (j = 0; j < kImagLen; j++)
     for (i = 0; i < kImagLen; i++)
-      ::sprintf(attr_string_image_ro_read[ i + j * kImagLen],
-                "[%.2d][%.2d]::hello world::%.4d", 
-                i, 
-                j,   
-                randomize(int_generation_max_value));
+      ::sprintf(attr_string_image_ro_read[ i + j * kImagLen],"[%.2d][%.2d]::hello world::%.4d", i, j, randomize(int_generation_max_value));
 
   k++;
 }
@@ -496,22 +411,10 @@ void TangoTest::init_device()
 	*attr_long_scalar_read = 0; 
   attr_long_scalar_write = 256; 
 
-  attr_ulong_scalar_read = new Tango::DevULong;
-  *attr_ulong_scalar_read = 0; 
-  attr_ulong_scalar_write = 256; 
-  
-  attr_long64_scalar_read = new Tango::DevLong64;
-  *attr_long64_scalar_read = 0; 
-  attr_long64_scalar_write = 256; 
-  
-  attr_ulong64_scalar_read = new Tango::DevULong64;
-  *attr_ulong64_scalar_read = 0; 
-  attr_ulong64_scalar_write = 256; 
-  
   attr_long_scalar_w_write = 256;
   attr_long_scalar_rww_read = new Tango::DevLong;
   *attr_long_scalar_rww_read = 0;
-  
+
 	attr_double_scalar_read = new Tango::DevDouble;
 	*attr_double_scalar_read = 0;
   attr_double_scalar_write = 256;
@@ -553,15 +456,6 @@ void TangoTest::init_device()
   attr_long_spectrum_ro_read = new Tango::DevLong[kSpecLen];
 	::memset(attr_long_spectrum_ro_read, 0, kSpecLen * sizeof(Tango::DevLong));
 
-  attr_ulong_spectrum_ro_read = new Tango::DevULong[kSpecLen];
-  ::memset(attr_ulong_spectrum_ro_read, 0, kSpecLen * sizeof(Tango::DevULong));
-  
-  attr_long64_spectrum_ro_read = new Tango::DevLong64[kSpecLen];
-  ::memset(attr_long64_spectrum_ro_read, 0, kSpecLen * sizeof(Tango::DevLong64));
-
-  attr_ulong64_spectrum_ro_read = new Tango::DevULong64[kSpecLen];
-  ::memset(attr_ulong64_spectrum_ro_read, 0, kSpecLen * sizeof(Tango::DevULong64));
-  
 	attr_long_spectrum_read = new Tango::DevLong[kSpecLen];
 	::memset(attr_long_spectrum_read, 0, kSpecLen * sizeof(Tango::DevLong));
 
@@ -576,8 +470,7 @@ void TangoTest::init_device()
   dimDoubleSpectrum = kSpecLen;
 
   attr_string_spectrum_ro_read = new Tango::DevString[kSpecLen];
-  
-  int s;
+  size_t s;
   for (s = 0; s < kSpecLen; s++)
   {
     attr_string_spectrum_ro_read[s] = CORBA::string_alloc(kSpecLen);
@@ -639,7 +532,7 @@ void TangoTest::init_device()
 
 	attr_long_image_read = new Tango::DevLong[kImagLen * kImagLen];
 	::memset(attr_long_image_read, 0, kImagLen * kImagLen * sizeof(Tango::DevLong));
-  
+
   dimXLongImage = kImagLen;
   dimYLongImage = kImagLen;
 
@@ -679,15 +572,6 @@ void TangoTest::init_device()
 	attr_long_image_ro_read = new Tango::DevLong[kImagLen * kImagLen];
 	::memset(attr_long_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevLong));
 
-  attr_ulong_image_ro_read = new Tango::DevULong[kImagLen * kImagLen];
-  ::memset(attr_ulong_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevULong));
-  
-  attr_long64_image_ro_read = new Tango::DevLong64[kImagLen * kImagLen];
-  ::memset(attr_long64_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevLong64));
-
-  attr_ulong64_image_ro_read = new Tango::DevULong64[kImagLen * kImagLen];
-  ::memset(attr_ulong64_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevULong64));
-  
 	attr_double_image_ro_read = new Tango::DevDouble[kImagLen * kImagLen];
 	::memset(attr_double_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevDouble));
 
@@ -769,33 +653,27 @@ void TangoTest::get_device_property()
 	//	Try to initialize Mthreaded_impl from class property
 	cl_prop = ds_class->get_class_property(dev_prop[++i].name);
 	if (cl_prop.is_empty()==false)	cl_prop  >>  mthreaded_impl;
-	else {
-		//	Try to initialize Mthreaded_impl from default device value
-		def_prop = ds_class->get_default_device_property(dev_prop[i].name);
-		if (def_prop.is_empty()==false)	def_prop  >>  mthreaded_impl;
-	}
+	//	Try to initialize Mthreaded_impl from default device value
+	def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+	if (def_prop.is_empty()==false)	def_prop  >>  mthreaded_impl;
 	//	And try to extract Mthreaded_impl value from database
 	if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  mthreaded_impl;
 
 	//	Try to initialize Sleep_period from class property
 	cl_prop = ds_class->get_class_property(dev_prop[++i].name);
 	if (cl_prop.is_empty()==false)	cl_prop  >>  sleep_period;
-	else {
-		//	Try to initialize Sleep_period from default device value
-		def_prop = ds_class->get_default_device_property(dev_prop[i].name);
-		if (def_prop.is_empty()==false)	def_prop  >>  sleep_period;
-	}
+	//	Try to initialize Sleep_period from default device value
+	def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+	if (def_prop.is_empty()==false)	def_prop  >>  sleep_period;
 	//	And try to extract Sleep_period value from database
 	if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  sleep_period;
 
 	//	Try to initialize UShort_image_ro_size from class property
 	cl_prop = ds_class->get_class_property(dev_prop[++i].name);
 	if (cl_prop.is_empty()==false)	cl_prop  >>  uShort_image_ro_size;
-	else {
-		//	Try to initialize UShort_image_ro_size from default device value
-		def_prop = ds_class->get_default_device_property(dev_prop[i].name);
-		if (def_prop.is_empty()==false)	def_prop  >>  uShort_image_ro_size;
-	}
+	//	Try to initialize UShort_image_ro_size from default device value
+	def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+	if (def_prop.is_empty()==false)	def_prop  >>  uShort_image_ro_size;
 	//	And try to extract UShort_image_ro_size value from database
 	if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  uShort_image_ro_size;
 
@@ -843,21 +721,6 @@ void TangoTest::delete_device()
   if (attr_long_scalar_read) {
     delete attr_long_scalar_read;
     attr_long_scalar_read = 0;
-  }
-
-  if (attr_ulong_scalar_read) {
-    delete attr_ulong_scalar_read;
-    attr_ulong_scalar_read = 0;
-  }
-
-  if (attr_long64_scalar_read) {
-    delete attr_long64_scalar_read;
-    attr_long64_scalar_read = 0;
-  }
-
-  if (attr_ulong64_scalar_read) {
-    delete attr_ulong64_scalar_read;
-    attr_ulong64_scalar_read = 0;
   }
 
   if (attr_long_scalar_rww_read) {
@@ -925,21 +788,6 @@ void TangoTest::delete_device()
     attr_long_spectrum_ro_read = 0;
   }
 
-  if (attr_ulong_spectrum_ro_read) {
-    delete[] attr_ulong_spectrum_ro_read;
-    attr_ulong_spectrum_ro_read = 0;
-  }
-
-  if (attr_ulong_spectrum_ro_read) {
-    delete[] attr_ulong_spectrum_ro_read;
-    attr_ulong_spectrum_ro_read = 0;
-  }
-
-  if (attr_ulong64_spectrum_ro_read) {
-    delete[] attr_ulong64_spectrum_ro_read;
-    attr_ulong64_spectrum_ro_read = 0;
-  }
-
   if (attr_double_spectrum_read) {
     delete[] attr_double_spectrum_read;
     attr_double_spectrum_read = 0;
@@ -990,7 +838,7 @@ void TangoTest::delete_device()
     attr_float_spectrum_ro_read = 0;
   }
 
-  int s = 0;
+  size_t s = 0;
   if (attr_string_spectrum_ro_read) {
     for (; s < kSpecLen; s++)
       CORBA::string_free(attr_string_spectrum_ro_read[s]);
@@ -1052,21 +900,6 @@ void TangoTest::delete_device()
   if (attr_long_image_ro_read) {
     delete[] attr_long_image_ro_read;
     attr_long_image_ro_read = 0;
-  }
-
-  if (attr_ulong_image_ro_read) {
-    delete[] attr_ulong_image_ro_read;
-    attr_ulong_image_ro_read = 0;
-  }
-
-  if (attr_long64_image_ro_read) {
-    delete[] attr_long64_image_ro_read;
-    attr_long64_image_ro_read = 0;
-  }
-
-  if (attr_ulong64_image_ro_read) {
-    delete[] attr_ulong64_image_ro_read;
-    attr_ulong64_image_ro_read = 0;
   }
 
   if (attr_double_image_ro_read) {
@@ -1136,166 +969,6 @@ void TangoTest::read_attr_hardware(vector<long> &attr_list)
  	  gen_data();
   }
 } 
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_ulong_scalar
-// 
-// description : 	Extract real attribute values for ulong_scalar acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_ulong_scalar(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_ulong_scalar(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_ulong_scalar_read);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::write_ulong_scalar
-// 
-// description : 	Write ulong_scalar attribute values to hardware.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::write_ulong_scalar(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::write_ulong_scalar(Tango::WAttribute &attr) entering... "<< endl;
-  attr.get_write_value(attr_ulong_scalar_write);
-  DEBUG_STREAM << "attr_ulong_scalar_write = " << attr_ulong_scalar_write << endl;
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_long64_scalar
-// 
-// description : 	Extract real attribute values for long64_scalar acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_long64_scalar(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_long64_scalar(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_long64_scalar_read);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::write_long64_scalar
-// 
-// description : 	Write long64_scalar attribute values to hardware.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::write_long64_scalar(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::write_long64_scalar(Tango::WAttribute &attr) entering... "<< endl;
-  attr.get_write_value(attr_long64_scalar_write);
-  DEBUG_STREAM << "attr_long64_scalar_write = " << attr_long64_scalar_write << endl;
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_long64_spectrum_ro
-// 
-// description : 	Extract real attribute values for long64_spectrum_ro acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_long64_spectrum_ro(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_long64_spectrum_ro(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_long64_spectrum_ro_read, kSpecLen);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_ulong64_spectrum_ro
-// 
-// description : 	Extract real attribute values for ulong64_spectrum_ro acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_ulong64_spectrum_ro(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_ulong64_spectrum_ro(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_ulong64_spectrum_ro_read, kSpecLen);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_ulong_spectrum_ro
-// 
-// description : 	Extract real attribute values for ulong_spectrum_ro acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_ulong_spectrum_ro(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_ulong_spectrum_ro(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_ulong_spectrum_ro_read, kSpecLen);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_long64_image_ro
-// 
-// description : 	Extract real attribute values for long64_image_ro acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_long64_image_ro(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_long64_image_ro(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_long64_image_ro_read, kImagLen, kImagLen);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_ulong64_image_ro
-// 
-// description : 	Extract real attribute values for ulong64_image_ro acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_ulong64_image_ro(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_ulong64_image_ro(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_ulong64_image_ro_read, kImagLen, kImagLen);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_ulong_image_ro
-// 
-// description : 	Extract real attribute values for ulong_image_ro acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_ulong_image_ro(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_ulong_image_ro(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_ulong_image_ro_read, kImagLen, kImagLen);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::read_ulong64_scalar
-// 
-// description : 	Extract real attribute values for ulong64_scalar acquisition result.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::read_ulong64_scalar(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::read_ulong64_scalar(Tango::Attribute &attr) entering... "<< endl;
-  attr.set_value(attr_ulong64_scalar_read);
-}
-
-//+----------------------------------------------------------------------------
-//
-// method : 		TangoTest::write_ulong64_scalar
-// 
-// description : 	Write ulong64_scalar attribute values to hardware.
-//
-//-----------------------------------------------------------------------------
-void TangoTest::write_ulong64_scalar(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "TangoTest::write_ulong64_scalar(Tango::WAttribute &attr) entering... "<< endl;
-  attr.get_write_value(attr_ulong64_scalar_write);
-  DEBUG_STREAM << "attr_ulong64_scalar_write = " << attr_ulong64_scalar_write << endl;
-}
-
 //+----------------------------------------------------------------------------
 //
 // method : 		TangoTest::read_no_value
@@ -1351,11 +1024,11 @@ void TangoTest::write_string_spectrum(Tango::WAttribute &attr)
   const Tango::ConstDevString *p=NULL;
   attr.get_write_value(p);
 
-  int len = attr.get_w_dim_x();
+  size_t len = attr.get_w_dim_x();
   if (len > kSpecLen)
     len = kSpecLen;
 
-  for (int i = 0; i < len; i++)
+  for (size_t i = 0; i < len; i++)
   {
     CORBA::string_free(attr_string_spectrum_read[i]);
     attr_string_spectrum_read[i] = CORBA::string_dup(p[i]);
@@ -1399,12 +1072,12 @@ void TangoTest::write_string_image(Tango::WAttribute &attr)
     dimYStringImage = kImagLen;
   DEBUG_STREAM << "Y :" << dimYStringImage << endl;
 
-  int i ,j, str_index;
+  size_t i ,j, str_index;
   for (j = 0; j < dimYStringImage; j++)
   {
     for (i = 0; i < dimXStringImage; i++)
     {
-      str_index = i + j * dimXStringImage;
+      str_index = i + j * dimYStringImage;
       CORBA::string_free(attr_string_image_read[str_index]);
       attr_string_image_read[str_index] = CORBA::string_dup(p[str_index]);
     }
@@ -1424,6 +1097,7 @@ void TangoTest::read_string_spectrum_ro(Tango::Attribute &attr)
   attr.set_value(attr_string_spectrum_ro_read, kSpecLen);
 }
 
+
 //+----------------------------------------------------------------------------
 //
 // method : 		TangoTest::read_string_image_ro
@@ -1436,6 +1110,7 @@ void TangoTest::read_string_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_string_image_ro(Tango::Attribute &attr) entering... "<< endl;
   attr.set_value(attr_string_image_ro_read, kImagLen, kImagLen);
 }
+
 
 //+----------------------------------------------------------------------------
 //
@@ -2280,7 +1955,7 @@ void TangoTest::write_boolean_scalar(Tango::WAttribute &attr)
 	attr.get_write_value(attr_boolean_scalar_write);
 	*attr_boolean_scalar_read = attr_boolean_scalar_write;
 	DEBUG_STREAM << "Read and write attributes were set to the same value" << endl;
-  DEBUG_STREAM << "attr_boolean_scalar_write = " << attr_boolean_scalar_write << endl;
+    DEBUG_STREAM << "attr_boolean_scalar_write = " << attr_boolean_scalar_write << endl;
 	DEBUG_STREAM << "attr_boolean_scalar_read = " << *attr_boolean_scalar_read << endl;
 }
 
@@ -2321,7 +1996,7 @@ void TangoTest::write_short_scalar(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::write_short_scalar(Tango::WAttribute &attr) entering... "<< endl;
 	attr.get_write_value(attr_short_scalar_write);
-  DEBUG_STREAM << "attr_short_scalar_write = " << attr_short_scalar_write << endl;
+    DEBUG_STREAM << "attr_short_scalar_write = " << attr_short_scalar_write << endl;
 }
 
 //+----------------------------------------------------------------------------
@@ -2401,19 +2076,17 @@ void TangoTest::read_string_scalar(Tango::Attribute &attr)
 void TangoTest::write_string_scalar(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::write_string_scalar(Tango::WAttribute &attr) entering... "<< endl;
-  attr.get_write_value(attr_string_scalar_write);
-  DEBUG_STREAM << "attr_string_scalar_write = " << attr_string_scalar_write << endl;
-  if (*attr_string_scalar_read) 
-  {
-    delete[] *attr_string_scalar_read;
-    size_t len = ::strlen(attr_string_scalar_write) + 1;
-    *attr_string_scalar_read = new char[len];
-    if (*attr_string_scalar_read) 
-    {
-      ::memset(*attr_string_scalar_read, 0, len * sizeof(char));
-      ::strcpy(*attr_string_scalar_read, attr_string_scalar_write);
+    attr.get_write_value(attr_string_scalar_write);
+    DEBUG_STREAM << "attr_string_scalar_write = " << attr_string_scalar_write << endl;
+    if (*attr_string_scalar_read) {
+      delete[] *attr_string_scalar_read;
+      size_t len = ::strlen(attr_string_scalar_write) + 1;
+      *attr_string_scalar_read = new char[len];
+      if (*attr_string_scalar_read) {
+        ::memset(*attr_string_scalar_read, 0, len * sizeof(char));
+        ::strcpy(*attr_string_scalar_read, attr_string_scalar_write);
+      }
     }
-  }
 }
 
 //+----------------------------------------------------------------------------
@@ -2439,7 +2112,7 @@ void TangoTest::write_short_scalar_w(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::write_short_scalar_w(Tango::WAttribute &attr) entering... "<< endl;
 	attr.get_write_value(attr_short_scalar_w_write);
-  DEBUG_STREAM << "short_scalar_w = " << attr_short_scalar_w_write << endl;
+    DEBUG_STREAM << "short_scalar_w = " << attr_short_scalar_w_write << endl;
 }
 
 //+----------------------------------------------------------------------------
@@ -2478,7 +2151,7 @@ void TangoTest::write_long_scalar_w(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::write_long_scalar_w(Tango::WAttribute &attr) entering... "<< endl;
 	attr.get_write_value(attr_long_scalar_w_write);
-  DEBUG_STREAM << "long_scalar_w = " << attr_long_scalar_w_write << endl;
+    DEBUG_STREAM << "long_scalar_w = " << attr_long_scalar_w_write << endl;
 }
 
 //+----------------------------------------------------------------------------
@@ -2517,7 +2190,7 @@ void TangoTest::write_double_scalar_w(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::write_double_scalar_w(Tango::WAttribute &attr) entering... "<< endl;
 	attr.get_write_value(attr_double_scalar_w_write);
-  DEBUG_STREAM << "double_scalar_w = " << attr_double_scalar_w_write << endl;
+    DEBUG_STREAM << "double_scalar_w = " << attr_double_scalar_w_write << endl;
 }
 
 //+----------------------------------------------------------------------------
@@ -2556,7 +2229,7 @@ void TangoTest::write_ampli(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::write_ampli(Tango::WAttribute &attr) entering... "<< endl;
 	attr.get_write_value(attr_ampli_write);
-  DEBUG_STREAM << "ampli = " << attr_ampli_write << endl;
+    DEBUG_STREAM << "ampli = " << attr_ampli_write << endl;
 }
 
 //+----------------------------------------------------------------------------
@@ -3190,200 +2863,5 @@ void TangoTest::switch_states()
 	}
 
 }
-
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::dev_long64
- *
- *	description:	method to execute "DevLong64"
- *	A DevLong command example
- *
- * @param	argin	Any DevLong64 value
- * @return	Echo of the argin value
- *
- */
-//+------------------------------------------------------------------
-Tango::DevLong64 TangoTest::dev_long64(Tango::DevLong64 argin)
-{
-	DEBUG_STREAM << "TangoTest::dev_long64(): entering... !" << endl;
-	return argin;
-}
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::dev_ulong64
- *
- *	description:	method to execute "DevULong64"
- *	A DevULong64 command example
- *
- * @param	argin	Any DevULong64 value
- * @return	Echo of the argin value
- *
- */
-//+------------------------------------------------------------------
-Tango::DevULong64 TangoTest::dev_ulong64(Tango::DevULong64 argin)
-{
-	DEBUG_STREAM << "TangoTest::dev_ulong64(): entering... !" << endl;
-	return argin;
-}
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::dev_var_long64_array
- *
- *	description:	method to execute "DevVarLong64Array"
- *
- * @param	argin	
- * @return	
- *
- */
-//+------------------------------------------------------------------
-Tango::DevVarLong64Array *TangoTest::dev_var_long64_array(const Tango::DevVarLong64Array *argin)
-{
-	DEBUG_STREAM << "TangoTest::dev_var_long64_array(): entering... !" << endl;
-
-  // Allocate argout
-  Tango::DevVarLong64Array  *argout = new Tango::DevVarLong64Array();
-  if (argout == 0) 
-  {
-    TangoSys_OMemStream o;
-    o << "Failed to allocate Tango::DevVarLong64Array" << ends;
-    LOG_ERROR((o.str()));
-    Tango::Except::throw_exception((const char *)"Out of memory error",
-                                   o.str(),
-                                   (const char *)"TangoTest::dev_var_long64_array");
-  }
-
-  // Tangotest : just send back input argument
-  argout->length(argin->length());
-  for (unsigned int i = 0; i < argin->length(); i++)
-    (*argout)[i] = (*argin)[i];
-
-  // DO NOT DELETE <argin>
-  // See the TANGO programmer's manual section 7.2.3
-  // for more info about C++ memory management.
-
-  return argout;
-}
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::dev_var_ulong64_array
- *
- *	description:	method to execute "DevVarULong64Array"
- *
- * @param	argin	
- * @return	
- *
- */
-//+------------------------------------------------------------------
-Tango::DevVarULong64Array *TangoTest::dev_var_ulong64_array(const Tango::DevVarULong64Array *argin)
-{
-	DEBUG_STREAM << "TangoTest::dev_var_ulong64_array(): entering... !" << endl;
-  
-  // Allocate argout
-  Tango::DevVarULong64Array  *argout = new Tango::DevVarULong64Array();
-  if (argout == 0) 
-  {
-    TangoSys_OMemStream o;
-    o << "Failed to allocate Tango::DevVarULong64Array" << ends;
-    LOG_ERROR((o.str()));
-    Tango::Except::throw_exception((const char *)"Out of memory error",
-                                   o.str(),
-                                   (const char *)"TangoTest::dev_var_ulong64_array");
-  }
-
-  // Tangotest : just send back input argument
-  argout->length(argin->length());
-  for (unsigned int i = 0; i < argin->length(); i++)
-    (*argout)[i] = (*argin)[i];
-
-  // DO NOT DELETE <argin>
-  // See the TANGO programmer's manual section 7.2.3
-  // for more info about C++ memory management.
-
-  return argout;
-}
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::crash_from_developper_thread
- *
- *	description:	method to execute "CrashFromDevelopperThread"
- *	Crashes the device!
- *
- *
- */
-//+------------------------------------------------------------------
-void TangoTest::crash_from_developper_thread()
-{
-	DEBUG_STREAM << "TangoTest::crash_from_developper_thread(): entering... !" << endl;
-
-	//	Add your own code to control device here
-
-#if defined(ENABLE_CRASH_REPORT)
-  if (data_gen)
-    data_gen->crash();
-#else
-  ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
-               << std::endl;
-#endif
-}
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::crash_from_omni_thread
- *
- *	description:	method to execute "CrashFromOmniThread"
- *	Crashes the device!
- *
- *
- */
-//+------------------------------------------------------------------
-void TangoTest::crash_from_omni_thread()
-{
-	DEBUG_STREAM << "TangoTest::crash_from_omni_thread(): entering... !" << endl;
-
-#if defined(ENABLE_CRASH_REPORT)
-	//	Add your own code to control device here
-  int * invalid_ptr = 0;
-  *invalid_ptr = 0;
-#else
-  ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
-               << std::endl;
-#endif
-}
-
-
-//+------------------------------------------------------------------
-/**
- *	method:	TangoTest::dump_execution_state
- *
- *	description:	method to execute "DumpExecutionState"
- *	Forces mini dump generation
- *
- *
- */
-//+------------------------------------------------------------------
-void TangoTest::dump_execution_state()
-{
-	DEBUG_STREAM << "TangoTest::dump_execution_state(): entering... !" << endl;
-
-	//	Add your own code to control device here
-#if defined(ENABLE_CRASH_REPORT)
-  TangoCrashHandler::dump_current_exec_state();
-#else
-  ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
-               << std::endl;
-#endif
-}
-
 
 }	//	namespace
