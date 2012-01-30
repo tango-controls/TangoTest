@@ -16,6 +16,7 @@
     <description>TangoTest Device</description>
 
     <build>
+      <sourceDirectory>${project.basedir}</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.freehep</groupId>
