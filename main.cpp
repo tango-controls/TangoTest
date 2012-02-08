@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 {
   INSTALL_CRASH_HANDLER;
 
-	Tango::Util *tg;
+	Tango::Util *tg = NULL;
 
 	try
 	{

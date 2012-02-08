@@ -94,8 +94,9 @@ LFLAGS =  $(DEBUG) $(LIB_DIRS)  		\
 endif
 
 ifdef linux
-CXXFLAGS =  $(DEBUG) -D_REENTRANT $(INCLUDE_DIRS)
-LFLAGS =  $(DEBUG) $(LIB_DIRS)  		\
+CXXFLAGS =  $(DEBUG) -Wall -Wextra -D_FORTIFY_SOURCE=2 -O1 -fpie \
+			-fstack-protector -D_REENTRANT $(INCLUDE_DIRS)
+LFLAGS =  $(DEBUG) -Wl,-z,relro -Wl,-z,now -pie $(LIB_DIRS)  		\
 				-ltango			\
 				-llog4tango		\
 				-lomniORB4 		\
