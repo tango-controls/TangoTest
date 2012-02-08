@@ -104,7 +104,7 @@ namespace TangoTest_ns
 // returns : The command output data (packed in the Any object)
 //
 //-----------------------------------------------------------------------------
-CORBA::Any *DumpExecutionStateCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
+CORBA::Any *DumpExecutionStateCmd::execute(Tango::DeviceImpl *device,TANGO_UNUSED(const CORBA::Any &in_any))
 {
 
 	cout2 << "DumpExecutionStateCmd::execute(): arrived" << endl;
@@ -126,7 +126,7 @@ CORBA::Any *DumpExecutionStateCmd::execute(Tango::DeviceImpl *device,const CORBA
 // returns : The command output data (packed in the Any object)
 //
 //-----------------------------------------------------------------------------
-CORBA::Any *CrashFromOmniThreadCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
+CORBA::Any *CrashFromOmniThreadCmd::execute(Tango::DeviceImpl *device,TANGO_UNUSED(const CORBA::Any &in_any))
 {
 
 	cout2 << "CrashFromOmniThreadCmd::execute(): arrived" << endl;
@@ -148,7 +148,7 @@ CORBA::Any *CrashFromOmniThreadCmd::execute(Tango::DeviceImpl *device,const CORB
 // returns : The command output data (packed in the Any object)
 //
 //-----------------------------------------------------------------------------
-CORBA::Any *CrashFromDevelopperThreadCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
+CORBA::Any *CrashFromDevelopperThreadCmd::execute(Tango::DeviceImpl *device,TANGO_UNUSED(const CORBA::Any &in_any))
 {
 
 	cout2 << "CrashFromDevelopperThreadCmd::execute(): arrived" << endl;
@@ -268,7 +268,7 @@ CORBA::Any *DevLong64Cmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in
 // returns : The command output data (packed in the Any object)
 //
 //-----------------------------------------------------------------------------
-CORBA::Any *DevVoidCmd::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
+CORBA::Any *DevVoidCmd::execute(Tango::DeviceImpl *device,TANGO_UNUSED(const CORBA::Any &in_any))
 {
 
 	cout2 << "DevVoidCmd::execute(): arrived" << endl;
@@ -722,7 +722,7 @@ CORBA::Any *DevVarDoubleStringArrayCmd::execute(Tango::DeviceImpl *device,const 
 // returns : The command output data (packed in the Any object)
 //
 //-----------------------------------------------------------------------------
-CORBA::Any *SwitchStatesClass::execute(Tango::DeviceImpl *device,const CORBA::Any &in_any)
+CORBA::Any *SwitchStatesClass::execute(Tango::DeviceImpl *device,TANGO_UNUSED(const CORBA::Any &in_any))
 {
 
 	cout2 << "SwitchStatesClass::execute(): arrived" << endl;
@@ -1365,8 +1365,6 @@ void TangoTestClass::get_class_property()
 	if (Tango::Util::instance()->_UseDb==true)
 		get_db_class()->get_property(cl_prop);
 	Tango::DbDatum	def_prop;
-	int	i = -1;
-
 
 	//	End of Automatic code generation
 	//------------------------------------------------------------------
