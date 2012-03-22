@@ -9,7 +9,7 @@
 
     <groupId>fr.soleil.device</groupId>
     <artifactId>TangoTest-${aol}-${mode}</artifactId>
-    <version>1.4.5</version>
+    <version>1.4.6-SNAPSHOT</version>
 
     <packaging>nar</packaging>
     <name>TangoTest</name> <!-- use for the name of executable -->
