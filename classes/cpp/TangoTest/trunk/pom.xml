@@ -72,9 +72,9 @@
     </dependencies>
 -->
     <scm>
-        <connection>${scm.connection.cvs.tango-cs}:tango/cppserver/TangoTest</connection>
-        <developerConnection>${scm.developerConnection.cvs.tango-cs}:tango/cppserver/TangoTest</developerConnection>
-        <url>${scm.url.cvs.tango-cs}/tango/cppserver/TangoTest</url>
+        <connection>${scm.connection.svn.tango-cs}:tango/cppserver/TangoTest</connection>
+        <developerConnection>${scm.developerConnection.svn.tango-cs}:tango/cppserver/TangoTest</developerConnection>
+        <url>${scm.url.svn.tango-cs}/tango/cppserver/TangoTest</url>
     </scm>
 
     <developers>
