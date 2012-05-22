@@ -1250,8 +1250,6 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	boolean_image_roAttrib	*boolean_image_ro = new boolean_image_roAttrib();
 	Tango::UserDefaultAttrProp	boolean_image_ro_prop;
 	boolean_image_ro_prop.set_label("boolean_image");
-	boolean_image_ro_prop.set_max_value("1");
-	boolean_image_ro_prop.set_min_value("0");
 	boolean_image_ro->set_default_properties(boolean_image_ro_prop);
 	att_list.push_back(boolean_image_ro);
 
