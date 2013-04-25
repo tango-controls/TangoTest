@@ -1,3 +1,4 @@
+/*----- PROTECTED REGION ID(TangoTest::ClassFactory.cpp) ENABLED START -----*/
 static const char *RcsId = "$Header$";
 //+=============================================================================
 //
@@ -66,3 +67,4 @@ void Tango::DServer::class_factory()
 	add_class(TangoTest_ns::TangoTestClass::init("TangoTest"));
 
 }
+/*----- PROTECTED REGION END -----*/	//	TangoTest::ClassFactory.cpp
