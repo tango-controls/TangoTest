@@ -45,8 +45,13 @@ static const char *RcsId = "$Id$";
 #include <TangoTest.h>
 #include <TangoTestClass.h>
 
+#if defined(ENABLE_CRASH_REPORT)
+# include <crashreporting/crash_report.h>
+#endif
+
 static const long kSpecLen = 256;
 static const long kImagLen = 251;
+
 
 /*----- PROTECTED REGION END -----*/	//	TangoTest.cpp
 
