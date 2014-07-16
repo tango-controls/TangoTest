@@ -874,6 +874,37 @@ void TangoTest::init_device()
    data_gen = 0;
    return; 
   }
+
+  Tango::Attribute &att1 = dev_attr->get_attr_by_name("short_image_ro");
+  att1.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att2 = dev_attr->get_attr_by_name("long_image_ro");
+  att2.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att3 = dev_attr->get_attr_by_name("ulong_image_ro");
+  att3.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att4 = dev_attr->get_attr_by_name("long64_image_ro");
+  att4.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att5 = dev_attr->get_attr_by_name("ulong64_image_ro");
+  att5.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att6 = dev_attr->get_attr_by_name("float_image_ro");
+  att6.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att7 = dev_attr->get_attr_by_name("double_image_ro");
+  att7.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att8 = dev_attr->get_attr_by_name("boolean_image_ro");
+  att8.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att9 = dev_attr->get_attr_by_name("uchar_image_ro");
+  att9.set_attr_serial_model(Tango::ATTR_BY_USER);
+
+  Tango::Attribute &att10 = dev_attr->get_attr_by_name("ushort_image_ro");
+  att10.set_attr_serial_model(Tango::ATTR_BY_USER);
+
   data_gen = new DataGenerator(*this, sleep_period);
   data_gen->go();
 
@@ -2358,8 +2389,11 @@ void TangoTest::read_boolean_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_boolean_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_boolean_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_boolean_image_ro_read, kImagLen, kImagLen);
-
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_boolean_image_ro
 }
 //--------------------------------------------------------
@@ -2428,8 +2462,11 @@ void TangoTest::read_double_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_double_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_double_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_double_image_ro_read, kImagLen, kImagLen);
-
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_double_image_ro
 }
 //--------------------------------------------------------
@@ -2498,7 +2535,11 @@ void TangoTest::read_float_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_float_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_float_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_float_image_ro_read, kImagLen, kImagLen);
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_float_image_ro
 }
@@ -2515,7 +2556,11 @@ void TangoTest::read_long64_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_long64_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_long64_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_long64_image_ro_read, kImagLen, kImagLen);
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_long64_image_ro
 }
@@ -2585,8 +2630,11 @@ void TangoTest::read_long_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_long_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_long_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_long_image_ro_read, kImagLen, kImagLen);
-
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_long_image_ro
 }
 //--------------------------------------------------------
@@ -2655,8 +2703,11 @@ void TangoTest::read_short_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_short_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_short_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_short_image_ro_read, kImagLen, kImagLen);
-
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_short_image_ro
 }
 //--------------------------------------------------------
@@ -2804,8 +2855,11 @@ void TangoTest::read_uchar_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_uchar_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_uchar_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_uchar_image_ro_read, kImagLen, kImagLen);
-
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_uchar_image_ro
 }
 //--------------------------------------------------------
@@ -2821,8 +2875,11 @@ void TangoTest::read_ulong64_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_ulong64_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_ulong64_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_ulong64_image_ro_read, kImagLen, kImagLen);
-
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_ulong64_image_ro
 }
 //--------------------------------------------------------
@@ -2838,8 +2895,11 @@ void TangoTest::read_ulong_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_ulong_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_ulong_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_ulong_image_ro_read, kImagLen, kImagLen);
-
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_ulong_image_ro
 }
 //--------------------------------------------------------
@@ -2908,8 +2968,11 @@ void TangoTest::read_ushort_image_ro(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_ushort_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_ushort_image_ro) ENABLED START -----*/
+	if (mthreaded_impl != 0)
+		lock.lock();
 	attr.set_value(attr_ushort_image_ro_read, uShort_image_ro_size, uShort_image_ro_size);
-
+	if (mthreaded_impl != 0)
+		attr.set_user_attr_mutex(&lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_ushort_image_ro
 }
 
