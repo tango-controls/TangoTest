@@ -3883,7 +3883,7 @@ void TangoTest::add_dynamic_commands()
 //=============================================================================
 template<typename T> inline T randomize (T max)
 {
-  if (max > 0) 
+  if (max > 1) 
   {
     int r = ::rand();
 	  r = r < 0 ? -r : r;
