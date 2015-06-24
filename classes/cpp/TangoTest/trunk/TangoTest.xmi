@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
-  <classes name="TangoTest" pogoRevision="8.1">
-    <description description="A device to test generic clients. It offers a \&quot;echo\&quot; like command for&#xA;each TANGO data type (i.e. each command returns an exact copy of &lt;argin>)." title="TANGO Device Server for testing generic clients" sourcePath="/mntdirect/_segfs/tango/tools/pogo/test/cpp/TangoTest" language="Cpp" filestogenerate="XMI   file,Code files" license="GPL" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
+  <classes name="TangoTest" pogoRevision="9.1">
+    <description description="A device to test generic clients. It offers a \&quot;echo\&quot; like command for&#xA;each TANGO data type (i.e. each command returns an exact copy of &lt;argin>)." title="TANGO Device Server for testing generic clients" sourcePath="/home/taurel/tango/TangoTest" language="Cpp" filestogenerate="XMI   file,Code files,Protected Regions" license="GPL" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="Device_4Impl" sourcePath="/segfs/tango/templates/AbstractClasses"/>
       <identification contact="at esrf.fr - tango" author="tango" emailDomain="esrf.fr" classFamily="Miscellaneous" siteSpecific="" platform="All Platforms" bus="Not Applicable" manufacturer="Tango Team" reference="TangoTest"/>
     </description>
@@ -702,12 +702,13 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="An unsigned short image attribute" label="ushort_image_ro" unit="" standardUnit="" displayUnit="" format="" maxValue="255" minValue="0" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
+    <pipes name="string_long_short_ro" description="Pipe example" label="" rwType="READ" displayLevel="OPERATOR"/>
     <states name="FAULT" description="This state disables all commands">
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
     </states>
     <states name="RUNNING" description="This state allows all the commands to be sent">
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
     </states>
-    <preferences docHome="./doc_html" makefileHome="$(TANGO_HOME)"/>
+    <preferences docHome="./doc_html" makefileHome="/segfs/tango/cppserver/env"/>
   </classes>
 </pogoDsl:PogoSystem>
