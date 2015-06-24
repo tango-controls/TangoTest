@@ -106,7 +106,7 @@ class double_scalar_rwwAttrib: public Tango::Attr
 {
 public:
 	double_scalar_rwwAttrib():Attr("double_scalar_rww",
-			Tango::DEV_DOUBLE, Tango::READ_WITH_WRITE,"double_scalar_w") {};
+			Tango::DEV_DOUBLE, Tango::READ_WITH_WRITE, "double_scalar_w") {};
 	~double_scalar_rwwAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<TangoTest *>(dev))->read_double_scalar_rww(att);}
@@ -179,7 +179,7 @@ class long_scalar_rwwAttrib: public Tango::Attr
 {
 public:
 	long_scalar_rwwAttrib():Attr("long_scalar_rww",
-			Tango::DEV_LONG, Tango::READ_WITH_WRITE,"long_scalar_w") {};
+			Tango::DEV_LONG, Tango::READ_WITH_WRITE, "long_scalar_w") {};
 	~long_scalar_rwwAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<TangoTest *>(dev))->read_long_scalar_rww(att);}
@@ -248,7 +248,7 @@ class short_scalar_rwwAttrib: public Tango::Attr
 {
 public:
 	short_scalar_rwwAttrib():Attr("short_scalar_rww",
-			Tango::DEV_SHORT, Tango::READ_WITH_WRITE,"short_scalar_w") {};
+			Tango::DEV_SHORT, Tango::READ_WITH_WRITE, "short_scalar_w") {};
 	~short_scalar_rwwAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<TangoTest *>(dev))->read_short_scalar_rww(att);}
@@ -896,6 +896,25 @@ public:
 		{(static_cast<TangoTest *>(dev))->read_ushort_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<TangoTest *>(dev))->is_ushort_image_ro_allowed(ty);}
+};
+
+
+//=========================================
+//	Define classes for pipes
+//=========================================
+//	Pipe string_long_short_ro class definition
+class string_long_short_roClass: public Tango::Pipe
+{
+public:
+	string_long_short_roClass(const string &name, Tango::DispLevel level)
+		:Pipe(name, level) {};
+
+	~string_long_short_roClass() {};
+
+	virtual bool is_allowed (Tango::DeviceImpl *dev,Tango::PipeReqType _prt)
+		{return (static_cast<TangoTest *>(dev))->is_string_long_short_ro_allowed(_prt);}
+	virtual void read(Tango::DeviceImpl *dev)
+		{(static_cast<TangoTest *>(dev))->read_string_long_short_ro(*this);}
 };
 
 
@@ -1558,6 +1577,7 @@ class TangoTestClass : public Tango::DeviceClass
 		static TangoTestClass *_instance;
 		void command_factory();
 		void attribute_factory(vector<Tango::Attr *> &);
+		void pipe_factory();
 		void write_class_property();
 		void set_default_property();
 		void get_class_property();

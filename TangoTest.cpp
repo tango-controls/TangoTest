@@ -250,7 +250,7 @@ private:
  */
 //--------------------------------------------------------
 TangoTest::TangoTest(Tango::DeviceClass *cl, string &s)
- : Tango::Device_4Impl(cl, s.c_str())
+ : TANGO_BASE_CLASS(cl, s.c_str())
 {
 	/*----- PROTECTED REGION ID(TangoTest::constructor_1) ENABLED START -----*/
 	init_device();
@@ -259,7 +259,7 @@ TangoTest::TangoTest(Tango::DeviceClass *cl, string &s)
 }
 //--------------------------------------------------------
 TangoTest::TangoTest(Tango::DeviceClass *cl, const char *s)
- : Tango::Device_4Impl(cl, s)
+ : TANGO_BASE_CLASS(cl, s)
 {
 	/*----- PROTECTED REGION ID(TangoTest::constructor_2) ENABLED START -----*/
 	init_device();
@@ -268,7 +268,7 @@ TangoTest::TangoTest(Tango::DeviceClass *cl, const char *s)
 }
 //--------------------------------------------------------
 TangoTest::TangoTest(Tango::DeviceClass *cl, const char *s, const char *d)
- : Tango::Device_4Impl(cl, s, d)
+ : TANGO_BASE_CLASS(cl, s, d)
 {
 	/*----- PROTECTED REGION ID(TangoTest::constructor_3) ENABLED START -----*/
 	init_device();
@@ -620,7 +620,6 @@ void TangoTest::init_device()
 	//	Get the device properties from database
 	get_device_property();
 	
-
 	/*----- PROTECTED REGION ID(TangoTest::init_device) ENABLED START -----*/
 	
 	//	Initialize device
@@ -908,6 +907,11 @@ void TangoTest::init_device()
   data_gen = new DataGenerator(*this, sleep_period);
   data_gen->go();
 
+// pipe
+  pi_str = "The string";
+  pi_long = 666;
+  pi_short = (Tango::DevShort)12;
+
   set_state(Tango::RUNNING);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::init_device
@@ -1003,7 +1007,7 @@ void TangoTest::get_device_property()
 //--------------------------------------------------------
 void TangoTest::always_executed_hook()
 {
-	INFO_STREAM << "TangoTest::always_executed_hook()  " << device_name << endl;
+	DEBUG_STREAM << "TangoTest::always_executed_hook()  " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::always_executed_hook) ENABLED START -----*/
 	
 	//	code always executed before all requests
@@ -1031,6 +1035,21 @@ void TangoTest::read_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
   }
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_attr_hardware
+}
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::write_attr_hardware()
+ *	Description : Hardware writing for attributes
+ */
+//--------------------------------------------------------
+void TangoTest::write_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
+{
+	DEBUG_STREAM << "TangoTest::write_attr_hardware(vector<long> &attr_list) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoTest::write_attr_hardware) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_attr_hardware
 }
 
 //--------------------------------------------------------
@@ -2994,11 +3013,30 @@ void TangoTest::add_dynamic_attributes()
 
 //--------------------------------------------------------
 /**
+ *	Read pipe string_long_short_ro related method
+ *	Description: Pipe example
+ */
+//--------------------------------------------------------
+void TangoTest::read_string_long_short_ro(Tango::Pipe &pipe)
+{
+	DEBUG_STREAM << "TangoTest::read_string_long_short_ro(Tango::Pipe &pipe) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoTest::read_string_long_short_ro) ENABLED START -----*/
+	
+    vector<string> de_names;
+    de_names.push_back("FirstDE");
+    de_names.push_back("SecondDE");
+    de_names.push_back("ThirdDE");
+    pipe.set_data_elt_names(de_names);
+
+    pipe << pi_str << pi_long << pi_short;
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_string_long_short_ro
+}
+//--------------------------------------------------------
+/**
  *	Command CrashFromDevelopperThread related method
  *	Description: Crashes the device!
  *
- *	@param argin 
- *	@returns 
  */
 //--------------------------------------------------------
 void TangoTest::crash_from_developper_thread()
@@ -3024,8 +3062,6 @@ void TangoTest::crash_from_developper_thread()
  *	Command CrashFromOmniThread related method
  *	Description: Crashes the device!
  *
- *	@param argin 
- *	@returns 
  */
 //--------------------------------------------------------
 void TangoTest::crash_from_omni_thread()
@@ -3763,8 +3799,6 @@ Tango::DevVarUShortArray *TangoTest::dev_var_ushort_array(const Tango::DevVarUSh
  *	Command DevVoid related method
  *	Description: A DevVoid comand example
  *
- *	@param argin N/A
- *	@returns N/A
  */
 //--------------------------------------------------------
 void TangoTest::dev_void()
@@ -3782,8 +3816,6 @@ void TangoTest::dev_void()
  *	Command DumpExecutionState related method
  *	Description: Forces mini dump generation
  *
- *	@param argin 
- *	@returns 
  */
 //--------------------------------------------------------
 void TangoTest::dump_execution_state()
@@ -3808,8 +3840,6 @@ void TangoTest::dump_execution_state()
  *	Command SwitchStates related method
  *	Description: This command changes the device state from RUNNING to FAULT or from FAULT to RUNNING
  *
- *	@param argin 
- *	@returns 
  */
 //--------------------------------------------------------
 void TangoTest::switch_states()
@@ -3828,6 +3858,21 @@ void TangoTest::switch_states()
 	}
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::switch_states
+}
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::add_dynamic_commands()
+ *	Description : Create the dynamic commands if any
+ *                for specified device.
+ */
+//--------------------------------------------------------
+void TangoTest::add_dynamic_commands()
+{
+	/*----- PROTECTED REGION ID(TangoTest::add_dynamic_commands) ENABLED START -----*/
+	
+	//	Add your own code to create and add dynamic commands if any
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::add_dynamic_commands
 }
 
 /*----- PROTECTED REGION ID(TangoTest::namespace_ending) ENABLED START -----*/

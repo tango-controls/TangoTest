@@ -133,8 +133,8 @@ TangoTestClass *TangoTestClass::init(const char *name)
 		catch (bad_alloc &)
 		{
 			throw;
-		}		
-	}		
+		}
+	}
 	return _instance;
 }
 
@@ -911,7 +911,7 @@ void TangoTestClass::write_class_property()
 	//  Put inheritance
 	Tango::DbDatum	inher_datum("InheritedFrom");
 	vector<string> inheritance;
-	inheritance.push_back("Tango::Device_4Impl");
+	inheritance.push_back("TANGO_BASE_CLASS");
 	inher_datum << inheritance;
 	data.push_back(inher_datum);
 
@@ -942,7 +942,7 @@ void TangoTestClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
 	{
 		cout4 << "Device name : " << (*devlist_ptr)[i].in() << endl;
-		device_list.push_back(new TangoTest(this, (*devlist_ptr)[i]));							 
+		device_list.push_back(new TangoTest(this, (*devlist_ptr)[i]));
 	}
 
 	//	Manage dynamic attributes if any
@@ -2422,6 +2422,7 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(ushort_image_ro);
 
+
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
 	/*----- PROTECTED REGION ID(TangoTestClass::attribute_factory_after) ENABLED START -----*/
@@ -2429,6 +2430,33 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Add your own code
 	
 	/*----- PROTECTED REGION END -----*/	//	TangoTestClass::attribute_factory_after
+}
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTestClass::pipe_factory()
+ *	Description : Create the pipe object(s)
+ *                and store them in the pipe list
+ */
+//--------------------------------------------------------
+void TangoTestClass::pipe_factory()
+{
+	/*----- PROTECTED REGION ID(TangoTestClass::pipe_factory_before) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTestClass::pipe_factory_before
+	Tango::UserDefaultPipeProp udpp;
+	string_long_short_roClass	*pstring_long_short_ro = new string_long_short_roClass("string_long_short_ro",Tango::OPERATOR);
+	udpp.set_description("Pipe example");
+	udpp.set_label("");
+	pstring_long_short_ro->set_default_properties(udpp);
+	pipe_list.push_back(pstring_long_short_ro);
+
+	/*----- PROTECTED REGION ID(TangoTestClass::pipe_factory_after) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTestClass::pipe_factory_after
 }
 //--------------------------------------------------------
 /**
@@ -2705,7 +2733,7 @@ void TangoTestClass::command_factory()
  * method : 		TangoTestClass::create_static_attribute_list
  * description : 	Create the a list of static attributes
  *
- * @param	att_list	the ceated attribute list 
+ * @param	att_list	the ceated attribute list
  */
 //--------------------------------------------------------
 void TangoTestClass::create_static_attribute_list(vector<Tango::Attr *> &att_list)
@@ -2739,10 +2767,10 @@ void TangoTestClass::erase_dynamic_attributes(const Tango::DevVarStringArray *de
 	Tango::Util *tg = Tango::Util::instance();
 
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
-	{	
+	{
 		Tango::DeviceImpl *dev_impl = tg->get_device_by_name(((string)(*devlist_ptr)[i]).c_str());
 		TangoTest *dev = static_cast<TangoTest *> (dev_impl);
-		
+
 		vector<Tango::Attribute *> &dev_att_list = dev->get_device_attr()->get_attribute_list();
 		vector<Tango::Attribute *>::iterator ite_att;
 		for (ite_att=dev_att_list.begin() ; ite_att != dev_att_list.end() ; ++ite_att)
@@ -2774,7 +2802,7 @@ void TangoTestClass::erase_dynamic_attributes(const Tango::DevVarStringArray *de
 Tango::Attr *TangoTestClass::get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname)
 {
 	vector<Tango::Attr *>::iterator it;
-	for (it=att_list.begin() ; it<att_list.end() ; it++)
+	for (it=att_list.begin() ; it<att_list.end() ; ++it)
 		if ((*it)->get_name()==attname)
 			return (*it);
 	//	Attr does not exist

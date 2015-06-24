@@ -1133,6 +1133,24 @@ bool TangoTest::is_ushort_image_ro_allowed(TANGO_UNUSED(Tango::AttReqType type))
 }
 
 //=================================================
+//		pipe Allowed Methods
+//=================================================
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_string_long_short_ro_allowed()
+ *	Description : Execution allowed for string_long_short_ro pipe
+ */
+//--------------------------------------------------------
+bool TangoTest::is_string_long_short_ro_allowed(TANGO_UNUSED(Tango::PipeReqType type))
+{
+	//	Not any excluded states for string_long_short_ro pipe in read access.
+	/*----- PROTECTED REGION ID(TangoTest::string_long_short_roStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::string_long_short_roStateAllowed_READ
+    return true;
+}
+
+//=================================================
 //		Commands Allowed Methods
 //=================================================
 
