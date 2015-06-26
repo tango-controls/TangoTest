@@ -13,20 +13,20 @@ static const char *RcsId = "$Id$";
 // project :     TANGO Device Server for testing generic clients
 //
 // This file is part of Tango device class.
-// 
+//
 // Tango is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // Tango is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-// 
+//
 // $Author$
 //
 // $Revision$
@@ -170,40 +170,40 @@ namespace TangoTest_ns
 //	static initializations
 
 //=============================================================================
-// Class: DataGenerator (thread)  
+// Class: DataGenerator (thread)
 //=============================================================================
 class DataGenerator : public omni_thread, public Tango::LogAdapter
-{ 
+{
 public:
   DataGenerator (TangoTest& dev, long sleep_time)
-    : omni_thread(), 
-      Tango::LogAdapter(&dev), 
-      go_on_(1), 
-      dev_(dev), 
+    : omni_thread(),
+      Tango::LogAdapter(&dev),
+      go_on_(1),
+      dev_(dev),
       sleep_time_(sleep_time),
       generate_crash_ (false)
   {
     // noop ctor
   }
 
-  void go (void) 
+  void go (void)
   {
     DEBUG_STREAM << "DataGenerator::go" << endl;
     start_undetached();
-  }  
+  }
 
-  void crash (void) 
+  void crash (void)
   {
     WARN_STREAM << "DataGenerator::crash" << endl;
     generate_crash_ = true;
-  }  
+  }
 
-  virtual void* run_undetached (void *) 
+  virtual void* run_undetached (void *)
   {
     static int * __invalid_ptr__ = 0;
 
     DEBUG_STREAM << "DataGenerator::run_undetached" << endl;
-    do 
+    do
     {
       if (generate_crash_)
         *__invalid_ptr__ = 0;
@@ -217,14 +217,14 @@ public:
       sleep(0, sleep_time_ * 1000000);
     }
     while (go_on_);
-    return 0; 
+    return 0;
   }
 
-  void abort (void) 
+  void abort (void)
   {
     DEBUG_STREAM << "DataGenerator::abort" << endl;
     go_on_ = 0;
-  }  
+  }
 
 protected:
   virtual ~DataGenerator (void)
@@ -232,10 +232,10 @@ protected:
     // noop dtor
   }
 
-private:  
+private:
   int go_on_;
   TangoTest& dev_;
-  long sleep_time_;  
+  long sleep_time_;
   bool generate_crash_;
 }
 ;
@@ -254,7 +254,7 @@ TangoTest::TangoTest(Tango::DeviceClass *cl, string &s)
 {
 	/*----- PROTECTED REGION ID(TangoTest::constructor_1) ENABLED START -----*/
 	init_device();
-	
+
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::constructor_1
 }
 //--------------------------------------------------------
@@ -263,7 +263,7 @@ TangoTest::TangoTest(Tango::DeviceClass *cl, const char *s)
 {
 	/*----- PROTECTED REGION ID(TangoTest::constructor_2) ENABLED START -----*/
 	init_device();
-	
+
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::constructor_2
 }
 //--------------------------------------------------------
@@ -272,7 +272,7 @@ TangoTest::TangoTest(Tango::DeviceClass *cl, const char *s, const char *d)
 {
 	/*----- PROTECTED REGION ID(TangoTest::constructor_3) ENABLED START -----*/
 	init_device();
-	
+
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::constructor_3
 }
 
@@ -286,7 +286,7 @@ void TangoTest::delete_device()
 {
 	DEBUG_STREAM << "TangoTest::delete_device() " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::delete_device) ENABLED START -----*/
-	
+
 	//	Delete device allocated objects
 	omni_mutex_lock guard(lock);
 
@@ -306,7 +306,7 @@ void TangoTest::delete_device()
     attr_short_scalar_read = 0;
   }
 
-  
+
   if (attr_short_scalar_rww_read) {
 	  delete attr_short_scalar_rww_read;
     attr_short_scalar_rww_read = 0;
@@ -355,7 +355,7 @@ void TangoTest::delete_device()
 	  delete[] attr_string_scalar_read;
     attr_string_scalar_read = 0;
   }
-    
+
   if (attr_boolean_scalar_read) {
     delete attr_boolean_scalar_read;
     attr_boolean_scalar_read = 0;
@@ -370,7 +370,7 @@ void TangoTest::delete_device()
     delete attr_uchar_scalar_read;
     attr_uchar_scalar_read = 0;
   }
- 
+
   if (attr_ushort_scalar_read) {
     delete attr_ushort_scalar_read;
     attr_ushort_scalar_read = 0;
@@ -436,7 +436,7 @@ void TangoTest::delete_device()
     delete[] attr_uchar_spectrum_read;
     attr_uchar_spectrum_read = 0;
   }
- 
+
   if (attr_uchar_spectrum_ro_read) {
     delete[] attr_uchar_spectrum_ro_read;
     attr_uchar_spectrum_ro_read = 0;
@@ -598,7 +598,7 @@ void TangoTest::init_device()
 {
 	DEBUG_STREAM << "TangoTest::init_device() create device " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::init_device_before) ENABLED START -----*/
-	
+
 	//	Initialization before get_device_property() call
 	LOG_INFO(("TangoTest::init_device::init device %s", device_name.c_str()));
 
@@ -615,13 +615,13 @@ void TangoTest::init_device()
 
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::init_device_before
-	
+
 
 	//	Get the device properties from database
 	get_device_property();
-	
+
 	/*----- PROTECTED REGION ID(TangoTest::init_device) ENABLED START -----*/
-	
+
 	//	Initialize device
   // Allocate/initialize read part for each readable attribute
   // Initialize write part for each writable attribute
@@ -632,32 +632,32 @@ void TangoTest::init_device()
 
 	attr_short_scalar_read = new Tango::DevShort;
 	*attr_short_scalar_read = 0;
-  	attr_short_scalar_write = 256; 
-  
+  	attr_short_scalar_write = 256;
+
   	attr_short_scalar_w_write = 256;
   	attr_short_scalar_rww_read = new Tango::DevShort;
   	*attr_short_scalar_rww_read = 0;
 
 	attr_long_scalar_read = new Tango::DevLong;
-	*attr_long_scalar_read = 0; 
-  	attr_long_scalar_write = 256; 
+	*attr_long_scalar_read = 0;
+  	attr_long_scalar_write = 256;
 
 	attr_ulong_scalar_read = new Tango::DevULong;
-	*attr_ulong_scalar_read = 0; 
-	attr_ulong_scalar_write = 256; 
-	  
+	*attr_ulong_scalar_read = 0;
+	attr_ulong_scalar_write = 256;
+
 	attr_long64_scalar_read = new Tango::DevLong64;
-	*attr_long64_scalar_read = 0; 
-	attr_long64_scalar_write = 256; 
-	  
+	*attr_long64_scalar_read = 0;
+	attr_long64_scalar_write = 256;
+
 	attr_ulong64_scalar_read = new Tango::DevULong64;
-	*attr_ulong64_scalar_read = 0; 
-	attr_ulong64_scalar_write = 256; 
-	  
+	*attr_ulong64_scalar_read = 0;
+	attr_ulong64_scalar_write = 256;
+
 	attr_long_scalar_w_write = 256;
 	attr_long_scalar_rww_read = new Tango::DevLong;
 	*attr_long_scalar_rww_read = 0;
-  
+
 	attr_double_scalar_read = new Tango::DevDouble;
 	*attr_double_scalar_read = 0;
  	attr_double_scalar_write = 256;
@@ -701,13 +701,13 @@ void TangoTest::init_device()
 
   attr_ulong_spectrum_ro_read = new Tango::DevULong[kSpecLen];
   ::memset(attr_ulong_spectrum_ro_read, 0, kSpecLen * sizeof(Tango::DevULong));
-  
+
   attr_long64_spectrum_ro_read = new Tango::DevLong64[kSpecLen];
   ::memset(attr_long64_spectrum_ro_read, 0, kSpecLen * sizeof(Tango::DevLong64));
 
   attr_ulong64_spectrum_ro_read = new Tango::DevULong64[kSpecLen];
   ::memset(attr_ulong64_spectrum_ro_read, 0, kSpecLen * sizeof(Tango::DevULong64));
-  
+
 	attr_long_spectrum_read = new Tango::DevLong[kSpecLen];
 	::memset(attr_long_spectrum_read, 0, kSpecLen * sizeof(Tango::DevLong));
 
@@ -722,7 +722,7 @@ void TangoTest::init_device()
   dimDoubleSpectrum = kSpecLen;
 
   attr_string_spectrum_ro_read = new Tango::DevString[kSpecLen];
-  
+
   int s;
   for (s = 0; s < kSpecLen; s++)
   {
@@ -785,7 +785,7 @@ void TangoTest::init_device()
 
 	attr_long_image_read = new Tango::DevLong[kImagLen * kImagLen];
 	::memset(attr_long_image_read, 0, kImagLen * kImagLen * sizeof(Tango::DevLong));
-  
+
   dimXLongImage = kImagLen;
   dimYLongImage = kImagLen;
 
@@ -800,7 +800,7 @@ void TangoTest::init_device()
 
   dimXUcharImage = kImagLen;
   dimYUcharImage = kImagLen;
-	
+
 	attr_ushort_image_read = new Tango::DevUShort[kImagLen * kImagLen];
 	::memset(attr_ushort_image_read, 0, kImagLen * kImagLen * sizeof(Tango::DevUShort));
 
@@ -827,19 +827,19 @@ void TangoTest::init_device()
 
   attr_ulong_image_ro_read = new Tango::DevULong[kImagLen * kImagLen];
   ::memset(attr_ulong_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevULong));
-  
+
   attr_long64_image_ro_read = new Tango::DevLong64[kImagLen * kImagLen];
   ::memset(attr_long64_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevLong64));
 
   attr_ulong64_image_ro_read = new Tango::DevULong64[kImagLen * kImagLen];
   ::memset(attr_ulong64_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevULong64));
-  
+
 	attr_double_image_ro_read = new Tango::DevDouble[kImagLen * kImagLen];
 	::memset(attr_double_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevDouble));
 
 	attr_uchar_image_ro_read = new Tango::DevUChar[kImagLen * kImagLen];
 	::memset(attr_uchar_image_ro_read, 0, kImagLen * kImagLen * sizeof(Tango::DevUChar));
-	
+
 	attr_ushort_image_ro_read = new Tango::DevUShort[uShort_image_ro_size * uShort_image_ro_size];
 	::memset(attr_ushort_image_ro_read, 0, uShort_image_ro_size * uShort_image_ro_size * sizeof(Tango::DevUShort));
 
@@ -871,7 +871,7 @@ void TangoTest::init_device()
   // Multithreaded implementation stuffs
   if (mthreaded_impl == 0) {
    data_gen = 0;
-   return; 
+   return;
   }
 
   Tango::Attribute &att1 = dev_attr->get_attr_by_name("short_image_ro");
@@ -926,7 +926,7 @@ void TangoTest::init_device()
 void TangoTest::get_device_property()
 {
 	/*----- PROTECTED REGION ID(TangoTest::get_device_property_before) ENABLED START -----*/
-	
+
 	//	Initialize property data members
 	mthreaded_impl = 1;
 	sleep_period = 2000;
@@ -947,7 +947,7 @@ void TangoTest::get_device_property()
 		//	Call database and extract values
 		if (Tango::Util::instance()->_UseDb==true)
 			get_db_device()->get_property(dev_prop);
-	
+
 		//	get instance on TangoTestClass to get class property
 		Tango::DbDatum	def_prop, cl_prop;
 		TangoTestClass	*ds_class =
@@ -990,7 +990,7 @@ void TangoTest::get_device_property()
 	}
 
 	/*----- PROTECTED REGION ID(TangoTest::get_device_property_after) ENABLED START -----*/
-	
+
 	//	Check device property data members init
 	DEBUG_STREAM << "sleep_period=" << sleep_period << endl;
 	DEBUG_STREAM << "mthreaded_impl=" << mthreaded_impl << endl;
@@ -1009,9 +1009,9 @@ void TangoTest::always_executed_hook()
 {
 	DEBUG_STREAM << "TangoTest::always_executed_hook()  " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::always_executed_hook) ENABLED START -----*/
-	
+
 	//	code always executed before all requests
-	
+
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::always_executed_hook
 }
 
@@ -1025,12 +1025,12 @@ void TangoTest::read_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
 {
 	DEBUG_STREAM << "TangoTest::read_attr_hardware(vector<long> &attr_list) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_attr_hardware) ENABLED START -----*/
-	
+
 	//	Add your own code
 	LOG_DEBUG(("In read_attr_hardware for %d attributes",attr_list.size()));
 
   // Generate data for all attributes
-  if (mthreaded_impl == 0) { 
+  if (mthreaded_impl == 0) {
  	  gen_data();
   }
 
@@ -1046,16 +1046,16 @@ void TangoTest::write_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
 {
 	DEBUG_STREAM << "TangoTest::write_attr_hardware(vector<long> &attr_list) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::write_attr_hardware) ENABLED START -----*/
-	
+
 	//	Add your own code
-	
+
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_attr_hardware
 }
 
 //--------------------------------------------------------
 /**
  *	Write attribute ampli related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1117,7 +1117,7 @@ void TangoTest::write_boolean_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1134,7 +1134,7 @@ void TangoTest::read_double_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1155,7 +1155,7 @@ void TangoTest::write_double_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_scalar_rww related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1172,7 +1172,7 @@ void TangoTest::read_double_scalar_rww(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_scalar_rww related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1191,7 +1191,7 @@ void TangoTest::write_double_scalar_rww(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_scalar_w related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1250,7 +1250,7 @@ void TangoTest::write_float_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long64_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong64
  *	Attr type:	Scalar
@@ -1267,7 +1267,7 @@ void TangoTest::read_long64_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long64_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong64
  *	Attr type:	Scalar
@@ -1288,7 +1288,7 @@ void TangoTest::write_long64_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1305,7 +1305,7 @@ void TangoTest::read_long_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1326,7 +1326,7 @@ void TangoTest::write_long_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_scalar_rww related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1343,7 +1343,7 @@ void TangoTest::read_long_scalar_rww(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_scalar_rww related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1362,7 +1362,7 @@ void TangoTest::write_long_scalar_rww(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_scalar_w related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1383,7 +1383,7 @@ void TangoTest::write_long_scalar_w(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute no_value related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1399,7 +1399,7 @@ void TangoTest::read_no_value(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1416,7 +1416,7 @@ void TangoTest::read_short_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1437,7 +1437,7 @@ void TangoTest::write_short_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_scalar_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1454,7 +1454,7 @@ void TangoTest::read_short_scalar_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_scalar_rww related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1471,7 +1471,7 @@ void TangoTest::read_short_scalar_rww(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_scalar_rww related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1490,7 +1490,7 @@ void TangoTest::write_short_scalar_rww(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_scalar_w related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1511,7 +1511,7 @@ void TangoTest::write_short_scalar_w(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Scalar
@@ -1528,7 +1528,7 @@ void TangoTest::read_string_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute string_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Scalar
@@ -1543,12 +1543,12 @@ void TangoTest::write_string_scalar(Tango::WAttribute &attr)
 	/*----- PROTECTED REGION ID(TangoTest::write_string_scalar) ENABLED START -----*/
   	DEBUG_STREAM << "w_val = " << w_val << endl;
 	attr_string_scalar_write = w_val;
-  	if (*attr_string_scalar_read) 
+  	if (*attr_string_scalar_read)
   	{
    	 	delete[] *attr_string_scalar_read;
     	size_t len = ::strlen(w_val) + 1;
     	*attr_string_scalar_read = new char[len];
-    	if (*attr_string_scalar_read) 
+    	if (*attr_string_scalar_read)
     	{
       		::memset(*attr_string_scalar_read, 0, len * sizeof(char));
       		::strcpy(*attr_string_scalar_read, w_val);
@@ -1560,7 +1560,7 @@ void TangoTest::write_string_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute throw_exception related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1578,7 +1578,7 @@ void TangoTest::read_throw_exception(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute uchar_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Scalar
@@ -1595,7 +1595,7 @@ void TangoTest::read_uchar_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute uchar_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Scalar
@@ -1616,7 +1616,7 @@ void TangoTest::write_uchar_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong64_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevULong64
  *	Attr type:	Scalar
@@ -1633,7 +1633,7 @@ void TangoTest::read_ulong64_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ulong64_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevULong64
  *	Attr type:	Scalar
@@ -1654,7 +1654,7 @@ void TangoTest::write_ulong64_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ushort_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Scalar
@@ -1671,7 +1671,7 @@ void TangoTest::read_ushort_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ushort_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Scalar
@@ -1692,7 +1692,7 @@ void TangoTest::write_ushort_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevULong
  *	Attr type:	Scalar
@@ -1709,7 +1709,7 @@ void TangoTest::read_ulong_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ulong_scalar related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevULong
  *	Attr type:	Scalar
@@ -1730,7 +1730,7 @@ void TangoTest::write_ulong_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute boolean_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Spectrum max = 4096
@@ -1747,7 +1747,7 @@ void TangoTest::read_boolean_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute boolean_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Spectrum max = 4096
@@ -1781,7 +1781,7 @@ void TangoTest::write_boolean_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute boolean_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Spectrum max = 4096
@@ -1798,7 +1798,7 @@ void TangoTest::read_boolean_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 4096
@@ -1815,7 +1815,7 @@ void TangoTest::read_double_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 4096
@@ -1849,7 +1849,7 @@ void TangoTest::write_double_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 4096
@@ -1917,7 +1917,7 @@ void TangoTest::write_float_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute float_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevFloat
  *	Attr type:	Spectrum max = 4096
@@ -1934,7 +1934,7 @@ void TangoTest::read_float_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long64_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong64
  *	Attr type:	Spectrum max = 4096
@@ -1951,7 +1951,7 @@ void TangoTest::read_long64_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Spectrum max = 4096
@@ -1968,7 +1968,7 @@ void TangoTest::read_long_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Spectrum max = 4096
@@ -2001,7 +2001,7 @@ void TangoTest::write_long_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Spectrum max = 4096
@@ -2018,7 +2018,7 @@ void TangoTest::read_long_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Spectrum max = 4096
@@ -2035,7 +2035,7 @@ void TangoTest::read_short_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Spectrum max = 4096
@@ -2053,7 +2053,7 @@ void TangoTest::write_short_spectrum(Tango::WAttribute &attr)
 	/*----- PROTECTED REGION ID(TangoTest::write_short_spectrum) ENABLED START -----*/
 	long len = attr.get_write_value_length();
   DEBUG_STREAM << "Length :" << len << endl;
-  
+
   const short * p;
   attr.get_write_value(p);
 
@@ -2074,7 +2074,7 @@ void TangoTest::write_short_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Spectrum max = 4096
@@ -2091,7 +2091,7 @@ void TangoTest::read_short_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Spectrum max = 256
@@ -2108,7 +2108,7 @@ void TangoTest::read_string_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute string_spectrum related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Spectrum max = 256
@@ -2142,7 +2142,7 @@ void TangoTest::write_string_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Spectrum max = 256
@@ -2209,7 +2209,7 @@ void TangoTest::write_uchar_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute uchar_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Spectrum max = 4096
@@ -2226,7 +2226,7 @@ void TangoTest::read_uchar_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong64_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevULong64
  *	Attr type:	Spectrum max = 4096
@@ -2243,7 +2243,7 @@ void TangoTest::read_ulong64_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevULong
  *	Attr type:	Spectrum max = 4096
@@ -2311,7 +2311,7 @@ void TangoTest::write_ushort_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ushort_spectrum_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Spectrum max = 4096
@@ -2328,7 +2328,7 @@ void TangoTest::read_ushort_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute wave related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 4096
@@ -2345,7 +2345,7 @@ void TangoTest::read_wave(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute boolean_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Image max = 251 x 251
@@ -2362,7 +2362,7 @@ void TangoTest::read_boolean_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute boolean_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Image max = 251 x 251
@@ -2398,7 +2398,7 @@ void TangoTest::write_boolean_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute boolean_image_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Image max = 251 x 251
@@ -2409,16 +2409,16 @@ void TangoTest::read_boolean_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_boolean_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_boolean_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		boolean_image_lock.lock();
 	attr.set_value(attr_boolean_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&boolean_image_lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_boolean_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute double_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Image max = 251 x 251
@@ -2435,7 +2435,7 @@ void TangoTest::read_double_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Image max = 251 x 251
@@ -2471,7 +2471,7 @@ void TangoTest::write_double_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_image_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Image max = 251 x 251
@@ -2482,16 +2482,16 @@ void TangoTest::read_double_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_double_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_double_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		double_image_lock.lock();
 	attr.set_value(attr_double_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&double_image_lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_double_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute float_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevFloat
  *	Attr type:	Image max = 251 x 251
@@ -2508,7 +2508,7 @@ void TangoTest::read_float_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute float_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevFloat
  *	Attr type:	Image max = 251 x 251
@@ -2555,17 +2555,17 @@ void TangoTest::read_float_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_float_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_float_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		float_image_lock.lock();
 	attr.set_value(attr_float_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&float_image_lock);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_float_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute long64_image_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong64
  *	Attr type:	Image max = 251 x 251
@@ -2576,17 +2576,17 @@ void TangoTest::read_long64_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_long64_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_long64_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		long64_image_lock.lock();
 	attr.set_value(attr_long64_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&long64_image_lock);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_long64_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute long_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Image max = 251 x 251
@@ -2603,7 +2603,7 @@ void TangoTest::read_long_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Image max = 251 x 251
@@ -2639,7 +2639,7 @@ void TangoTest::write_long_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_image_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Image max = 251 x 251
@@ -2650,16 +2650,16 @@ void TangoTest::read_long_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_long_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_long_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		long_image_lock.lock();
 	attr.set_value(attr_long_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&long_image_lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_long_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute short_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Image max = 251 x 251
@@ -2676,7 +2676,7 @@ void TangoTest::read_short_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Image max = 251 x 251
@@ -2712,7 +2712,7 @@ void TangoTest::write_short_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_image_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Image max = 251 x 251
@@ -2723,16 +2723,16 @@ void TangoTest::read_short_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_short_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_short_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		short_image_lock.lock();
 	attr.set_value(attr_short_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&short_image_lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_short_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute string_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Image max = 256 x 256
@@ -2749,7 +2749,7 @@ void TangoTest::read_string_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute string_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Image max = 256 x 256
@@ -2794,7 +2794,7 @@ void TangoTest::write_string_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_image_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Image max = 256 x 256
@@ -2811,7 +2811,7 @@ void TangoTest::read_string_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute uchar_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Image max = 251 x 251
@@ -2828,7 +2828,7 @@ void TangoTest::read_uchar_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute uchar_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Image max = 251 x 251
@@ -2875,16 +2875,16 @@ void TangoTest::read_uchar_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_uchar_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_uchar_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		uchar_image_lock.lock();
 	attr.set_value(attr_uchar_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&uchar_image_lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_uchar_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute ulong64_image_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevULong64
  *	Attr type:	Image max = 251 x 251
@@ -2895,16 +2895,16 @@ void TangoTest::read_ulong64_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_ulong64_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_ulong64_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		ulong64_image_lock.lock();
 	attr.set_value(attr_ulong64_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&ulong64_image_lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_ulong64_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute ulong_image_ro related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevULong
  *	Attr type:	Image max = 251 x 251
@@ -2915,16 +2915,16 @@ void TangoTest::read_ulong_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_ulong_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_ulong_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		ulong_image_lock.lock();
 	attr.set_value(attr_ulong_image_ro_read, kImagLen, kImagLen);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&ulong_image_lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_ulong_image_ro
 }
 //--------------------------------------------------------
 /**
  *	Read attribute ushort_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Image max = 251 x 251
@@ -2941,7 +2941,7 @@ void TangoTest::read_ushort_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ushort_image related method
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Image max = 251 x 251
@@ -2988,10 +2988,10 @@ void TangoTest::read_ushort_image_ro(Tango::Attribute &attr)
 	DEBUG_STREAM << "TangoTest::read_ushort_image_ro(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_ushort_image_ro) ENABLED START -----*/
 	if (mthreaded_impl != 0)
-		lock.lock();
+		ushort_image_lock.lock();
 	attr.set_value(attr_ushort_image_ro_read, uShort_image_ro_size, uShort_image_ro_size);
 	if (mthreaded_impl != 0)
-		attr.set_user_attr_mutex(&lock);
+		attr.set_user_attr_mutex(&ushort_image_lock);
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_ushort_image_ro
 }
 
@@ -3005,9 +3005,9 @@ void TangoTest::read_ushort_image_ro(Tango::Attribute &attr)
 void TangoTest::add_dynamic_attributes()
 {
 	/*----- PROTECTED REGION ID(TangoTest::add_dynamic_attributes) ENABLED START -----*/
-	
+
 	//	Add your own code to create and add dynamic attributes if any
-	
+
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::add_dynamic_attributes
 }
 
@@ -3021,7 +3021,7 @@ void TangoTest::read_string_long_short_ro(Tango::Pipe &pipe)
 {
 	DEBUG_STREAM << "TangoTest::read_string_long_short_ro(Tango::Pipe &pipe) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_string_long_short_ro) ENABLED START -----*/
-	
+
     vector<string> de_names;
     de_names.push_back("FirstDE");
     de_names.push_back("SecondDE");
@@ -3029,7 +3029,7 @@ void TangoTest::read_string_long_short_ro(Tango::Pipe &pipe)
     pipe.set_data_elt_names(de_names);
 
     pipe << pi_str << pi_long << pi_short;
-	
+
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_string_long_short_ro
 }
 //--------------------------------------------------------
@@ -3043,15 +3043,15 @@ void TangoTest::crash_from_developper_thread()
 {
 	DEBUG_STREAM << "TangoTest::CrashFromDevelopperThread()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::crash_from_developper_thread) ENABLED START -----*/
-	
+
 	//	Add your own code
 	#if defined(ENABLE_CRASH_REPORT)
   if (data_gen)
     data_gen->crash();
 #else
   ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
+               << "[rebuild this device with ENABLE_CRASH_REPORT defined "
+               << "and link against the breakpad_client library"
                << std::endl;
 #endif
 
@@ -3068,7 +3068,7 @@ void TangoTest::crash_from_omni_thread()
 {
 	DEBUG_STREAM << "TangoTest::CrashFromOmniThread()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::crash_from_omni_thread) ENABLED START -----*/
-	
+
 	//	Add your own code
 	#if defined(ENABLE_CRASH_REPORT)
 	//	Add your own code to control device here
@@ -3076,8 +3076,8 @@ void TangoTest::crash_from_omni_thread()
   *invalid_ptr = 0;
 #else
   ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
+               << "[rebuild this device with ENABLE_CRASH_REPORT defined "
+               << "and link against the breakpad_client library"
                << std::endl;
 #endif
 
@@ -3097,7 +3097,7 @@ Tango::DevBoolean TangoTest::dev_boolean(Tango::DevBoolean argin)
 	Tango::DevBoolean argout;
 	DEBUG_STREAM << "TangoTest::DevBoolean()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_boolean) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Tangotest : just send back input argument
 	return argin;
@@ -3119,7 +3119,7 @@ Tango::DevDouble TangoTest::dev_double(Tango::DevDouble argin)
 	Tango::DevDouble argout;
 	DEBUG_STREAM << "TangoTest::DevDouble()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_double) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Tangotest : just send back input argument
 	return argin;
@@ -3141,7 +3141,7 @@ Tango::DevFloat TangoTest::dev_float(Tango::DevFloat argin)
 	Tango::DevFloat argout;
 	DEBUG_STREAM << "TangoTest::DevFloat()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_float) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Tangotest : just send back input argument
 	return argin;
@@ -3163,7 +3163,7 @@ Tango::DevLong TangoTest::dev_long(Tango::DevLong argin)
 	Tango::DevLong argout;
 	DEBUG_STREAM << "TangoTest::DevLong()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_long) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Tangotest : just send back input argument
 	return argin;
@@ -3185,7 +3185,7 @@ Tango::DevLong64 TangoTest::dev_long64(Tango::DevLong64 argin)
 	Tango::DevLong64 argout;
 	DEBUG_STREAM << "TangoTest::DevLong64()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_long64) ENABLED START -----*/
-	
+
 	//	Add your own code
 	return argin;
 
@@ -3206,7 +3206,7 @@ Tango::DevShort TangoTest::dev_short(Tango::DevShort argin)
 	Tango::DevShort argout;
 	DEBUG_STREAM << "TangoTest::DevShort()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_short) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Tangotest : just send back input argument
 	return argin;
@@ -3228,7 +3228,7 @@ Tango::DevString TangoTest::dev_string(Tango::DevString argin)
 	Tango::DevString argout;
 	DEBUG_STREAM << "TangoTest::DevString()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_string) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
   argout = new char [::strlen(argin) + 1];
@@ -3261,7 +3261,7 @@ Tango::DevULong TangoTest::dev_ulong(Tango::DevULong argin)
 	Tango::DevULong argout;
 	DEBUG_STREAM << "TangoTest::DevULong()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_ulong) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Tangotest : just send back input argument
 	return argin;
@@ -3283,7 +3283,7 @@ Tango::DevULong64 TangoTest::dev_ulong64(Tango::DevULong64 argin)
 	Tango::DevULong64 argout;
 	DEBUG_STREAM << "TangoTest::DevULong64()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_ulong64) ENABLED START -----*/
-	
+
 	//	Add your own code
 	return argin;
 
@@ -3304,7 +3304,7 @@ Tango::DevUShort TangoTest::dev_ushort(Tango::DevUShort argin)
 	Tango::DevUShort argout;
 	DEBUG_STREAM << "TangoTest::DevUShort()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_ushort) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Tangotest : just send back input argument
 	return argin;
@@ -3326,7 +3326,7 @@ Tango::DevVarCharArray *TangoTest::dev_var_char_array(const Tango::DevVarCharArr
 	Tango::DevVarCharArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarCharArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_char_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
 	argout = new Tango::DevVarCharArray();
@@ -3366,7 +3366,7 @@ Tango::DevVarDoubleArray *TangoTest::dev_var_double_array(const Tango::DevVarDou
 	Tango::DevVarDoubleArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarDoubleArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_double_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
 	argout = new Tango::DevVarDoubleArray();
@@ -3406,7 +3406,7 @@ Tango::DevVarDoubleStringArray *TangoTest::dev_var_double_string_array(const Tan
 	Tango::DevVarDoubleStringArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarDoubleStringArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_double_string_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
   argout = new Tango::DevVarDoubleStringArray();
@@ -3447,7 +3447,7 @@ Tango::DevVarFloatArray *TangoTest::dev_var_float_array(const Tango::DevVarFloat
 	Tango::DevVarFloatArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarFloatArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_float_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
 	argout = new Tango::DevVarFloatArray();
@@ -3476,10 +3476,10 @@ Tango::DevVarFloatArray *TangoTest::dev_var_float_array(const Tango::DevVarFloat
 //--------------------------------------------------------
 /**
  *	Command DevVarLong64Array related method
- *	Description: 
+ *	Description:
  *
- *	@param argin 
- *	@returns 
+ *	@param argin
+ *	@returns
  */
 //--------------------------------------------------------
 Tango::DevVarLong64Array *TangoTest::dev_var_long64_array(const Tango::DevVarLong64Array *argin)
@@ -3487,11 +3487,11 @@ Tango::DevVarLong64Array *TangoTest::dev_var_long64_array(const Tango::DevVarLon
 	Tango::DevVarLong64Array *argout;
 	DEBUG_STREAM << "TangoTest::DevVarLong64Array()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_long64_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
   argout = new Tango::DevVarLong64Array();
-  if (argout == 0) 
+  if (argout == 0)
   {
     TangoSys_OMemStream o;
     o << "Failed to allocate Tango::DevVarLong64Array" << ends;
@@ -3527,7 +3527,7 @@ Tango::DevVarLongArray *TangoTest::dev_var_long_array(const Tango::DevVarLongArr
 	Tango::DevVarLongArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarLongArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_long_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
   argout = new Tango::DevVarLongArray();
@@ -3567,7 +3567,7 @@ Tango::DevVarLongStringArray *TangoTest::dev_var_long_string_array(const Tango::
 	Tango::DevVarLongStringArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarLongStringArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_long_string_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
 	argout = new Tango::DevVarLongStringArray();
@@ -3608,7 +3608,7 @@ Tango::DevVarShortArray *TangoTest::dev_var_short_array(const Tango::DevVarShort
 	Tango::DevVarShortArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarShortArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_short_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
   argout = new Tango::DevVarShortArray();
@@ -3648,7 +3648,7 @@ Tango::DevVarStringArray *TangoTest::dev_var_string_array(const Tango::DevVarStr
 	Tango::DevVarStringArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarStringArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_string_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
 	argout = new Tango::DevVarStringArray();
@@ -3677,10 +3677,10 @@ Tango::DevVarStringArray *TangoTest::dev_var_string_array(const Tango::DevVarStr
 //--------------------------------------------------------
 /**
  *	Command DevVarULong64Array related method
- *	Description: 
+ *	Description:
  *
- *	@param argin 
- *	@returns 
+ *	@param argin
+ *	@returns
  */
 //--------------------------------------------------------
 Tango::DevVarULong64Array *TangoTest::dev_var_ulong64_array(const Tango::DevVarULong64Array *argin)
@@ -3688,11 +3688,11 @@ Tango::DevVarULong64Array *TangoTest::dev_var_ulong64_array(const Tango::DevVarU
 	Tango::DevVarULong64Array *argout;
 	DEBUG_STREAM << "TangoTest::DevVarULong64Array()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_ulong64_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
   argout = new Tango::DevVarULong64Array();
-  if (argout == 0) 
+  if (argout == 0)
   {
     TangoSys_OMemStream o;
     o << "Failed to allocate Tango::DevVarULong64Array" << ends;
@@ -3728,7 +3728,7 @@ Tango::DevVarULongArray *TangoTest::dev_var_ulong_array(const Tango::DevVarULong
 	Tango::DevVarULongArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarULongArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_ulong_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
 	argout = new Tango::DevVarULongArray();
@@ -3768,7 +3768,7 @@ Tango::DevVarUShortArray *TangoTest::dev_var_ushort_array(const Tango::DevVarUSh
 	Tango::DevVarUShortArray *argout;
 	DEBUG_STREAM << "TangoTest::DevVarUShortArray()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_var_ushort_array) ENABLED START -----*/
-	
+
 	//	Add your own code
 	// Allocate argout
 	argout = new Tango::DevVarUShortArray();
@@ -3805,7 +3805,7 @@ void TangoTest::dev_void()
 {
 	DEBUG_STREAM << "TangoTest::DevVoid()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dev_void) ENABLED START -----*/
-	
+
 	//	Add your own code
 	//	Add your own code to control device here
 
@@ -3822,14 +3822,14 @@ void TangoTest::dump_execution_state()
 {
 	DEBUG_STREAM << "TangoTest::DumpExecutionState()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::dump_execution_state) ENABLED START -----*/
-	
+
 	//	Add your own code
 	#if defined(ENABLE_CRASH_REPORT)
   TangoCrashHandler::dump_current_exec_state();
 #else
   ERROR_STREAM << "Crash report disabled "
-               << "[rebuild this device with ENABLE_CRASH_REPORT defined " 
-               << "and link against the breakpad_client library" 
+               << "[rebuild this device with ENABLE_CRASH_REPORT defined "
+               << "and link against the breakpad_client library"
                << std::endl;
 #endif
 
@@ -3846,7 +3846,7 @@ void TangoTest::switch_states()
 {
 	DEBUG_STREAM << "TangoTest::SwitchStates()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoTest::switch_states) ENABLED START -----*/
-	
+
 	//	Add your own code
 	if(get_state() == Tango::RUNNING)
 	{
@@ -3869,9 +3869,9 @@ void TangoTest::switch_states()
 void TangoTest::add_dynamic_commands()
 {
 	/*----- PROTECTED REGION ID(TangoTest::add_dynamic_commands) ENABLED START -----*/
-	
+
 	//	Add your own code to create and add dynamic commands if any
-	
+
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::add_dynamic_commands
 }
 
@@ -3883,7 +3883,7 @@ void TangoTest::add_dynamic_commands()
 //=============================================================================
 template<typename T> inline T randomize (T max)
 {
-  if (max > 1) 
+  if (max > 1)
   {
     int r = ::rand();
 	  r = r < 0 ? -r : r;
@@ -3894,9 +3894,10 @@ template<typename T> inline T randomize (T max)
 //=============================================================================
 // Standalone template function: generates a random image
 //=============================================================================
-template<typename T> 
-void generate_full_image (T* buffer, long max_xy, long max_value)
+template<typename T>
+void generate_full_image (T* buffer, long max_xy, long max_value, omni_mutex &lock)
 {
+    lock.lock();
 	// For each pixel, we need to generate a random value between [0, max_value]
 	for(long i=0; i<max_xy; i++)
 	{
@@ -3907,13 +3908,15 @@ void generate_full_image (T* buffer, long max_xy, long max_value)
 			buffer[i * max_xy + j] = (long)(r % (int)max_value);
 		}
 	}
+	lock.unlock();
 }
 //=============================================================================
 // Standalone template function: generates a dummy beam image
 //=============================================================================
 template <typename T>
-void generate_image (T* buffer, long max_xy)
+void generate_image (T* buffer, long max_xy, omni_mutex &lock)
 {
+  lock.lock();
 	long bimg_center_x = ::rand() % (int)(max_xy * 0.05);
   if (::rand() % 2) {
     bimg_center_x *= -1;
@@ -3924,29 +3927,30 @@ void generate_image (T* buffer, long max_xy)
   }
 	long bimg_offset_to_zero = (max_xy - 1) / 2;
 	long bimg_x_offset_to_zero = bimg_offset_to_zero + bimg_center_x;
-	long bimg_y_offset_to_zero = bimg_offset_to_zero + bimg_center_y;  
+	long bimg_y_offset_to_zero = bimg_offset_to_zero + bimg_center_y;
   long limit = max_xy / 8;
   long noise = ::rand() % (int)(limit * 0.2);
   if (::rand() % 2) {
-    noise *= -1; 
+    noise *= -1;
   }
   limit += noise;
   // Reset image content
   ::memset(buffer, 0, max_xy * max_xy * sizeof(T));
-  // Fill image buffer 
+  // Fill image buffer
   long i, j, x, y, value;
   for (i = -limit; i < limit; i++) {
     y = i + bimg_y_offset_to_zero;
     if (y >= 0 && y < max_xy) {
       for (j = -limit; j < limit; j++) {
 	      x = j + bimg_x_offset_to_zero;
-        if (x >= 0 && x < max_xy) { 
+        if (x >= 0 && x < max_xy) {
           value = (long)::sqrt((double)(i * i + j * j));
-          buffer[x * max_xy + y] = (T) ((value < limit) ? limit - value : 0);	 		
-        }	
+          buffer[x * max_xy + y] = (T) ((value < limit) ? limit - value : 0);
+        }
       }
     }
   }
+  lock.unlock();
 }
 
 
@@ -3961,19 +3965,19 @@ void TangoTest::gen_data ()
   static const int boolean_generation_max_value = 2;
   static const int int_generation_max_value = 256;
 
-  *attr_short_scalar_rww_read = 
-			randomize(attr_short_scalar_w_write); 
+  *attr_short_scalar_rww_read =
+			randomize(attr_short_scalar_w_write);
 
   *attr_long_scalar_rww_read =
      	randomize(attr_long_scalar_w_write);
 
-  *attr_double_scalar_rww_read = 
+  *attr_double_scalar_rww_read =
        attr_double_scalar_w_write * ::sin(kpi_deg * (k%360));
 
-  *attr_short_scalar_ro_read =     
+  *attr_short_scalar_ro_read =
      randomize(attr_short_scalar_write);
 
-  *attr_short_scalar_read =     
+  *attr_short_scalar_read =
      randomize(attr_short_scalar_write);
 
  	*attr_long_scalar_read =
@@ -3981,13 +3985,13 @@ void TangoTest::gen_data ()
 
   *attr_ulong_scalar_read =
      randomize(attr_ulong_scalar_write);
-     
+
   *attr_long64_scalar_read =
      randomize(attr_long_scalar_write);
-     
+
   *attr_ulong64_scalar_read =
      randomize(attr_ulong_scalar_write);
-     
+
  	*attr_double_scalar_read =
      attr_double_scalar_write * ::sin(kpi_deg * (k%360));
 
@@ -4010,13 +4014,13 @@ void TangoTest::gen_data ()
 
   for (i = 0; i < kSpecLen; i++)
     attr_ulong_spectrum_ro_read[i] = randomize(int_generation_max_value);
-    
+
   for (i = 0; i < kSpecLen; i++)
     attr_long64_spectrum_ro_read[i] = randomize(int_generation_max_value);
-    
+
   for (i = 0; i < kSpecLen; i++)
     attr_ulong64_spectrum_ro_read[i] = randomize(int_generation_max_value);
-    
+
 	for (i = 0; i < kSpecLen; i++)
 		attr_double_spectrum_ro_read[i] = randomize(int_generation_max_value);
 
@@ -4024,7 +4028,7 @@ void TangoTest::gen_data ()
      attr_wave_read[i] = attr_ampli_write * ::sin(kpi_deg * (i + (k%360)));
 
 	for (i = 0; i < kSpecLen; i++)
-		attr_boolean_spectrum_ro_read[i] = 
+		attr_boolean_spectrum_ro_read[i] =
             randomize(boolean_generation_max_value) ? true : false;
 
 	for (i = 0; i < kSpecLen; i++)
@@ -4036,25 +4040,25 @@ void TangoTest::gen_data ()
 	for (i = 0; i < kSpecLen; i++)
 		attr_float_spectrum_ro_read[i] = (float) randomize(int_generation_max_value);
 
-  generate_image(attr_short_image_ro_read,  kImagLen);
+  generate_image(attr_short_image_ro_read,  kImagLen, short_image_lock);
 
-  generate_image(attr_long_image_ro_read,  kImagLen);
+  generate_image(attr_long_image_ro_read,  kImagLen, long_image_lock);
 
-  generate_image(attr_ulong_image_ro_read,  kImagLen);
-  
-  generate_image(attr_long64_image_ro_read,  kImagLen);
-  
-  generate_image(attr_ulong64_image_ro_read,  kImagLen);
-  
-  generate_image(attr_float_image_ro_read, kImagLen);
+  generate_image(attr_ulong_image_ro_read,  kImagLen, ulong64_image_lock);
 
-  generate_image(attr_double_image_ro_read,  kImagLen);
+  generate_image(attr_long64_image_ro_read,  kImagLen, long64_image_lock);
 
-  generate_full_image(attr_boolean_image_ro_read, kImagLen, boolean_generation_max_value);
+  generate_image(attr_ulong64_image_ro_read,  kImagLen, ulong64_image_lock);
 
-  generate_full_image(attr_uchar_image_ro_read, kImagLen, int_generation_max_value);
+  generate_image(attr_float_image_ro_read, kImagLen, float_image_lock);
 
-  generate_full_image(attr_ushort_image_ro_read, uShort_image_ro_size, int_generation_max_value);
+  generate_image(attr_double_image_ro_read,  kImagLen, double_image_lock);
+
+  generate_full_image(attr_boolean_image_ro_read, kImagLen, boolean_generation_max_value, boolean_image_lock);
+
+  generate_full_image(attr_uchar_image_ro_read, kImagLen, int_generation_max_value, uchar_image_lock);
+
+  generate_full_image(attr_ushort_image_ro_read, uShort_image_ro_size, int_generation_max_value, ushort_image_lock);
 
   for (i = 0; i < kSpecLen; i++)
     ::sprintf(attr_string_spectrum_ro_read[i],"[%.2d]::hello-world-%.4d", i, randomize(int_generation_max_value));
@@ -4062,9 +4066,9 @@ void TangoTest::gen_data ()
   for (j = 0; j < kImagLen; j++)
     for (i = 0; i < kImagLen; i++)
       ::sprintf(attr_string_image_ro_read[ i + j * kImagLen],
-                "[%.2d][%.2d]::hello world::%.4d", 
-                i, 
-                j,   
+                "[%.2d][%.2d]::hello world::%.4d",
+                i,
+                j,
                 randomize(int_generation_max_value));
 
   k++;
