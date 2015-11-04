@@ -417,6 +417,11 @@ void TangoTest::delete_device()
     attr_double_spectrum_read = 0;
   }
 
+  if (attr_long64_spectrum_ro_read) {
+    delete[] attr_long64_spectrum_ro_read;
+    attr_long64_spectrum_ro_read = 0;
+  }
+
   if (attr_double_spectrum_ro_read) {
     delete[] attr_double_spectrum_ro_read;
     attr_double_spectrum_ro_read = 0;
@@ -464,14 +469,14 @@ void TangoTest::delete_device()
 
   int s = 0;
   if (attr_string_spectrum_ro_read) {
-    for (; s < kSpecLen; s++)
+    for (s = 0; s < kSpecLen; s++)
       CORBA::string_free(attr_string_spectrum_ro_read[s]);
     delete[] attr_string_spectrum_ro_read;
     attr_string_spectrum_ro_read = 0;
   }
 
   if (attr_string_spectrum_read) {
-    for (; s < kSpecLen; s++)
+    for (s = 0; s < kSpecLen; s++)
       CORBA::string_free(attr_string_spectrum_read[s]);
     delete[] attr_string_spectrum_read;
     attr_string_spectrum_read = 0;
@@ -567,14 +572,14 @@ void TangoTest::delete_device()
   }
 
   if (attr_string_image_ro_read) {
-    for (; s < kImagLen * kImagLen; s++)
+    for (s = 0; s < kImagLen * kImagLen; s++)
       CORBA::string_free(attr_string_image_ro_read[s]);
     delete[] attr_string_image_ro_read;
     attr_string_image_ro_read = 0;
   }
 
   if (attr_string_image_read) {
-    for (; s < kImagLen * kImagLen; s++)
+    for (s = 0; s < kImagLen * kImagLen; s++)
       CORBA::string_free(attr_string_image_read[s]);
     delete[] attr_string_image_read;
     attr_string_image_read = 0;
