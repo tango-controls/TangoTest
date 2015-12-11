@@ -1989,7 +1989,7 @@ void TangoTest::write_long_spectrum(Tango::WAttribute &attr)
 	const Tango::DevLong	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_long_spectrum) ENABLED START -----*/
-	const long * p;
+	const Tango::DevLong * p;
   attr.get_write_value(p);
 
   long len = attr.get_write_value_length();
