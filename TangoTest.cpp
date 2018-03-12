@@ -2106,7 +2106,7 @@ void TangoTest::read_string_spectrum(Tango::Attribute &attr)
 {
 	DEBUG_STREAM << "TangoTest::read_string_spectrum(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(TangoTest::read_string_spectrum) ENABLED START -----*/
-	attr.set_value(attr_string_spectrum_read, kSpecLen);
+	attr.set_value(attr_string_spectrum_read, dimStringSpectrum);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_string_spectrum
 }
@@ -2133,14 +2133,17 @@ void TangoTest::write_string_spectrum(Tango::WAttribute &attr)
   attr.get_write_value(p);
 
   int len = attr.get_w_dim_x();
-  if (len > kSpecLen)
-    len = kSpecLen;
+  len = (len <= kSpecLen) ? len : kSpecLen;
 
-  for (int i = 0; i < len; i++)
-  {
+  // Free the old spectrum first in case the new spectrum length is less
+  // than the previous spectrum.
+  for (int i = 0; i < dimStringSpectrum; i++) {
     CORBA::string_free(attr_string_spectrum_read[i]);
+  }
+  for (int i = 0; i < len; i++) {
     attr_string_spectrum_read[i] = CORBA::string_dup(p[i]);
   }
+  dimStringSpectrum = len;
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_string_spectrum
 }
