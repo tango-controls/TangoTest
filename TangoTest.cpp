@@ -476,7 +476,7 @@ void TangoTest::delete_device()
   }
 
   if (attr_string_spectrum_read) {
-    for (s = 0; s < kSpecLen; s++)
+    for (s = 0; s < dimStringSpectrum; s++)
       CORBA::string_free(attr_string_spectrum_read[s]);
     delete[] attr_string_spectrum_read;
     attr_string_spectrum_read = 0;
