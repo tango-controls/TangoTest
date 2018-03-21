@@ -122,6 +122,14 @@ static const long kImagLen = 251;
 //  ulong64_scalar       |  Tango::DevULong64	Scalar
 //  ushort_scalar        |  Tango::DevUShort	Scalar
 //  ulong_scalar         |  Tango::DevULong	Scalar
+//  long64_scalar_w      |  Tango::DevLong64	Scalar
+//  float_scalar_w       |  Tango::DevFloat	Scalar
+//  ulong_scalar_w       |  Tango::DevULong	Scalar
+//  ulong64_scalar_w     |  Tango::DevULong64	Scalar
+//  ushort_scalar_w      |  Tango::DevUShort	Scalar
+//  uchar_scalar_w       |  Tango::DevUChar	Scalar
+//  encoded_scalar_w     |  Tango::DevEncoded	Scalar
+//  encoded_scalar       |  Tango::DevEncoded	Scalar
 //  boolean_spectrum     |  Tango::DevBoolean	Spectrum  ( max = 4096)
 //  boolean_spectrum_ro  |  Tango::DevBoolean	Spectrum  ( max = 4096)
 //  double_spectrum      |  Tango::DevDouble	Spectrum  ( max = 4096)
@@ -142,6 +150,9 @@ static const long kImagLen = 251;
 //  ushort_spectrum      |  Tango::DevUShort	Spectrum  ( max = 4096)
 //  ushort_spectrum_ro   |  Tango::DevUShort	Spectrum  ( max = 4096)
 //  wave                 |  Tango::DevDouble	Spectrum  ( max = 4096)
+//  long64_spectrum      |  Tango::DevLong64	Spectrum  ( max = 4096)
+//  ulong64_spectrum     |  Tango::DevULong64	Spectrum  ( max = 4096)
+//  ulong_spectrum       |  Tango::DevULong	Spectrum  ( max = 4096)
 //  boolean_image        |  Tango::DevBoolean	Image  ( max = 251 x 251)
 //  boolean_image_ro     |  Tango::DevBoolean	Image  ( max = 251 x 251)
 //  double_image         |  Tango::DevDouble	Image  ( max = 251 x 251)
@@ -376,6 +387,11 @@ void TangoTest::delete_device()
     attr_ushort_scalar_read = 0;
   }
 
+  if (attr_encoded_scalar_read) {
+    delete attr_encoded_scalar_read;
+    attr_encoded_scalar_read = 0;
+  }
+
   //- spectrum
   if (attr_short_spectrum_read) {
     delete[] attr_short_spectrum_read;
@@ -397,14 +413,19 @@ void TangoTest::delete_device()
     attr_long_spectrum_ro_read = 0;
   }
 
-  if (attr_ulong_spectrum_ro_read) {
-    delete[] attr_ulong_spectrum_ro_read;
-    attr_ulong_spectrum_ro_read = 0;
+  if (attr_ulong_spectrum_read) {
+    delete[] attr_ulong_spectrum_read;
+    attr_ulong_spectrum_read = 0;
   }
 
   if (attr_ulong_spectrum_ro_read) {
     delete[] attr_ulong_spectrum_ro_read;
     attr_ulong_spectrum_ro_read = 0;
+  }
+
+  if (attr_ulong64_spectrum_read) {
+    delete[] attr_ulong64_spectrum_read;
+    attr_ulong64_spectrum_read = 0;
   }
 
   if (attr_ulong64_spectrum_ro_read) {
@@ -415,6 +436,11 @@ void TangoTest::delete_device()
   if (attr_double_spectrum_read) {
     delete[] attr_double_spectrum_read;
     attr_double_spectrum_read = 0;
+  }
+
+  if (attr_long64_spectrum_read) {
+    delete[] attr_long64_spectrum_read;
+    attr_long64_spectrum_read = 0;
   }
 
   if (attr_long64_spectrum_ro_read) {
@@ -620,11 +646,11 @@ void TangoTest::init_device()
 
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::init_device_before
-
+	
 
 	//	Get the device properties from database
 	get_device_property();
-
+	
 	/*----- PROTECTED REGION ID(TangoTest::init_device) ENABLED START -----*/
 
 	//	Initialize device
@@ -651,10 +677,12 @@ void TangoTest::init_device()
 	*attr_ulong_scalar_read = 0;
 	attr_ulong_scalar_write = 256;
 
+    attr_long64_scalar_w_write = 0;
 	attr_long64_scalar_read = new Tango::DevLong64;
 	*attr_long64_scalar_read = 0;
 	attr_long64_scalar_write = 256;
 
+    attr_ulong64_scalar_w_write = 0;
 	attr_ulong64_scalar_read = new Tango::DevULong64;
 	*attr_ulong64_scalar_read = 0;
 	attr_ulong64_scalar_write = 256;
@@ -680,17 +708,27 @@ void TangoTest::init_device()
 	*attr_boolean_scalar_read = true;
 	attr_boolean_scalar_write = false;
 
+    attr_float_scalar_w_write = 0;
   	attr_float_scalar_read = new Tango::DevFloat;
 	*attr_float_scalar_read = 0;
 	attr_float_scalar_write = 0;
 
+    attr_uchar_scalar_w_write = 0;
 	attr_uchar_scalar_read = new Tango::DevUChar;
 	*attr_uchar_scalar_read = 0;
 	attr_uchar_scalar_write = 0;
 
+    attr_ushort_scalar_w_write = 0;
 	attr_ushort_scalar_read = new Tango::DevUShort;
 	*attr_ushort_scalar_read = 0;
 	attr_ushort_scalar_write = 0;
+
+	attr_encoded_scalar_read = new Tango::DevEncoded;
+	attr_encoded_scalar_read->encoded_format = "Array of Bytes";
+	attr_encoded_scalar_read->encoded_data.length(kSpecLen);
+    for (int i = 0; i < kSpecLen; i++)
+        attr_encoded_scalar_read->encoded_data[i] = 0;
+    dimEncodedLen = kSpecLen;
 
   //- Spectrum
 	attr_short_spectrum_ro_read = new Tango::DevShort[kSpecLen];
@@ -717,6 +755,18 @@ void TangoTest::init_device()
 	::memset(attr_long_spectrum_read, 0, kSpecLen * sizeof(Tango::DevLong));
 
   dimLongSpectrum = kSpecLen;
+
+  attr_ulong64_spectrum_read = new Tango::DevULong64[kSpecLen];
+  ::memset(attr_ulong64_spectrum_read, 0, kSpecLen * sizeof(Tango::DevULong64));
+  dimUlong64Spectrum = kSpecLen;
+
+  attr_ulong_spectrum_read = new Tango::DevULong[kSpecLen];
+  ::memset(attr_ulong_spectrum_read, 0, kSpecLen * sizeof(Tango::DevULong));
+  dimUlongSpectrum = kSpecLen;
+
+  attr_long64_spectrum_read = new Tango::DevLong64[kSpecLen];
+  ::memset(attr_long64_spectrum_read, 0, kSpecLen * sizeof(Tango::DevLong64));
+  dimLong64Spectrum = kSpecLen;
 
   attr_double_spectrum_ro_read = new Tango::DevDouble[kSpecLen];
 	::memset(attr_double_spectrum_ro_read, 0, kSpecLen * sizeof(Tango::DevDouble));
@@ -952,7 +1002,7 @@ void TangoTest::get_device_property()
 		//	Call database and extract values
 		if (Tango::Util::instance()->_UseDb==true)
 			get_db_device()->get_property(dev_prop);
-
+	
 		//	get instance on TangoTestClass to get class property
 		Tango::DbDatum	def_prop, cl_prop;
 		TangoTestClass	*ds_class =
@@ -1060,7 +1110,7 @@ void TangoTest::write_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
 //--------------------------------------------------------
 /**
  *	Write attribute ampli related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1122,7 +1172,7 @@ void TangoTest::write_boolean_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1139,7 +1189,7 @@ void TangoTest::read_double_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1160,7 +1210,7 @@ void TangoTest::write_double_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_scalar_rww related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1177,7 +1227,7 @@ void TangoTest::read_double_scalar_rww(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_scalar_rww related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1196,7 +1246,7 @@ void TangoTest::write_double_scalar_rww(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_scalar_w related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1255,7 +1305,7 @@ void TangoTest::write_float_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long64_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong64
  *	Attr type:	Scalar
@@ -1272,7 +1322,7 @@ void TangoTest::read_long64_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long64_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong64
  *	Attr type:	Scalar
@@ -1293,7 +1343,7 @@ void TangoTest::write_long64_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1310,7 +1360,7 @@ void TangoTest::read_long_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1331,7 +1381,7 @@ void TangoTest::write_long_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_scalar_rww related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1348,7 +1398,7 @@ void TangoTest::read_long_scalar_rww(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_scalar_rww related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1367,7 +1417,7 @@ void TangoTest::write_long_scalar_rww(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_scalar_w related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1388,7 +1438,7 @@ void TangoTest::write_long_scalar_w(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute no_value related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1404,7 +1454,7 @@ void TangoTest::read_no_value(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1421,7 +1471,7 @@ void TangoTest::read_short_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1442,7 +1492,7 @@ void TangoTest::write_short_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_scalar_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1459,7 +1509,7 @@ void TangoTest::read_short_scalar_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_scalar_rww related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1476,7 +1526,7 @@ void TangoTest::read_short_scalar_rww(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_scalar_rww related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1495,7 +1545,7 @@ void TangoTest::write_short_scalar_rww(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_scalar_w related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1516,7 +1566,7 @@ void TangoTest::write_short_scalar_w(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Scalar
@@ -1533,7 +1583,7 @@ void TangoTest::read_string_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute string_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Scalar
@@ -1565,7 +1615,7 @@ void TangoTest::write_string_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute throw_exception related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1583,7 +1633,7 @@ void TangoTest::read_throw_exception(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute uchar_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Scalar
@@ -1600,7 +1650,7 @@ void TangoTest::read_uchar_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute uchar_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Scalar
@@ -1621,7 +1671,7 @@ void TangoTest::write_uchar_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong64_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevULong64
  *	Attr type:	Scalar
@@ -1638,7 +1688,7 @@ void TangoTest::read_ulong64_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ulong64_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevULong64
  *	Attr type:	Scalar
@@ -1659,7 +1709,7 @@ void TangoTest::write_ulong64_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ushort_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Scalar
@@ -1676,7 +1726,7 @@ void TangoTest::read_ushort_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ushort_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Scalar
@@ -1697,7 +1747,7 @@ void TangoTest::write_ushort_scalar(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevULong
  *	Attr type:	Scalar
@@ -1714,7 +1764,7 @@ void TangoTest::read_ulong_scalar(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ulong_scalar related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevULong
  *	Attr type:	Scalar
@@ -1734,8 +1784,215 @@ void TangoTest::write_ulong_scalar(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
+ *	Write attribute long64_scalar_w related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevLong64
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_long64_scalar_w(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_long64_scalar_w(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevLong64	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_long64_scalar_w) ENABLED START -----*/
+    DEBUG_STREAM << "long64_scalar_w = " << w_val << endl;
+    attr_long64_scalar_w_write = w_val;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_long64_scalar_w
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute float_scalar_w related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevFloat
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_float_scalar_w(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_float_scalar_w(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevFloat	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_float_scalar_w) ENABLED START -----*/
+    DEBUG_STREAM << "float_scalar_w = " << w_val << endl;
+    attr_float_scalar_w_write = w_val;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_float_scalar_w
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute ulong_scalar_w related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_ulong_scalar_w(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_ulong_scalar_w(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevULong	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_ulong_scalar_w) ENABLED START -----*/
+    DEBUG_STREAM << "ulong_scalar_w = " << w_val << endl;
+    attr_ulong_scalar_w_write = w_val;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_ulong_scalar_w
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute ulong64_scalar_w related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong64
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_ulong64_scalar_w(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_ulong64_scalar_w(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevULong64	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_ulong64_scalar_w) ENABLED START -----*/
+    DEBUG_STREAM << "ulong64_scalar_w = " << w_val << endl;
+    attr_ulong64_scalar_w_write = w_val;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_ulong64_scalar_w
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute ushort_scalar_w related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevUShort
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_ushort_scalar_w(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_ushort_scalar_w(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevUShort	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_ushort_scalar_w) ENABLED START -----*/
+    DEBUG_STREAM << "ushort_scalar_w = " << w_val << endl;
+    attr_ushort_scalar_w_write = w_val;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_ushort_scalar_w
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute uchar_scalar_w related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevUChar
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_uchar_scalar_w(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_uchar_scalar_w(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevUChar	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_uchar_scalar_w) ENABLED START -----*/
+    DEBUG_STREAM << "uchar_scalar_w = " << w_val << endl;
+    attr_uchar_scalar_w_write = w_val;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_uchar_scalar_w
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute encoded_scalar_w related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevEncoded
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_encoded_scalar_w(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_encoded_scalar_w(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevEncoded	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_encoded_scalar_w) ENABLED START -----*/
+    DEBUG_STREAM << "encoded_scalar_w = " << endl;
+
+    const bool * p;
+    attr.get_write_value(p);
+
+//    attr_encoded_scalar_read = new Tango::DevEncoded;
+//    attr_encoded_scalar_read->encoded_format = strdup(p[0]);
+//    int len = p[1].length();
+//    attr_encoded_scalar_read->encoded_data.length(len);
+//    ::memcpy(attr_encoded_scalar_read->encoded_data, p, len * sizeof(Tango::DevUChar));
+
+//    long len = attr.get_write_value_length();
+//    DEBUG_STREAM << "Length :" << len << endl;
+//
+//    len = (len <= kSpecLen) ? len : kSpecLen;
+//    dimBooleanSpectrum = len;
+
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_encoded_scalar_w
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute encoded_scalar related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevEncoded
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::read_encoded_scalar(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::read_encoded_scalar(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoTest::read_encoded_scalar) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_encoded_scalar_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_encoded_scalar
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute encoded_scalar related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevEncoded
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_encoded_scalar(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_encoded_scalar(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevEncoded	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_encoded_scalar) ENABLED START -----*/
+    attr_encoded_scalar_write = w_val;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_encoded_scalar
+}
+//--------------------------------------------------------
+/**
  *	Read attribute boolean_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Spectrum max = 4096
@@ -1752,7 +2009,7 @@ void TangoTest::read_boolean_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute boolean_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Spectrum max = 4096
@@ -1786,7 +2043,7 @@ void TangoTest::write_boolean_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute boolean_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Spectrum max = 4096
@@ -1803,7 +2060,7 @@ void TangoTest::read_boolean_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 4096
@@ -1820,7 +2077,7 @@ void TangoTest::read_double_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 4096
@@ -1854,7 +2111,7 @@ void TangoTest::write_double_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 4096
@@ -1922,7 +2179,7 @@ void TangoTest::write_float_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute float_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevFloat
  *	Attr type:	Spectrum max = 4096
@@ -1939,7 +2196,7 @@ void TangoTest::read_float_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long64_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong64
  *	Attr type:	Spectrum max = 4096
@@ -1956,7 +2213,7 @@ void TangoTest::read_long64_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Spectrum max = 4096
@@ -1973,7 +2230,7 @@ void TangoTest::read_long_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Spectrum max = 4096
@@ -2006,7 +2263,7 @@ void TangoTest::write_long_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Spectrum max = 4096
@@ -2023,7 +2280,7 @@ void TangoTest::read_long_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Spectrum max = 4096
@@ -2040,7 +2297,7 @@ void TangoTest::read_short_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Spectrum max = 4096
@@ -2079,7 +2336,7 @@ void TangoTest::write_short_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Spectrum max = 4096
@@ -2096,7 +2353,7 @@ void TangoTest::read_short_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Spectrum max = 256
@@ -2113,7 +2370,7 @@ void TangoTest::read_string_spectrum(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute string_spectrum related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Spectrum max = 256
@@ -2147,7 +2404,7 @@ void TangoTest::write_string_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Spectrum max = 256
@@ -2214,7 +2471,7 @@ void TangoTest::write_uchar_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute uchar_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Spectrum max = 4096
@@ -2231,7 +2488,7 @@ void TangoTest::read_uchar_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong64_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevULong64
  *	Attr type:	Spectrum max = 4096
@@ -2248,7 +2505,7 @@ void TangoTest::read_ulong64_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevULong
  *	Attr type:	Spectrum max = 4096
@@ -2316,7 +2573,7 @@ void TangoTest::write_ushort_spectrum(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ushort_spectrum_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Spectrum max = 4096
@@ -2333,7 +2590,7 @@ void TangoTest::read_ushort_spectrum_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute wave related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 4096
@@ -2349,8 +2606,165 @@ void TangoTest::read_wave(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
+ *	Read attribute long64_spectrum related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevLong64
+ *	Attr type:	Spectrum max = 4096
+ */
+//--------------------------------------------------------
+void TangoTest::read_long64_spectrum(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::read_long64_spectrum(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoTest::read_long64_spectrum) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_long64_spectrum_read, dimLong64Spectrum);
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_long64_spectrum
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute long64_spectrum related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevLong64
+ *	Attr type:	Spectrum max = 4096
+ */
+//--------------------------------------------------------
+void TangoTest::write_long64_spectrum(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_long64_spectrum(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve number of write values
+	int	w_length = attr.get_write_value_length();
+
+	//	Retrieve pointer on write values (Do not delete !)
+	const Tango::DevLong64	*w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_long64_spectrum) ENABLED START -----*/
+
+	const Tango::DevLong64* p;
+	attr.get_write_value(p);
+
+	long len = attr.get_write_value_length();
+	DEBUG_STREAM << "Length :" << len << endl;
+
+	len = (len <= kSpecLen) ? len : kSpecLen;
+
+	::memcpy(attr_long64_spectrum_read, p, len * sizeof(Tango::DevLong64));
+
+	dimLong64Spectrum = len;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_long64_spectrum
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute ulong64_spectrum related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong64
+ *	Attr type:	Spectrum max = 4096
+ */
+//--------------------------------------------------------
+void TangoTest::read_ulong64_spectrum(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::read_ulong64_spectrum(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoTest::read_ulong64_spectrum) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_ulong64_spectrum_read, dimUlong64Spectrum);
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_ulong64_spectrum
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute ulong64_spectrum related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong64
+ *	Attr type:	Spectrum max = 4096
+ */
+//--------------------------------------------------------
+void TangoTest::write_ulong64_spectrum(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_ulong64_spectrum(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve number of write values
+	int	w_length = attr.get_write_value_length();
+
+	//	Retrieve pointer on write values (Do not delete !)
+	const Tango::DevULong64	*w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_ulong64_spectrum) ENABLED START -----*/
+    const Tango::DevULong64* p;
+    attr.get_write_value(p);
+
+    long len = attr.get_write_value_length();
+    DEBUG_STREAM << "Length :" << len << endl;
+
+    len = (len <= kSpecLen) ? len : kSpecLen;
+
+    ::memcpy(attr_ulong64_spectrum_read, p, len * sizeof(Tango::DevULong64));
+
+    dimLong64Spectrum = len;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_ulong64_spectrum
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute ulong_spectrum related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 4096
+ */
+//--------------------------------------------------------
+void TangoTest::read_ulong_spectrum(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::read_ulong_spectrum(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoTest::read_ulong_spectrum) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_ulong_spectrum_read, dimUlongSpectrum);
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_ulong_spectrum
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute ulong_spectrum related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevULong
+ *	Attr type:	Spectrum max = 4096
+ */
+//--------------------------------------------------------
+void TangoTest::write_ulong_spectrum(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_ulong_spectrum(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve number of write values
+	int	w_length = attr.get_write_value_length();
+
+	//	Retrieve pointer on write values (Do not delete !)
+	const Tango::DevULong	*w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_ulong_spectrum) ENABLED START -----*/
+    const Tango::DevULong* p;
+    attr.get_write_value(p);
+
+    long len = attr.get_write_value_length();
+    DEBUG_STREAM << "Length :" << len << endl;
+
+    len = (len <= kSpecLen) ? len : kSpecLen;
+
+    ::memcpy(attr_ulong_spectrum_read, p, len * sizeof(Tango::DevULong));
+
+    dimUlongSpectrum = len;
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_ulong_spectrum
+}
+//--------------------------------------------------------
+/**
  *	Read attribute boolean_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Image max = 251 x 251
@@ -2367,7 +2781,7 @@ void TangoTest::read_boolean_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute boolean_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Image max = 251 x 251
@@ -2403,7 +2817,7 @@ void TangoTest::write_boolean_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute boolean_image_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Image max = 251 x 251
@@ -2423,7 +2837,7 @@ void TangoTest::read_boolean_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Image max = 251 x 251
@@ -2440,7 +2854,7 @@ void TangoTest::read_double_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute double_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Image max = 251 x 251
@@ -2476,7 +2890,7 @@ void TangoTest::write_double_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute double_image_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Image max = 251 x 251
@@ -2496,7 +2910,7 @@ void TangoTest::read_double_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute float_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevFloat
  *	Attr type:	Image max = 251 x 251
@@ -2513,7 +2927,7 @@ void TangoTest::read_float_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute float_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevFloat
  *	Attr type:	Image max = 251 x 251
@@ -2570,7 +2984,7 @@ void TangoTest::read_float_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long64_image_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong64
  *	Attr type:	Image max = 251 x 251
@@ -2591,7 +3005,7 @@ void TangoTest::read_long64_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Image max = 251 x 251
@@ -2608,7 +3022,7 @@ void TangoTest::read_long_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute long_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Image max = 251 x 251
@@ -2644,7 +3058,7 @@ void TangoTest::write_long_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute long_image_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Image max = 251 x 251
@@ -2664,7 +3078,7 @@ void TangoTest::read_long_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Image max = 251 x 251
@@ -2681,7 +3095,7 @@ void TangoTest::read_short_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute short_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Image max = 251 x 251
@@ -2717,7 +3131,7 @@ void TangoTest::write_short_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute short_image_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Image max = 251 x 251
@@ -2737,7 +3151,7 @@ void TangoTest::read_short_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Image max = 256 x 256
@@ -2754,7 +3168,7 @@ void TangoTest::read_string_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute string_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Image max = 256 x 256
@@ -2799,7 +3213,7 @@ void TangoTest::write_string_image(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute string_image_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Image max = 256 x 256
@@ -2816,7 +3230,7 @@ void TangoTest::read_string_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute uchar_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Image max = 251 x 251
@@ -2833,7 +3247,7 @@ void TangoTest::read_uchar_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute uchar_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUChar
  *	Attr type:	Image max = 251 x 251
@@ -2889,7 +3303,7 @@ void TangoTest::read_uchar_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong64_image_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevULong64
  *	Attr type:	Image max = 251 x 251
@@ -2909,7 +3323,7 @@ void TangoTest::read_ulong64_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ulong_image_ro related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevULong
  *	Attr type:	Image max = 251 x 251
@@ -2929,7 +3343,7 @@ void TangoTest::read_ulong_image_ro(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ushort_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Image max = 251 x 251
@@ -2946,7 +3360,7 @@ void TangoTest::read_ushort_image(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ushort_image related method
- *	Description:
+ *	Description: 
  *
  *	Data type:	Tango::DevUShort
  *	Attr type:	Image max = 251 x 251
@@ -3481,10 +3895,10 @@ Tango::DevVarFloatArray *TangoTest::dev_var_float_array(const Tango::DevVarFloat
 //--------------------------------------------------------
 /**
  *	Command DevVarLong64Array related method
- *	Description:
+ *	Description: 
  *
- *	@param argin
- *	@returns
+ *	@param argin 
+ *	@returns 
  */
 //--------------------------------------------------------
 Tango::DevVarLong64Array *TangoTest::dev_var_long64_array(const Tango::DevVarLong64Array *argin)
@@ -3682,10 +4096,10 @@ Tango::DevVarStringArray *TangoTest::dev_var_string_array(const Tango::DevVarStr
 //--------------------------------------------------------
 /**
  *	Command DevVarULong64Array related method
- *	Description:
+ *	Description: 
  *
- *	@param argin
- *	@returns
+ *	@param argin 
+ *	@returns 
  */
 //--------------------------------------------------------
 Tango::DevVarULong64Array *TangoTest::dev_var_ulong64_array(const Tango::DevVarULong64Array *argin)
@@ -4009,7 +4423,10 @@ void TangoTest::gen_data ()
   *attr_float_scalar_read =
      randomize(attr_float_scalar_write);
 
- 	int i, j;
+	int i, j;
+    for (i = 0; i < kSpecLen; i++)
+        attr_encoded_scalar_read->encoded_data[i] = randomize(int_generation_max_value);
+
 
 	for (i = 0; i < kSpecLen; i++)
 		attr_short_spectrum_ro_read[i] = randomize(int_generation_max_value);
