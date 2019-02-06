@@ -9,27 +9,14 @@ env:
 notifications:
   email: false
 
-services:
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.9
-    update: true
-  sonarcloud:
-    organization: "tango-controls"
-    token:
-      secure: ${SONAR_TOKEN}
+
 
 before_install:
-  - docker pull tangocs/mysql:9.2.2
-  - docker pull tangocs/tango-cs:latest
-  - git clone https://github.com/JoakimSoderberg/coveralls-cmake.git
-  - git clone -b v4.2.2 https://${CI_USER_TOKEN}@github.com/zeromq/cppzmq.git cppzmq
-  - git clone -b tango-9-lts https://${CI_USER_TOKEN}@github.com/tango-controls/tango-idl.git idl
-  - wget https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip && unzip build-wrapper-linux-x86.zip
+  - curl http://repo.varnish-cache.org/debian/GPG-key.txt | sudo apt-key add -
+  - echo "deb https://dl.bintray.com/tango-controls/debian {distribution} {components}" | sudo tee -a /etc/apt/sources.list
+  - sudo apt-get update -qq
+  - sudo apt-get install varnish -y
 
 before_script:
   - docker run --name mysql_db -e MYSQL_ROOT_PASSWORD=root -d tangocs/mysql:9.2.2 --sql-mode=""
