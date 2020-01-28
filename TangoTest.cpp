@@ -3913,7 +3913,7 @@ void generate_full_image (T* buffer, long max_xy, long max_value, omni_mutex &lo
 		{
       int r = ::rand();
 			r = r < 0 ? -r : r;
-			buffer[i * max_xy + j] = (long)(r % (int)max_value);
+			buffer[i * max_xy + j] = (T)(r % (int)max_value);
 		}
 	}
 	lock.unlock();
