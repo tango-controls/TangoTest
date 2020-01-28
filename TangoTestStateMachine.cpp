@@ -446,6 +446,78 @@ bool TangoTest::is_ulong_scalar_allowed(TANGO_UNUSED(Tango::AttReqType type))
 
 //--------------------------------------------------------
 /**
+ *	Method      : TangoTest::is_devenum_scalar_w_allowed()
+ *	Description : Execution allowed for devenum_scalar_w attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_devenum_scalar_w_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for devenum_scalar_w attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_scalar_wStateAllowed_WRITE) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_scalar_wStateAllowed_WRITE
+
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_devenum_scalar_allowed()
+ *	Description : Execution allowed for devenum_scalar attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_devenum_scalar_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for devenum_scalar attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_scalarStateAllowed_WRITE) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_scalarStateAllowed_WRITE
+
+	//	Not any excluded states for devenum_scalar attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_scalarStateAllowed_READ) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_scalarStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_devenum_scalar_ro_allowed()
+ *	Description : Execution allowed for devenum_scalar_ro attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_devenum_scalar_ro_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for devenum_scalar_ro attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_scalar_roStateAllowed_READ) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_scalar_roStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_devenum_scalar_rww_allowed()
+ *	Description : Execution allowed for devenum_scalar_rww attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_devenum_scalar_rww_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for devenum_scalar_rww attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_scalar_rwwStateAllowed_WRITE) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_scalar_rwwStateAllowed_WRITE
+
+	//	Not any excluded states for devenum_scalar_rww attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_scalar_rwwStateAllowed_READ) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_scalar_rwwStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
  *	Method      : TangoTest::is_boolean_spectrum_allowed()
  *	Description : Execution allowed for boolean_spectrum attribute
  */
@@ -798,6 +870,42 @@ bool TangoTest::is_wave_allowed(TANGO_UNUSED(Tango::AttReqType type))
 
 //--------------------------------------------------------
 /**
+ *	Method      : TangoTest::is_devenum_spectrum_ro_allowed()
+ *	Description : Execution allowed for devenum_spectrum_ro attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_devenum_spectrum_ro_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for devenum_spectrum_ro attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_spectrum_roStateAllowed_READ) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_spectrum_roStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_devenum_spectrum_allowed()
+ *	Description : Execution allowed for devenum_spectrum attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_devenum_spectrum_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for devenum_spectrum attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_spectrumStateAllowed_WRITE) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_spectrumStateAllowed_WRITE
+
+	//	Not any excluded states for devenum_spectrum attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_spectrumStateAllowed_READ) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_spectrumStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
  *	Method      : TangoTest::is_boolean_image_allowed()
  *	Description : Execution allowed for boolean_image attribute
  */
@@ -1132,6 +1240,42 @@ bool TangoTest::is_ushort_image_ro_allowed(TANGO_UNUSED(Tango::AttReqType type))
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_devenum_image_ro_allowed()
+ *	Description : Execution allowed for devenum_image_ro attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_devenum_image_ro_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for devenum_image_ro attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_image_roStateAllowed_READ) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_image_roStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_devenum_image_allowed()
+ *	Description : Execution allowed for devenum_image attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_devenum_image_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for devenum_image attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_imageStateAllowed_WRITE) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_imageStateAllowed_WRITE
+
+	//	Not any excluded states for devenum_image attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::devenum_imageStateAllowed_READ) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::devenum_imageStateAllowed_READ
+	return true;
+}
+
 //=================================================
 //		pipe Allowed Methods
 //=================================================
@@ -1147,7 +1291,7 @@ bool TangoTest::is_string_long_short_ro_allowed(TANGO_UNUSED(Tango::PipeReqType 
 	/*----- PROTECTED REGION ID(TangoTest::string_long_short_roStateAllowed_READ) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::string_long_short_roStateAllowed_READ
-    return true;
+	return true;
 }
 
 //=================================================
@@ -1558,5 +1702,12 @@ bool TangoTest::is_SwitchStates_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::SwitchStatesStateAllowed
 	return true;
 }
+
+
+/*----- PROTECTED REGION ID(TangoTest::TangoTestStateAllowed.AdditionalMethods) ENABLED START -----*/
+
+//	Additional Methods
+
+/*----- PROTECTED REGION END -----*/	//	TangoTest::TangoTestStateAllowed.AdditionalMethods
 
 }	//	End of namespace

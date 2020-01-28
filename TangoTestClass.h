@@ -359,6 +359,70 @@ public:
 		{return (static_cast<TangoTest *>(dev))->is_ulong_scalar_allowed(ty);}
 };
 
+//	Attribute devenum_scalar_w class definition
+class devenum_scalar_wAttrib: public Tango::Attr
+{
+public:
+	devenum_scalar_wAttrib():Attr("devenum_scalar_w",
+			Tango::DEV_ENUM, Tango::WRITE) {};
+	~devenum_scalar_wAttrib() {};
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_devenum_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_devenum_scalar_w_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(devenum_scalar_wEnum) == in_type;}
+	virtual string get_enum_type() {return string("devenum_scalar_wEnum");}
+};
+
+//	Attribute devenum_scalar class definition
+class devenum_scalarAttrib: public Tango::Attr
+{
+public:
+	devenum_scalarAttrib():Attr("devenum_scalar",
+			Tango::DEV_ENUM, Tango::READ_WRITE) {};
+	~devenum_scalarAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_devenum_scalar(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_devenum_scalar(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_devenum_scalar_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(devenum_scalarEnum) == in_type;}
+	virtual string get_enum_type() {return string("devenum_scalarEnum");}
+};
+
+//	Attribute devenum_scalar_ro class definition
+class devenum_scalar_roAttrib: public Tango::Attr
+{
+public:
+	devenum_scalar_roAttrib():Attr("devenum_scalar_ro",
+			Tango::DEV_ENUM, Tango::READ) {};
+	~devenum_scalar_roAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_devenum_scalar_ro(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_devenum_scalar_ro_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(devenum_scalar_roEnum) == in_type;}
+	virtual string get_enum_type() {return string("devenum_scalar_roEnum");}
+};
+
+//	Attribute devenum_scalar_rww class definition
+class devenum_scalar_rwwAttrib: public Tango::Attr
+{
+public:
+	devenum_scalar_rwwAttrib():Attr("devenum_scalar_rww",
+			Tango::DEV_ENUM, Tango::READ_WITH_WRITE, "devenum_scalar_w") {};
+	~devenum_scalar_rwwAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_devenum_scalar_rww(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_devenum_scalar_rww(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_devenum_scalar_rww_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(devenum_scalar_rwwEnum) == in_type;}
+	virtual string get_enum_type() {return string("devenum_scalar_rwwEnum");}
+};
+
 //	Attribute boolean_spectrum class definition
 class boolean_spectrumAttrib: public Tango::SpectrumAttr
 {
@@ -635,6 +699,38 @@ public:
 		{return (static_cast<TangoTest *>(dev))->is_wave_allowed(ty);}
 };
 
+//	Attribute devenum_spectrum_ro class definition
+class devenum_spectrum_roAttrib: public Tango::SpectrumAttr
+{
+public:
+	devenum_spectrum_roAttrib():SpectrumAttr("devenum_spectrum_ro",
+			Tango::DEV_ENUM, Tango::READ, 4096) {};
+	~devenum_spectrum_roAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_devenum_spectrum_ro(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_devenum_spectrum_ro_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(devenum_spectrum_roEnum) == in_type;}
+	virtual string get_enum_type() {return string("devenum_spectrum_roEnum");}
+};
+
+//	Attribute devenum_spectrum class definition
+class devenum_spectrumAttrib: public Tango::SpectrumAttr
+{
+public:
+	devenum_spectrumAttrib():SpectrumAttr("devenum_spectrum",
+			Tango::DEV_ENUM, Tango::READ_WRITE, 4096) {};
+	~devenum_spectrumAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_devenum_spectrum(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_devenum_spectrum(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_devenum_spectrum_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(devenum_spectrumEnum) == in_type;}
+	virtual string get_enum_type() {return string("devenum_spectrumEnum");}
+};
+
 //	Attribute boolean_image class definition
 class boolean_imageAttrib: public Tango::ImageAttr
 {
@@ -896,6 +992,38 @@ public:
 		{(static_cast<TangoTest *>(dev))->read_ushort_image_ro(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<TangoTest *>(dev))->is_ushort_image_ro_allowed(ty);}
+};
+
+//	Attribute devenum_image_ro class definition
+class devenum_image_roAttrib: public Tango::ImageAttr
+{
+public:
+	devenum_image_roAttrib():ImageAttr("devenum_image_ro",
+			Tango::DEV_ENUM, Tango::READ, 251, 251) {};
+	~devenum_image_roAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_devenum_image_ro(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_devenum_image_ro_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(devenum_image_roEnum) == in_type;}
+	virtual string get_enum_type() {return string("devenum_image_roEnum");}
+};
+
+//	Attribute devenum_image class definition
+class devenum_imageAttrib: public Tango::ImageAttr
+{
+public:
+	devenum_imageAttrib():ImageAttr("devenum_image",
+			Tango::DEV_ENUM, Tango::READ_WRITE, 251, 251) {};
+	~devenum_imageAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_devenum_image(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_devenum_image(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_devenum_image_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(devenum_imageEnum) == in_type;}
+	virtual string get_enum_type() {return string("devenum_imageEnum");}
 };
 
 
