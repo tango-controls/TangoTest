@@ -2452,6 +2452,12 @@ void TangoTestClass::pipe_factory()
 	pstring_long_short_ro->set_default_properties(udpp);
 	pipe_list.push_back(pstring_long_short_ro);
 
+	generic_blob_rwClass	*pgeneric_blob_rw = new generic_blob_rwClass("generic_blob_rw",Tango::OPERATOR);
+	udpp.set_description("Pipe to write and read dynamic data structure");
+	udpp.set_label("");
+	pgeneric_blob_rw->set_default_properties(udpp);
+	pipe_list.push_back(pgeneric_blob_rw);
+
 	/*----- PROTECTED REGION ID(TangoTestClass::pipe_factory_after) ENABLED START -----*/
 	
 	//	Add your own code

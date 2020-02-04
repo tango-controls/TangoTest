@@ -917,6 +917,23 @@ public:
 		{(static_cast<TangoTest *>(dev))->read_string_long_short_ro(*this);}
 };
 
+//	Pipe generic_blob_rw class definition
+class generic_blob_rwClass: public Tango::WPipe
+{
+public:
+	generic_blob_rwClass(const string &name, Tango::DispLevel level)
+		:WPipe(name, level) {};
+
+	~generic_blob_rwClass() {};
+
+	virtual bool is_allowed (Tango::DeviceImpl *dev,Tango::PipeReqType _prt)
+		{return (static_cast<TangoTest *>(dev))->is_generic_blob_rw_allowed(_prt);}
+	virtual void read(Tango::DeviceImpl *dev)
+		{(static_cast<TangoTest *>(dev))->read_generic_blob_rw(*this);}
+	virtual void write(Tango::DeviceImpl *dev)
+		{(static_cast<TangoTest *>(dev))->write_generic_blob_rw(*this);}
+};
+
 
 //=========================================
 //	Define classes for commands
