@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 set(CMP0048 NEW)
 project(TangoTest LANGUAGES CXX
-        VERSION 1.0)
+        VERSION 3.0)
 include(FindPkgConfig)
 
 pkg_search_module(TANGO_PKG REQUIRED tango)
