@@ -2627,8 +2627,6 @@ void TangoTest::write_long_image(Tango::WAttribute &attr)
 	const Tango::DevLong	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_long_image) ENABLED START -----*/
-	const long * p;
-  attr.get_write_value(p);
 
   dimXLongImage = attr.get_w_dim_x();
   DEBUG_STREAM << "X :" << dimXLongImage << endl;
@@ -2640,7 +2638,7 @@ void TangoTest::write_long_image(Tango::WAttribute &attr)
 
   len = (len <= kImagLen * kImagLen) ? len : kImagLen * kImagLen;
 
-  ::memcpy(attr_long_image_read, p, len * sizeof(Tango::DevLong));
+  ::memcpy(attr_long_image_read, w_val, len * sizeof(Tango::DevLong));
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_long_image
 }
