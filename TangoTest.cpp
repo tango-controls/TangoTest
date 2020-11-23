@@ -1769,15 +1769,12 @@ void TangoTest::write_boolean_spectrum(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_boolean_spectrum) ENABLED START -----*/
 
-  const bool * p;
-  attr.get_write_value(p);
-
   long len = attr.get_write_value_length();
   DEBUG_STREAM << "Length :" << len << endl;
 
   len = (len <= kSpecLen) ? len : kSpecLen;
 
-  ::memcpy(attr_boolean_spectrum_read, p, len * sizeof(Tango::DevBoolean));
+  ::memcpy(attr_boolean_spectrum_read, w_val, len * sizeof(Tango::DevBoolean));
 
   dimBooleanSpectrum = len;
 
@@ -1837,15 +1834,12 @@ void TangoTest::write_double_spectrum(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_double_spectrum) ENABLED START -----*/
 
-  const double * p;
-  attr.get_write_value(p);
-
   long len = attr.get_write_value_length();
   DEBUG_STREAM << "Length :" << len << endl;
 
   len = (len <= kSpecLen) ? len : kSpecLen;
 
-  ::memcpy(attr_double_spectrum_read, p, len * sizeof(Tango::DevDouble));
+  ::memcpy(attr_double_spectrum_read, w_val, len * sizeof(Tango::DevDouble));
 
   dimDoubleSpectrum = len;
 
@@ -1905,15 +1899,12 @@ void TangoTest::write_float_spectrum(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_float_spectrum) ENABLED START -----*/
 
-  const float * p;
-  attr.get_write_value(p);
-
   long len = attr.get_write_value_length();
   DEBUG_STREAM << "Length :" << len << endl;
 
   len = (len <= kSpecLen) ? len : kSpecLen;
 
-  ::memcpy(attr_float_spectrum_read, p, len * sizeof(Tango::DevFloat));
+  ::memcpy(attr_float_spectrum_read, w_val, len * sizeof(Tango::DevFloat));
 
   dimFloatSpectrum = len;
 
@@ -1989,15 +1980,13 @@ void TangoTest::write_long_spectrum(Tango::WAttribute &attr)
 	const Tango::DevLong	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_long_spectrum) ENABLED START -----*/
-	const Tango::DevLong * p;
-  attr.get_write_value(p);
 
   long len = attr.get_write_value_length();
   DEBUG_STREAM << "Length :" << len << endl;
 
   len = (len <= kSpecLen) ? len : kSpecLen;
 
-  ::memcpy(attr_long_spectrum_read, p, len * sizeof(Tango::DevLong));
+  ::memcpy(attr_long_spectrum_read, w_val, len * sizeof(Tango::DevLong));
 
   dimLongSpectrum = len;
 
@@ -2059,9 +2048,6 @@ void TangoTest::write_short_spectrum(Tango::WAttribute &attr)
 	long len = attr.get_write_value_length();
   DEBUG_STREAM << "Length :" << len << endl;
 
-  const short * p;
-  attr.get_write_value(p);
-
   len = attr.get_write_value_length();
   DEBUG_STREAM << "Length from get_write_value_length:" << len << endl;
 
@@ -2069,7 +2055,7 @@ void TangoTest::write_short_spectrum(Tango::WAttribute &attr)
 
   DEBUG_STREAM << "Final length:" << len << endl;
 
-  ::memcpy(attr_short_spectrum_read, p, len * sizeof(Tango::DevShort));
+  ::memcpy(attr_short_spectrum_read, w_val, len * sizeof(Tango::DevShort));
   dimShortSpectrum = len;
 
   //::memcpy(attr_short_spectrum_read, p, len * sizeof(Tango::DevShort));
@@ -2129,8 +2115,6 @@ void TangoTest::write_string_spectrum(Tango::WAttribute &attr)
 	const Tango::ConstDevString	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_string_spectrum) ENABLED START -----*/
-	const Tango::ConstDevString *p=NULL;
-  attr.get_write_value(p);
 
   int len = attr.get_w_dim_x();
   len = (len <= kSpecLen) ? len : kSpecLen;
@@ -2141,7 +2125,7 @@ void TangoTest::write_string_spectrum(Tango::WAttribute &attr)
     CORBA::string_free(attr_string_spectrum_read[i]);
   }
   for (int i = 0; i < len; i++) {
-    attr_string_spectrum_read[i] = CORBA::string_dup(p[i]);
+    attr_string_spectrum_read[i] = CORBA::string_dup(w_val[i]);
   }
   dimStringSpectrum = len;
 
@@ -2200,15 +2184,13 @@ void TangoTest::write_uchar_spectrum(Tango::WAttribute &attr)
 	const Tango::DevUChar	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_uchar_spectrum) ENABLED START -----*/
-  const unsigned char * p;
-  attr.get_write_value(p);
-
+	
   long len = attr.get_write_value_length();
   DEBUG_STREAM << "Length :" << len << endl;
 
   len = (len <= kSpecLen) ? len : kSpecLen;
 
-  ::memcpy(attr_uchar_spectrum_read, p, len * sizeof(Tango::DevUChar));
+  ::memcpy(attr_uchar_spectrum_read, w_val, len * sizeof(Tango::DevUChar));
 
   dimUcharSpectrum = len;
 
@@ -2302,15 +2284,12 @@ void TangoTest::write_ushort_spectrum(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_ushort_spectrum) ENABLED START -----*/
 
-  const unsigned short * p;
-  attr.get_write_value(p);
-
   long len = attr.get_write_value_length();
   DEBUG_STREAM << "Length :" << len << endl;
 
   len = (len <= kSpecLen) ? len : kSpecLen;
 
-  ::memcpy(attr_ushort_spectrum_read, p, len * sizeof(Tango::DevUShort));
+  ::memcpy(attr_ushort_spectrum_read, w_val, len * sizeof(Tango::DevUShort));
 
   dimUshortSpectrum = len;
 
@@ -2386,8 +2365,6 @@ void TangoTest::write_boolean_image(Tango::WAttribute &attr)
 	const Tango::DevBoolean	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_boolean_image) ENABLED START -----*/
-	const bool * p;
-  attr.get_write_value(p);
 
   dimXBooleanImage = attr.get_w_dim_x();
   DEBUG_STREAM << "X :" << dimXBooleanImage << endl;
@@ -2399,7 +2376,7 @@ void TangoTest::write_boolean_image(Tango::WAttribute &attr)
 
   len = (len <= kImagLen * kImagLen) ? len : kImagLen * kImagLen;
 
-  ::memcpy(attr_boolean_image_read, p, len * sizeof(Tango::DevBoolean));
+  ::memcpy(attr_boolean_image_read, w_val, len * sizeof(Tango::DevBoolean));
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_boolean_image
 }
@@ -2459,8 +2436,6 @@ void TangoTest::write_double_image(Tango::WAttribute &attr)
 	const Tango::DevDouble	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_double_image) ENABLED START -----*/
-	const double * p;
-  attr.get_write_value(p);
 
   dimXDoubleImage = attr.get_w_dim_x();
   DEBUG_STREAM << "X :" << dimXDoubleImage << endl;
@@ -2472,7 +2447,7 @@ void TangoTest::write_double_image(Tango::WAttribute &attr)
 
   len = (len <= kImagLen * kImagLen) ? len : kImagLen * kImagLen;
 
-  ::memcpy(attr_double_image_read, p, len * sizeof(Tango::DevDouble));
+  ::memcpy(attr_double_image_read, w_val, len * sizeof(Tango::DevDouble));
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_double_image
 }
@@ -2532,8 +2507,6 @@ void TangoTest::write_float_image(Tango::WAttribute &attr)
 	const Tango::DevFloat	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_float_image) ENABLED START -----*/
-	const float * p;
-  attr.get_write_value(p);
 
   dimXFloatImage = attr.get_w_dim_x();
   DEBUG_STREAM << "X :" << dimXFloatImage << endl;
@@ -2545,7 +2518,7 @@ void TangoTest::write_float_image(Tango::WAttribute &attr)
 
   len = (len <= kImagLen * kImagLen) ? len : kImagLen * kImagLen;
 
-  ::memcpy(attr_float_image_read, p, len * sizeof(Tango::DevFloat));
+  ::memcpy(attr_float_image_read, w_val, len * sizeof(Tango::DevFloat));
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_float_image
 }
@@ -2627,8 +2600,6 @@ void TangoTest::write_long_image(Tango::WAttribute &attr)
 	const Tango::DevLong	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_long_image) ENABLED START -----*/
-	const long * p;
-  attr.get_write_value(p);
 
   dimXLongImage = attr.get_w_dim_x();
   DEBUG_STREAM << "X :" << dimXLongImage << endl;
@@ -2640,7 +2611,7 @@ void TangoTest::write_long_image(Tango::WAttribute &attr)
 
   len = (len <= kImagLen * kImagLen) ? len : kImagLen * kImagLen;
 
-  ::memcpy(attr_long_image_read, p, len * sizeof(Tango::DevLong));
+  ::memcpy(attr_long_image_read, w_val, len * sizeof(Tango::DevLong));
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_long_image
 }
@@ -2700,8 +2671,6 @@ void TangoTest::write_short_image(Tango::WAttribute &attr)
 	const Tango::DevShort	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_short_image) ENABLED START -----*/
-	const short * p;
-  attr.get_write_value(p);
 
   dimXShortImage = attr.get_w_dim_x();
   DEBUG_STREAM << "X :" << dimXShortImage << endl;
@@ -2713,7 +2682,7 @@ void TangoTest::write_short_image(Tango::WAttribute &attr)
 
   len = (len <= kImagLen * kImagLen) ? len : kImagLen * kImagLen;
 
-  ::memcpy(attr_short_image_read, p, len * sizeof(Tango::DevShort));
+  ::memcpy(attr_short_image_read, w_val, len * sizeof(Tango::DevShort));
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_short_image
 }
@@ -2773,8 +2742,6 @@ void TangoTest::write_string_image(Tango::WAttribute &attr)
 	const Tango::ConstDevString	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_string_image) ENABLED START -----*/
-	const Tango::ConstDevString *p=NULL;
-  attr.get_write_value(p);
 
   dimXStringImage = attr.get_w_dim_x();
   if (dimXStringImage > kImagLen)
@@ -2793,7 +2760,7 @@ void TangoTest::write_string_image(Tango::WAttribute &attr)
     {
       str_index = i + j * dimXStringImage;
       CORBA::string_free(attr_string_image_read[str_index]);
-      attr_string_image_read[str_index] = CORBA::string_dup(p[str_index]);
+      attr_string_image_read[str_index] = CORBA::string_dup(w_val[str_index]);
     }
   }
 
@@ -2852,8 +2819,6 @@ void TangoTest::write_uchar_image(Tango::WAttribute &attr)
 	const Tango::DevUChar	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_uchar_image) ENABLED START -----*/
-	const unsigned char * p;
-  attr.get_write_value(p);
 
   dimXUcharImage = attr.get_w_dim_x();
   DEBUG_STREAM << "X :" << dimXUcharImage << endl;
@@ -2865,7 +2830,7 @@ void TangoTest::write_uchar_image(Tango::WAttribute &attr)
 
   len = (len <= kImagLen * kImagLen) ? len : kImagLen * kImagLen;
 
-  ::memcpy(attr_uchar_image_read, p, len * sizeof(Tango::DevUChar));
+  ::memcpy(attr_uchar_image_read, w_val, len * sizeof(Tango::DevUChar));
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_uchar_image
 }
@@ -2965,8 +2930,6 @@ void TangoTest::write_ushort_image(Tango::WAttribute &attr)
 	const Tango::DevUShort	*w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_ushort_image) ENABLED START -----*/
-	const unsigned short * p;
-  attr.get_write_value(p);
 
   dimXUshortImage = attr.get_w_dim_x();
   DEBUG_STREAM << "X :" << dimXUshortImage << endl;
@@ -2978,7 +2941,7 @@ void TangoTest::write_ushort_image(Tango::WAttribute &attr)
 
   len = (len <= kImagLen * kImagLen) ? len : kImagLen * kImagLen;
 
-  ::memcpy(attr_ushort_image_read, p, len * sizeof(Tango::DevUShort));
+  ::memcpy(attr_ushort_image_read, w_val, len * sizeof(Tango::DevUShort));
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_ushort_image
 }
