@@ -810,104 +810,6 @@ void TangoTestClass::write_class_property()
 	description << str_desc;
 	data.push_back(description);
 
-	//	put cvs or svn location
-	string	filename("TangoTest");
-	filename += "Class.cpp";
-
-	// check for cvs information
-	string	src_path(CvsPath);
-	start = src_path.find("/");
-	if (start!=string::npos)
-	{
-		end   = src_path.find(filename);
-		if (end>start)
-		{
-			string	strloc = src_path.substr(start, end-start);
-			//	Check if specific repository
-			start = strloc.find("/cvsroot/");
-			if (start!=string::npos && start>0)
-			{
-				string	repository = strloc.substr(0, start);
-				if (repository.find("/segfs/")!=string::npos)
-					strloc = "ESRF:" + strloc.substr(start, strloc.length()-start);
-			}
-			Tango::DbDatum	cvs_loc("cvs_location");
-			cvs_loc << strloc;
-			data.push_back(cvs_loc);
-		}
-	}
-
-	// check for svn information
-	else
-	{
-		string	src_path(SvnPath);
-		start = src_path.find("://");
-		if (start!=string::npos)
-		{
-			end = src_path.find(filename);
-			if (end>start)
-			{
-				header = "$HeadURL: ";
-				start = header.length();
-				string	strloc = src_path.substr(start, (end-start));
-				
-				Tango::DbDatum	svn_loc("svn_location");
-				svn_loc << strloc;
-				data.push_back(svn_loc);
-			}
-		}
-	}
-
-	//	Get CVS or SVN revision tag
-	
-	// CVS tag
-	string	tagname(TagName);
-	header = "$Name: ";
-	start = header.length();
-	string	endstr(" $");
-	
-	end   = tagname.find(endstr);
-	if (end!=string::npos && end>start)
-	{
-		string	strtag = tagname.substr(start, end-start);
-		Tango::DbDatum	cvs_tag("cvs_tag");
-		cvs_tag << strtag;
-		data.push_back(cvs_tag);
-	}
-	
-	// SVN tag
-	string	svnpath(SvnPath);
-	header = "$HeadURL: ";
-	start = header.length();
-	
-	end   = svnpath.find(endstr);
-	if (end!=string::npos && end>start)
-	{
-		string	strloc = svnpath.substr(start, end-start);
-		
-		string tagstr ("/tags/");
-		start = strloc.find(tagstr);
-		if ( start!=string::npos )
-		{
-			start = start + tagstr.length();
-			end   = strloc.find(filename);
-			string	strtag = strloc.substr(start, end-start-1);
-			
-			Tango::DbDatum	svn_tag("svn_tag");
-			svn_tag << strtag;
-			data.push_back(svn_tag);
-		}
-	}
-
-	//	Get URL location
-	string	httpServ(HttpServer);
-	if (httpServ.length()>0)
-	{
-		Tango::DbDatum	db_doc_url("doc_url");
-		db_doc_url << httpServ;
-		data.push_back(db_doc_url);
-	}
-
 	//  Put inheritance
 	Tango::DbDatum	inher_datum("InheritedFrom");
 	vector<string> inheritance;
@@ -1486,6 +1388,134 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(ulong_scalar);
 
+	//	Attribute : devenum_scalar_w
+	devenum_scalar_wAttrib	*devenum_scalar_w = new devenum_scalar_wAttrib();
+	Tango::UserDefaultAttrProp	devenum_scalar_w_prop;
+	//	description	not set for devenum_scalar_w
+	//	label	not set for devenum_scalar_w
+	//	unit	not set for devenum_scalar_w
+	//	standard_unit	not set for devenum_scalar_w
+	//	display_unit	not set for devenum_scalar_w
+	//	format	not set for devenum_scalar_w
+	//	max_value	not set for devenum_scalar_w
+	//	min_value	not set for devenum_scalar_w
+	//	max_alarm	not set for devenum_scalar_w
+	//	min_alarm	not set for devenum_scalar_w
+	//	max_warning	not set for devenum_scalar_w
+	//	min_warning	not set for devenum_scalar_w
+	//	delta_t	not set for devenum_scalar_w
+	//	delta_val	not set for devenum_scalar_w
+
+	{
+		vector<string> labels;
+		labels.push_back("SCALAR_A");
+		labels.push_back("SCALAR_B");
+		labels.push_back("SCALAR_C");
+		labels.push_back("SCALAR_D");
+		devenum_scalar_w_prop.set_enum_labels(labels);
+	}
+	devenum_scalar_w->set_default_properties(devenum_scalar_w_prop);
+	//	Not Polled
+	devenum_scalar_w->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(devenum_scalar_w);
+
+	//	Attribute : devenum_scalar
+	devenum_scalarAttrib	*devenum_scalar = new devenum_scalarAttrib();
+	Tango::UserDefaultAttrProp	devenum_scalar_prop;
+	//	description	not set for devenum_scalar
+	//	label	not set for devenum_scalar
+	//	unit	not set for devenum_scalar
+	//	standard_unit	not set for devenum_scalar
+	//	display_unit	not set for devenum_scalar
+	//	format	not set for devenum_scalar
+	//	max_value	not set for devenum_scalar
+	//	min_value	not set for devenum_scalar
+	//	max_alarm	not set for devenum_scalar
+	//	min_alarm	not set for devenum_scalar
+	//	max_warning	not set for devenum_scalar
+	//	min_warning	not set for devenum_scalar
+	//	delta_t	not set for devenum_scalar
+	//	delta_val	not set for devenum_scalar
+
+	{
+		vector<string> labels;
+		labels.push_back("SCALAR_E");
+		labels.push_back("SCALAR_F");
+		labels.push_back("SCALAR_G");
+		labels.push_back("SCALAR_H");
+		devenum_scalar_prop.set_enum_labels(labels);
+	}
+	devenum_scalar->set_default_properties(devenum_scalar_prop);
+	//	Not Polled
+	devenum_scalar->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(devenum_scalar);
+
+	//	Attribute : devenum_scalar_ro
+	devenum_scalar_roAttrib	*devenum_scalar_ro = new devenum_scalar_roAttrib();
+	Tango::UserDefaultAttrProp	devenum_scalar_ro_prop;
+	//	description	not set for devenum_scalar_ro
+	//	label	not set for devenum_scalar_ro
+	//	unit	not set for devenum_scalar_ro
+	//	standard_unit	not set for devenum_scalar_ro
+	//	display_unit	not set for devenum_scalar_ro
+	//	format	not set for devenum_scalar_ro
+	//	max_value	not set for devenum_scalar_ro
+	//	min_value	not set for devenum_scalar_ro
+	//	max_alarm	not set for devenum_scalar_ro
+	//	min_alarm	not set for devenum_scalar_ro
+	//	max_warning	not set for devenum_scalar_ro
+	//	min_warning	not set for devenum_scalar_ro
+	//	delta_t	not set for devenum_scalar_ro
+	//	delta_val	not set for devenum_scalar_ro
+
+	{
+		vector<string> labels;
+		labels.push_back("SCALAR_I");
+		labels.push_back("SCALAR_J");
+		labels.push_back("SCALAR_K");
+		labels.push_back("SCALAR_L");
+		devenum_scalar_ro_prop.set_enum_labels(labels);
+	}
+	devenum_scalar_ro->set_default_properties(devenum_scalar_ro_prop);
+	//	Not Polled
+	devenum_scalar_ro->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(devenum_scalar_ro);
+
+	//	Attribute : devenum_scalar_rww
+	devenum_scalar_rwwAttrib	*devenum_scalar_rww = new devenum_scalar_rwwAttrib();
+	Tango::UserDefaultAttrProp	devenum_scalar_rww_prop;
+	//	description	not set for devenum_scalar_rww
+	//	label	not set for devenum_scalar_rww
+	//	unit	not set for devenum_scalar_rww
+	//	standard_unit	not set for devenum_scalar_rww
+	//	display_unit	not set for devenum_scalar_rww
+	//	format	not set for devenum_scalar_rww
+	//	max_value	not set for devenum_scalar_rww
+	//	min_value	not set for devenum_scalar_rww
+	//	max_alarm	not set for devenum_scalar_rww
+	//	min_alarm	not set for devenum_scalar_rww
+	//	max_warning	not set for devenum_scalar_rww
+	//	min_warning	not set for devenum_scalar_rww
+	//	delta_t	not set for devenum_scalar_rww
+	//	delta_val	not set for devenum_scalar_rww
+
+	{
+		vector<string> labels;
+		labels.push_back("SCALAR_M");
+		labels.push_back("SCALAR_N");
+		labels.push_back("SCALAR_O");
+		labels.push_back("SCALAR_P");
+		devenum_scalar_rww_prop.set_enum_labels(labels);
+	}
+	devenum_scalar_rww->set_default_properties(devenum_scalar_rww_prop);
+	//	Not Polled
+	devenum_scalar_rww->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(devenum_scalar_rww);
+
 	//	Attribute : boolean_spectrum
 	boolean_spectrumAttrib	*boolean_spectrum = new boolean_spectrumAttrib();
 	Tango::UserDefaultAttrProp	boolean_spectrum_prop;
@@ -1966,6 +1996,70 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(wave);
 
+	//	Attribute : devenum_spectrum_ro
+	devenum_spectrum_roAttrib	*devenum_spectrum_ro = new devenum_spectrum_roAttrib();
+	Tango::UserDefaultAttrProp	devenum_spectrum_ro_prop;
+	//	description	not set for devenum_spectrum_ro
+	//	label	not set for devenum_spectrum_ro
+	//	unit	not set for devenum_spectrum_ro
+	//	standard_unit	not set for devenum_spectrum_ro
+	//	display_unit	not set for devenum_spectrum_ro
+	//	format	not set for devenum_spectrum_ro
+	//	max_value	not set for devenum_spectrum_ro
+	//	min_value	not set for devenum_spectrum_ro
+	//	max_alarm	not set for devenum_spectrum_ro
+	//	min_alarm	not set for devenum_spectrum_ro
+	//	max_warning	not set for devenum_spectrum_ro
+	//	min_warning	not set for devenum_spectrum_ro
+	//	delta_t	not set for devenum_spectrum_ro
+	//	delta_val	not set for devenum_spectrum_ro
+
+	{
+		vector<string> labels;
+		labels.push_back("SPECTRUM_A");
+		labels.push_back("SPECTRUM_B");
+		labels.push_back("SPECTRUM_C");
+		labels.push_back("SPECTRUM_D");
+		devenum_spectrum_ro_prop.set_enum_labels(labels);
+	}
+	devenum_spectrum_ro->set_default_properties(devenum_spectrum_ro_prop);
+	//	Not Polled
+	devenum_spectrum_ro->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(devenum_spectrum_ro);
+
+	//	Attribute : devenum_spectrum
+	devenum_spectrumAttrib	*devenum_spectrum = new devenum_spectrumAttrib();
+	Tango::UserDefaultAttrProp	devenum_spectrum_prop;
+	//	description	not set for devenum_spectrum
+	//	label	not set for devenum_spectrum
+	//	unit	not set for devenum_spectrum
+	//	standard_unit	not set for devenum_spectrum
+	//	display_unit	not set for devenum_spectrum
+	//	format	not set for devenum_spectrum
+	//	max_value	not set for devenum_spectrum
+	//	min_value	not set for devenum_spectrum
+	//	max_alarm	not set for devenum_spectrum
+	//	min_alarm	not set for devenum_spectrum
+	//	max_warning	not set for devenum_spectrum
+	//	min_warning	not set for devenum_spectrum
+	//	delta_t	not set for devenum_spectrum
+	//	delta_val	not set for devenum_spectrum
+
+	{
+		vector<string> labels;
+		labels.push_back("SPECTRUM_E");
+		labels.push_back("SPECTRUM_F");
+		labels.push_back("SPECTRUM_G");
+		labels.push_back("SPECTRUM_H");
+		devenum_spectrum_prop.set_enum_labels(labels);
+	}
+	devenum_spectrum->set_default_properties(devenum_spectrum_prop);
+	//	Not Polled
+	devenum_spectrum->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(devenum_spectrum);
+
 	//	Attribute : boolean_image
 	boolean_imageAttrib	*boolean_image = new boolean_imageAttrib();
 	Tango::UserDefaultAttrProp	boolean_image_prop;
@@ -2422,6 +2516,70 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(ushort_image_ro);
 
+	//	Attribute : devenum_image_ro
+	devenum_image_roAttrib	*devenum_image_ro = new devenum_image_roAttrib();
+	Tango::UserDefaultAttrProp	devenum_image_ro_prop;
+	//	description	not set for devenum_image_ro
+	//	label	not set for devenum_image_ro
+	//	unit	not set for devenum_image_ro
+	//	standard_unit	not set for devenum_image_ro
+	//	display_unit	not set for devenum_image_ro
+	//	format	not set for devenum_image_ro
+	//	max_value	not set for devenum_image_ro
+	//	min_value	not set for devenum_image_ro
+	//	max_alarm	not set for devenum_image_ro
+	//	min_alarm	not set for devenum_image_ro
+	//	max_warning	not set for devenum_image_ro
+	//	min_warning	not set for devenum_image_ro
+	//	delta_t	not set for devenum_image_ro
+	//	delta_val	not set for devenum_image_ro
+
+	{
+		vector<string> labels;
+		labels.push_back("IMAGE_A");
+		labels.push_back("IMAGE_B");
+		labels.push_back("IMAGE_C");
+		labels.push_back("IMAGE_D");
+		devenum_image_ro_prop.set_enum_labels(labels);
+	}
+	devenum_image_ro->set_default_properties(devenum_image_ro_prop);
+	//	Not Polled
+	devenum_image_ro->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(devenum_image_ro);
+
+	//	Attribute : devenum_image
+	devenum_imageAttrib	*devenum_image = new devenum_imageAttrib();
+	Tango::UserDefaultAttrProp	devenum_image_prop;
+	//	description	not set for devenum_image
+	//	label	not set for devenum_image
+	//	unit	not set for devenum_image
+	//	standard_unit	not set for devenum_image
+	//	display_unit	not set for devenum_image
+	//	format	not set for devenum_image
+	//	max_value	not set for devenum_image
+	//	min_value	not set for devenum_image
+	//	max_alarm	not set for devenum_image
+	//	min_alarm	not set for devenum_image
+	//	max_warning	not set for devenum_image
+	//	min_warning	not set for devenum_image
+	//	delta_t	not set for devenum_image
+	//	delta_val	not set for devenum_image
+
+	{
+		vector<string> labels;
+		labels.push_back("IMAGE_E");
+		labels.push_back("IMAGE_F");
+		labels.push_back("IMAGE_G");
+		labels.push_back("IMAGE_H");
+		devenum_image_prop.set_enum_labels(labels);
+	}
+	devenum_image->set_default_properties(devenum_image_prop);
+	//	Not Polled
+	devenum_image->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(devenum_image);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
@@ -2795,7 +2953,7 @@ void TangoTestClass::erase_dynamic_attributes(const Tango::DevVarStringArray *de
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoTestClass::get_attr_by_name()
+ *	Method      : TangoTestClass::get_attr_object_by_name()
  *	Description : returns Tango::Attr * object found by name
  */
 //--------------------------------------------------------

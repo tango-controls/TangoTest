@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
-  <classes name="TangoTest" pogoRevision="9.1">
-    <description description="A device to test generic clients. It offers a \&quot;echo\&quot; like command for&#xA;each TANGO data type (i.e. each command returns an exact copy of &lt;argin>)." title="TANGO Device Server for testing generic clients" sourcePath="/home/taurel/tango/TangoTest" language="Cpp" filestogenerate="XMI   file,Code files,Protected Regions" license="GPL" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
-      <inheritances classname="Device_4Impl" sourcePath="/segfs/tango/templates/AbstractClasses"/>
+  <classes name="TangoTest" pogoRevision="9.6">
+    <description description="A device to test generic clients. It offers a \&quot;echo\&quot; like command for&#xA;each TANGO data type (i.e. each command returns an exact copy of &lt;argin>)." title="TANGO Device Server for testing generic clients" sourcePath="/home/firma/devel/TangoTest" language="Cpp" filestogenerate="XMI   file,Code files,CMakeLists,Protected Regions,WindowsCMakeLists" license="GPL" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
+      <inheritances classname="Device_4Impl" sourcePath="../../../../segfs/tango/templates/AbstractClasses"/>
       <identification contact="at esrf.fr - tango" author="tango" emailDomain="esrf.fr" classFamily="Miscellaneous" siteSpecific="" platform="All Platforms" bus="Not Applicable" manufacturer="Tango Team" reference="TangoTest"/>
     </description>
     <deviceProperties name="Mthreaded_impl" description="Multi-threaded implementation (true/false">
@@ -429,6 +429,54 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
+    <attributes name="devenum_scalar_w" attType="Scalar" rwType="WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:EnumType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <enumLabels>SCALAR_A</enumLabels>
+      <enumLabels>SCALAR_B</enumLabels>
+      <enumLabels>SCALAR_C</enumLabels>
+      <enumLabels>SCALAR_D</enumLabels>
+    </attributes>
+    <attributes name="devenum_scalar" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:EnumType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <enumLabels>SCALAR_E</enumLabels>
+      <enumLabels>SCALAR_F</enumLabels>
+      <enumLabels>SCALAR_G</enumLabels>
+      <enumLabels>SCALAR_H</enumLabels>
+    </attributes>
+    <attributes name="devenum_scalar_ro" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:EnumType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <enumLabels>SCALAR_I</enumLabels>
+      <enumLabels>SCALAR_J</enumLabels>
+      <enumLabels>SCALAR_K</enumLabels>
+      <enumLabels>SCALAR_L</enumLabels>
+    </attributes>
+    <attributes name="devenum_scalar_rww" attType="Scalar" rwType="READ_WITH_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" associatedAttr="devenum_scalar_w" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:EnumType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <enumLabels>SCALAR_M</enumLabels>
+      <enumLabels>SCALAR_N</enumLabels>
+      <enumLabels>SCALAR_O</enumLabels>
+      <enumLabels>SCALAR_P</enumLabels>
+    </attributes>
     <attributes name="boolean_spectrum" attType="Spectrum" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="4096" maxY="0">
       <dataType xsi:type="pogoDsl:BooleanType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
@@ -569,6 +617,30 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
+    <attributes name="devenum_spectrum_ro" attType="Spectrum" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="4096" maxY="" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:EnumType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <enumLabels>SPECTRUM_A</enumLabels>
+      <enumLabels>SPECTRUM_B</enumLabels>
+      <enumLabels>SPECTRUM_C</enumLabels>
+      <enumLabels>SPECTRUM_D</enumLabels>
+    </attributes>
+    <attributes name="devenum_spectrum" attType="Spectrum" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="4096" maxY="" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:EnumType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <enumLabels>SPECTRUM_E</enumLabels>
+      <enumLabels>SPECTRUM_F</enumLabels>
+      <enumLabels>SPECTRUM_G</enumLabels>
+      <enumLabels>SPECTRUM_H</enumLabels>
+    </attributes>
     <attributes name="boolean_image" attType="Image" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="251" maxY="251">
       <dataType xsi:type="pogoDsl:BooleanType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
@@ -702,6 +774,30 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="An unsigned short image attribute" label="ushort_image_ro" unit="" standardUnit="" displayUnit="" format="" maxValue="255" minValue="0" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
+    <attributes name="devenum_image_ro" attType="Image" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="251" maxY="251" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:EnumType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <enumLabels>IMAGE_A</enumLabels>
+      <enumLabels>IMAGE_B</enumLabels>
+      <enumLabels>IMAGE_C</enumLabels>
+      <enumLabels>IMAGE_D</enumLabels>
+    </attributes>
+    <attributes name="devenum_image" attType="Image" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="251" maxY="251" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:EnumType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="" label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <enumLabels>IMAGE_E</enumLabels>
+      <enumLabels>IMAGE_F</enumLabels>
+      <enumLabels>IMAGE_G</enumLabels>
+      <enumLabels>IMAGE_H</enumLabels>
+    </attributes>
     <pipes name="string_long_short_ro" description="Pipe example" label="" rwType="READ" displayLevel="OPERATOR"/>
     <states name="FAULT" description="This state disables all commands">
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
@@ -709,6 +805,6 @@
     <states name="RUNNING" description="This state allows all the commands to be sent">
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
     </states>
-    <preferences docHome="./doc_html" makefileHome="/segfs/tango/cppserver/env"/>
+    <preferences docHome="./doc_html" makefileHome="/usr/local/share/pogo/preferences"/>
   </classes>
 </pogoDsl:PogoSystem>
