@@ -1486,6 +1486,198 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(ulong_scalar);
 
+	//	Attribute : long64_scalar_w
+	long64_scalar_wAttrib	*long64_scalar_w = new long64_scalar_wAttrib();
+	Tango::UserDefaultAttrProp	long64_scalar_w_prop;
+	//	description	not set for long64_scalar_w
+	//	label	not set for long64_scalar_w
+	//	unit	not set for long64_scalar_w
+	//	standard_unit	not set for long64_scalar_w
+	//	display_unit	not set for long64_scalar_w
+	//	format	not set for long64_scalar_w
+	//	max_value	not set for long64_scalar_w
+	//	min_value	not set for long64_scalar_w
+	//	max_alarm	not set for long64_scalar_w
+	//	min_alarm	not set for long64_scalar_w
+	//	max_warning	not set for long64_scalar_w
+	//	min_warning	not set for long64_scalar_w
+	//	delta_t	not set for long64_scalar_w
+	//	delta_val	not set for long64_scalar_w
+	
+	long64_scalar_w->set_default_properties(long64_scalar_w_prop);
+	//	Not Polled
+	long64_scalar_w->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(long64_scalar_w);
+
+	//	Attribute : float_scalar_w
+	float_scalar_wAttrib	*float_scalar_w = new float_scalar_wAttrib();
+	Tango::UserDefaultAttrProp	float_scalar_w_prop;
+	//	description	not set for float_scalar_w
+	//	label	not set for float_scalar_w
+	//	unit	not set for float_scalar_w
+	//	standard_unit	not set for float_scalar_w
+	//	display_unit	not set for float_scalar_w
+	//	format	not set for float_scalar_w
+	//	max_value	not set for float_scalar_w
+	//	min_value	not set for float_scalar_w
+	//	max_alarm	not set for float_scalar_w
+	//	min_alarm	not set for float_scalar_w
+	//	max_warning	not set for float_scalar_w
+	//	min_warning	not set for float_scalar_w
+	//	delta_t	not set for float_scalar_w
+	//	delta_val	not set for float_scalar_w
+	
+	float_scalar_w->set_default_properties(float_scalar_w_prop);
+	//	Not Polled
+	float_scalar_w->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(float_scalar_w);
+
+	//	Attribute : ulong_scalar_w
+	ulong_scalar_wAttrib	*ulong_scalar_w = new ulong_scalar_wAttrib();
+	Tango::UserDefaultAttrProp	ulong_scalar_w_prop;
+	//	description	not set for ulong_scalar_w
+	//	label	not set for ulong_scalar_w
+	//	unit	not set for ulong_scalar_w
+	//	standard_unit	not set for ulong_scalar_w
+	//	display_unit	not set for ulong_scalar_w
+	//	format	not set for ulong_scalar_w
+	//	max_value	not set for ulong_scalar_w
+	//	min_value	not set for ulong_scalar_w
+	//	max_alarm	not set for ulong_scalar_w
+	//	min_alarm	not set for ulong_scalar_w
+	//	max_warning	not set for ulong_scalar_w
+	//	min_warning	not set for ulong_scalar_w
+	//	delta_t	not set for ulong_scalar_w
+	//	delta_val	not set for ulong_scalar_w
+	
+	ulong_scalar_w->set_default_properties(ulong_scalar_w_prop);
+	//	Not Polled
+	ulong_scalar_w->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ulong_scalar_w);
+
+	//	Attribute : ulong64_scalar_w
+	ulong64_scalar_wAttrib	*ulong64_scalar_w = new ulong64_scalar_wAttrib();
+	Tango::UserDefaultAttrProp	ulong64_scalar_w_prop;
+	//	description	not set for ulong64_scalar_w
+	//	label	not set for ulong64_scalar_w
+	//	unit	not set for ulong64_scalar_w
+	//	standard_unit	not set for ulong64_scalar_w
+	//	display_unit	not set for ulong64_scalar_w
+	//	format	not set for ulong64_scalar_w
+	//	max_value	not set for ulong64_scalar_w
+	//	min_value	not set for ulong64_scalar_w
+	//	max_alarm	not set for ulong64_scalar_w
+	//	min_alarm	not set for ulong64_scalar_w
+	//	max_warning	not set for ulong64_scalar_w
+	//	min_warning	not set for ulong64_scalar_w
+	//	delta_t	not set for ulong64_scalar_w
+	//	delta_val	not set for ulong64_scalar_w
+	
+	ulong64_scalar_w->set_default_properties(ulong64_scalar_w_prop);
+	//	Not Polled
+	ulong64_scalar_w->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ulong64_scalar_w);
+
+	//	Attribute : ushort_scalar_w
+	ushort_scalar_wAttrib	*ushort_scalar_w = new ushort_scalar_wAttrib();
+	Tango::UserDefaultAttrProp	ushort_scalar_w_prop;
+	//	description	not set for ushort_scalar_w
+	//	label	not set for ushort_scalar_w
+	//	unit	not set for ushort_scalar_w
+	//	standard_unit	not set for ushort_scalar_w
+	//	display_unit	not set for ushort_scalar_w
+	//	format	not set for ushort_scalar_w
+	//	max_value	not set for ushort_scalar_w
+	//	min_value	not set for ushort_scalar_w
+	//	max_alarm	not set for ushort_scalar_w
+	//	min_alarm	not set for ushort_scalar_w
+	//	max_warning	not set for ushort_scalar_w
+	//	min_warning	not set for ushort_scalar_w
+	//	delta_t	not set for ushort_scalar_w
+	//	delta_val	not set for ushort_scalar_w
+	
+	ushort_scalar_w->set_default_properties(ushort_scalar_w_prop);
+	//	Not Polled
+	ushort_scalar_w->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ushort_scalar_w);
+
+	//	Attribute : uchar_scalar_w
+	uchar_scalar_wAttrib	*uchar_scalar_w = new uchar_scalar_wAttrib();
+	Tango::UserDefaultAttrProp	uchar_scalar_w_prop;
+	//	description	not set for uchar_scalar_w
+	//	label	not set for uchar_scalar_w
+	//	unit	not set for uchar_scalar_w
+	//	standard_unit	not set for uchar_scalar_w
+	//	display_unit	not set for uchar_scalar_w
+	//	format	not set for uchar_scalar_w
+	//	max_value	not set for uchar_scalar_w
+	//	min_value	not set for uchar_scalar_w
+	//	max_alarm	not set for uchar_scalar_w
+	//	min_alarm	not set for uchar_scalar_w
+	//	max_warning	not set for uchar_scalar_w
+	//	min_warning	not set for uchar_scalar_w
+	//	delta_t	not set for uchar_scalar_w
+	//	delta_val	not set for uchar_scalar_w
+	
+	uchar_scalar_w->set_default_properties(uchar_scalar_w_prop);
+	//	Not Polled
+	uchar_scalar_w->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(uchar_scalar_w);
+
+	//	Attribute : encoded_scalar_w
+	encoded_scalar_wAttrib	*encoded_scalar_w = new encoded_scalar_wAttrib();
+	Tango::UserDefaultAttrProp	encoded_scalar_w_prop;
+	//	description	not set for encoded_scalar_w
+	//	label	not set for encoded_scalar_w
+	//	unit	not set for encoded_scalar_w
+	//	standard_unit	not set for encoded_scalar_w
+	//	display_unit	not set for encoded_scalar_w
+	//	format	not set for encoded_scalar_w
+	//	max_value	not set for encoded_scalar_w
+	//	min_value	not set for encoded_scalar_w
+	//	max_alarm	not set for encoded_scalar_w
+	//	min_alarm	not set for encoded_scalar_w
+	//	max_warning	not set for encoded_scalar_w
+	//	min_warning	not set for encoded_scalar_w
+	//	delta_t	not set for encoded_scalar_w
+	//	delta_val	not set for encoded_scalar_w
+	
+	encoded_scalar_w->set_default_properties(encoded_scalar_w_prop);
+	//	Not Polled
+	encoded_scalar_w->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(encoded_scalar_w);
+
+	//	Attribute : encoded_scalar
+	encoded_scalarAttrib	*encoded_scalar = new encoded_scalarAttrib();
+	Tango::UserDefaultAttrProp	encoded_scalar_prop;
+	//	description	not set for encoded_scalar
+	//	label	not set for encoded_scalar
+	//	unit	not set for encoded_scalar
+	//	standard_unit	not set for encoded_scalar
+	//	display_unit	not set for encoded_scalar
+	//	format	not set for encoded_scalar
+	//	max_value	not set for encoded_scalar
+	//	min_value	not set for encoded_scalar
+	//	max_alarm	not set for encoded_scalar
+	//	min_alarm	not set for encoded_scalar
+	//	max_warning	not set for encoded_scalar
+	//	min_warning	not set for encoded_scalar
+	//	delta_t	not set for encoded_scalar
+	//	delta_val	not set for encoded_scalar
+	
+	encoded_scalar->set_default_properties(encoded_scalar_prop);
+	//	Not Polled
+	encoded_scalar->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(encoded_scalar);
+
 	//	Attribute : boolean_spectrum
 	boolean_spectrumAttrib	*boolean_spectrum = new boolean_spectrumAttrib();
 	Tango::UserDefaultAttrProp	boolean_spectrum_prop;
@@ -1965,6 +2157,78 @@ void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
 	wave->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(wave);
+
+	//	Attribute : long64_spectrum
+	long64_spectrumAttrib	*long64_spectrum = new long64_spectrumAttrib();
+	Tango::UserDefaultAttrProp	long64_spectrum_prop;
+	//	description	not set for long64_spectrum
+	//	label	not set for long64_spectrum
+	//	unit	not set for long64_spectrum
+	//	standard_unit	not set for long64_spectrum
+	//	display_unit	not set for long64_spectrum
+	//	format	not set for long64_spectrum
+	//	max_value	not set for long64_spectrum
+	//	min_value	not set for long64_spectrum
+	//	max_alarm	not set for long64_spectrum
+	//	min_alarm	not set for long64_spectrum
+	//	max_warning	not set for long64_spectrum
+	//	min_warning	not set for long64_spectrum
+	//	delta_t	not set for long64_spectrum
+	//	delta_val	not set for long64_spectrum
+	
+	long64_spectrum->set_default_properties(long64_spectrum_prop);
+	//	Not Polled
+	long64_spectrum->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(long64_spectrum);
+
+	//	Attribute : ulong64_spectrum
+	ulong64_spectrumAttrib	*ulong64_spectrum = new ulong64_spectrumAttrib();
+	Tango::UserDefaultAttrProp	ulong64_spectrum_prop;
+	//	description	not set for ulong64_spectrum
+	//	label	not set for ulong64_spectrum
+	//	unit	not set for ulong64_spectrum
+	//	standard_unit	not set for ulong64_spectrum
+	//	display_unit	not set for ulong64_spectrum
+	//	format	not set for ulong64_spectrum
+	//	max_value	not set for ulong64_spectrum
+	//	min_value	not set for ulong64_spectrum
+	//	max_alarm	not set for ulong64_spectrum
+	//	min_alarm	not set for ulong64_spectrum
+	//	max_warning	not set for ulong64_spectrum
+	//	min_warning	not set for ulong64_spectrum
+	//	delta_t	not set for ulong64_spectrum
+	//	delta_val	not set for ulong64_spectrum
+	
+	ulong64_spectrum->set_default_properties(ulong64_spectrum_prop);
+	//	Not Polled
+	ulong64_spectrum->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ulong64_spectrum);
+
+	//	Attribute : ulong_spectrum
+	ulong_spectrumAttrib	*ulong_spectrum = new ulong_spectrumAttrib();
+	Tango::UserDefaultAttrProp	ulong_spectrum_prop;
+	//	description	not set for ulong_spectrum
+	//	label	not set for ulong_spectrum
+	//	unit	not set for ulong_spectrum
+	//	standard_unit	not set for ulong_spectrum
+	//	display_unit	not set for ulong_spectrum
+	//	format	not set for ulong_spectrum
+	//	max_value	not set for ulong_spectrum
+	//	min_value	not set for ulong_spectrum
+	//	max_alarm	not set for ulong_spectrum
+	//	min_alarm	not set for ulong_spectrum
+	//	max_warning	not set for ulong_spectrum
+	//	min_warning	not set for ulong_spectrum
+	//	delta_t	not set for ulong_spectrum
+	//	delta_val	not set for ulong_spectrum
+	
+	ulong_spectrum->set_default_properties(ulong_spectrum_prop);
+	//	Not Polled
+	ulong_spectrum->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ulong_spectrum);
 
 	//	Attribute : boolean_image
 	boolean_imageAttrib	*boolean_image = new boolean_imageAttrib();

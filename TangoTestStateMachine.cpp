@@ -446,6 +446,138 @@ bool TangoTest::is_ulong_scalar_allowed(TANGO_UNUSED(Tango::AttReqType type))
 
 //--------------------------------------------------------
 /**
+ *	Method      : TangoTest::is_long64_scalar_w_allowed()
+ *	Description : Execution allowed for long64_scalar_w attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_long64_scalar_w_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for long64_scalar_w attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::long64_scalar_wStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::long64_scalar_wStateAllowed_WRITE
+
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_float_scalar_w_allowed()
+ *	Description : Execution allowed for float_scalar_w attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_float_scalar_w_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for float_scalar_w attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::float_scalar_wStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::float_scalar_wStateAllowed_WRITE
+
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_ulong_scalar_w_allowed()
+ *	Description : Execution allowed for ulong_scalar_w attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_ulong_scalar_w_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for ulong_scalar_w attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::ulong_scalar_wStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::ulong_scalar_wStateAllowed_WRITE
+
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_ulong64_scalar_w_allowed()
+ *	Description : Execution allowed for ulong64_scalar_w attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_ulong64_scalar_w_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for ulong64_scalar_w attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::ulong64_scalar_wStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::ulong64_scalar_wStateAllowed_WRITE
+
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_ushort_scalar_w_allowed()
+ *	Description : Execution allowed for ushort_scalar_w attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_ushort_scalar_w_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for ushort_scalar_w attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::ushort_scalar_wStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::ushort_scalar_wStateAllowed_WRITE
+
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_uchar_scalar_w_allowed()
+ *	Description : Execution allowed for uchar_scalar_w attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_uchar_scalar_w_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for uchar_scalar_w attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::uchar_scalar_wStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::uchar_scalar_wStateAllowed_WRITE
+
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_encoded_scalar_w_allowed()
+ *	Description : Execution allowed for encoded_scalar_w attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_encoded_scalar_w_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for encoded_scalar_w attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::encoded_scalar_wStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::encoded_scalar_wStateAllowed_WRITE
+
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_encoded_scalar_allowed()
+ *	Description : Execution allowed for encoded_scalar attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_encoded_scalar_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for encoded_scalar attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::encoded_scalarStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::encoded_scalarStateAllowed_WRITE
+
+	//	Not any excluded states for encoded_scalar attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::encoded_scalarStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::encoded_scalarStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
  *	Method      : TangoTest::is_boolean_spectrum_allowed()
  *	Description : Execution allowed for boolean_spectrum attribute
  */
@@ -793,6 +925,66 @@ bool TangoTest::is_wave_allowed(TANGO_UNUSED(Tango::AttReqType type))
 	/*----- PROTECTED REGION ID(TangoTest::waveStateAllowed_READ) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::waveStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_long64_spectrum_allowed()
+ *	Description : Execution allowed for long64_spectrum attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_long64_spectrum_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for long64_spectrum attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::long64_spectrumStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::long64_spectrumStateAllowed_WRITE
+
+	//	Not any excluded states for long64_spectrum attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::long64_spectrumStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::long64_spectrumStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_ulong64_spectrum_allowed()
+ *	Description : Execution allowed for ulong64_spectrum attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_ulong64_spectrum_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for ulong64_spectrum attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::ulong64_spectrumStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::ulong64_spectrumStateAllowed_WRITE
+
+	//	Not any excluded states for ulong64_spectrum attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::ulong64_spectrumStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::ulong64_spectrumStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_ulong_spectrum_allowed()
+ *	Description : Execution allowed for ulong_spectrum attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_ulong_spectrum_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for ulong_spectrum attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::ulong_spectrumStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::ulong_spectrumStateAllowed_WRITE
+
+	//	Not any excluded states for ulong_spectrum attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::ulong_spectrumStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::ulong_spectrumStateAllowed_READ
 	return true;
 }
 
@@ -1147,7 +1339,7 @@ bool TangoTest::is_string_long_short_ro_allowed(TANGO_UNUSED(Tango::PipeReqType 
 	/*----- PROTECTED REGION ID(TangoTest::string_long_short_roStateAllowed_READ) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::string_long_short_roStateAllowed_READ
-    return true;
+	return true;
 }
 
 //=================================================
@@ -1558,5 +1750,12 @@ bool TangoTest::is_SwitchStates_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::SwitchStatesStateAllowed
 	return true;
 }
+
+
+/*----- PROTECTED REGION ID(TangoTest::TangoTestStateAllowed.AdditionalMethods) ENABLED START -----*/
+
+//	Additional Methods
+
+/*----- PROTECTED REGION END -----*/	//	TangoTest::TangoTestStateAllowed.AdditionalMethods
 
 }	//	End of namespace

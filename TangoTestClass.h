@@ -359,6 +359,112 @@ public:
 		{return (static_cast<TangoTest *>(dev))->is_ulong_scalar_allowed(ty);}
 };
 
+//	Attribute long64_scalar_w class definition
+class long64_scalar_wAttrib: public Tango::Attr
+{
+public:
+	long64_scalar_wAttrib():Attr("long64_scalar_w",
+			Tango::DEV_LONG64, Tango::WRITE) {};
+	~long64_scalar_wAttrib() {};
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_long64_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_long64_scalar_w_allowed(ty);}
+};
+
+//	Attribute float_scalar_w class definition
+class float_scalar_wAttrib: public Tango::Attr
+{
+public:
+	float_scalar_wAttrib():Attr("float_scalar_w",
+			Tango::DEV_FLOAT, Tango::WRITE) {};
+	~float_scalar_wAttrib() {};
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_float_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_float_scalar_w_allowed(ty);}
+};
+
+//	Attribute ulong_scalar_w class definition
+class ulong_scalar_wAttrib: public Tango::Attr
+{
+public:
+	ulong_scalar_wAttrib():Attr("ulong_scalar_w",
+			Tango::DEV_ULONG, Tango::WRITE) {};
+	~ulong_scalar_wAttrib() {};
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_ulong_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_ulong_scalar_w_allowed(ty);}
+};
+
+//	Attribute ulong64_scalar_w class definition
+class ulong64_scalar_wAttrib: public Tango::Attr
+{
+public:
+	ulong64_scalar_wAttrib():Attr("ulong64_scalar_w",
+			Tango::DEV_ULONG64, Tango::WRITE) {};
+	~ulong64_scalar_wAttrib() {};
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_ulong64_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_ulong64_scalar_w_allowed(ty);}
+};
+
+//	Attribute ushort_scalar_w class definition
+class ushort_scalar_wAttrib: public Tango::Attr
+{
+public:
+	ushort_scalar_wAttrib():Attr("ushort_scalar_w",
+			Tango::DEV_USHORT, Tango::WRITE) {};
+	~ushort_scalar_wAttrib() {};
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_ushort_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_ushort_scalar_w_allowed(ty);}
+};
+
+//	Attribute uchar_scalar_w class definition
+class uchar_scalar_wAttrib: public Tango::Attr
+{
+public:
+	uchar_scalar_wAttrib():Attr("uchar_scalar_w",
+			Tango::DEV_UCHAR, Tango::WRITE) {};
+	~uchar_scalar_wAttrib() {};
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_uchar_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_uchar_scalar_w_allowed(ty);}
+};
+
+//	Attribute encoded_scalar_w class definition
+class encoded_scalar_wAttrib: public Tango::Attr
+{
+public:
+	encoded_scalar_wAttrib():Attr("encoded_scalar_w",
+			Tango::DEV_ENCODED, Tango::WRITE) {};
+	~encoded_scalar_wAttrib() {};
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_encoded_scalar_w(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_encoded_scalar_w_allowed(ty);}
+};
+
+//	Attribute encoded_scalar class definition
+class encoded_scalarAttrib: public Tango::Attr
+{
+public:
+	encoded_scalarAttrib():Attr("encoded_scalar",
+			Tango::DEV_ENCODED, Tango::READ_WRITE) {};
+	~encoded_scalarAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_encoded_scalar(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_encoded_scalar(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_encoded_scalar_allowed(ty);}
+};
+
 //	Attribute boolean_spectrum class definition
 class boolean_spectrumAttrib: public Tango::SpectrumAttr
 {
@@ -633,6 +739,51 @@ public:
 		{(static_cast<TangoTest *>(dev))->read_wave(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<TangoTest *>(dev))->is_wave_allowed(ty);}
+};
+
+//	Attribute long64_spectrum class definition
+class long64_spectrumAttrib: public Tango::SpectrumAttr
+{
+public:
+	long64_spectrumAttrib():SpectrumAttr("long64_spectrum",
+			Tango::DEV_LONG64, Tango::READ_WRITE, 4096) {};
+	~long64_spectrumAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_long64_spectrum(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_long64_spectrum(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_long64_spectrum_allowed(ty);}
+};
+
+//	Attribute ulong64_spectrum class definition
+class ulong64_spectrumAttrib: public Tango::SpectrumAttr
+{
+public:
+	ulong64_spectrumAttrib():SpectrumAttr("ulong64_spectrum",
+			Tango::DEV_ULONG64, Tango::READ_WRITE, 4096) {};
+	~ulong64_spectrumAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_ulong64_spectrum(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_ulong64_spectrum(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_ulong64_spectrum_allowed(ty);}
+};
+
+//	Attribute ulong_spectrum class definition
+class ulong_spectrumAttrib: public Tango::SpectrumAttr
+{
+public:
+	ulong_spectrumAttrib():SpectrumAttr("ulong_spectrum",
+			Tango::DEV_ULONG, Tango::READ_WRITE, 4096) {};
+	~ulong_spectrumAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_ulong_spectrum(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_ulong_spectrum(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_ulong_spectrum_allowed(ty);}
 };
 
 //	Attribute boolean_image class definition
