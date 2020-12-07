@@ -108,7 +108,7 @@ public:
 
 	Tango::DevString	attr_string_image_write;
 
-    string              pi_str;
+    std::string         pi_str;
     Tango::DevLong      pi_long;
     Tango::DevShort     pi_short;
 
