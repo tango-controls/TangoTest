@@ -1147,7 +1147,7 @@ bool TangoTest::is_string_long_short_ro_allowed(TANGO_UNUSED(Tango::PipeReqType 
 	/*----- PROTECTED REGION ID(TangoTest::string_long_short_roStateAllowed_READ) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::string_long_short_roStateAllowed_READ
-    return true;
+	return true;
 }
 
 //=================================================
@@ -1558,5 +1558,12 @@ bool TangoTest::is_SwitchStates_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::SwitchStatesStateAllowed
 	return true;
 }
+
+
+/*----- PROTECTED REGION ID(TangoTest::TangoTestStateAllowed.AdditionalMethods) ENABLED START -----*/
+
+//	Additional Methods
+
+/*----- PROTECTED REGION END -----*/	//	TangoTest::TangoTestStateAllowed.AdditionalMethods
 
 }	//	End of namespace
