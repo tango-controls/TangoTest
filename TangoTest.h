@@ -196,7 +196,7 @@ public:
 	 *	@param cl	Class.
 	 *	@param s 	Device Name
 	 */
-	TangoTest(Tango::DeviceClass *cl,string &s);
+	TangoTest(Tango::DeviceClass *cl,std::string &s);
 	/**
 	 * Constructs a newly device object.
 	 *
@@ -246,14 +246,14 @@ public:
 	 *	Description : Hardware acquisition for attributes.
 	 */
 	//--------------------------------------------------------
-	virtual void read_attr_hardware(vector<long> &attr_list);
+	virtual void read_attr_hardware(std::vector<long> &attr_list);
 	//--------------------------------------------------------
 	/*
 	 *	Method      : TangoTest::write_attr_hardware()
 	 *	Description : Hardware writing for attributes.
 	 */
 	//--------------------------------------------------------
-	virtual void write_attr_hardware(vector<long> &attr_list);
+	virtual void write_attr_hardware(std::vector<long> &attr_list);
 
 /**
  *	Attribute ampli related methods

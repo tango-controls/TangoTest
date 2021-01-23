@@ -77,15 +77,15 @@ TangoTestClass *TangoTestClass::_instance = NULL;
 
 //--------------------------------------------------------
 /**
- * method : 		TangoTestClass::TangoTestClass(string &s)
+ * method : 		TangoTestClass::TangoTestClass(std::string &s)
  * description : 	constructor for the TangoTestClass
  *
  * @param s	The class name
  */
 //--------------------------------------------------------
-TangoTestClass::TangoTestClass(string &s):Tango::DeviceClass(s)
+TangoTestClass::TangoTestClass(std::string &s):Tango::DeviceClass(s)
 {
-	cout2 << "Entering TangoTestClass constructor" << endl;
+	cout2 << "Entering TangoTestClass constructor" << std::endl;
 	set_default_property();
 	write_class_property();
 
@@ -93,7 +93,7 @@ TangoTestClass::TangoTestClass(string &s):Tango::DeviceClass(s)
 	
 	/*----- PROTECTED REGION END -----*/	//	TangoTestClass::constructor
 
-	cout2 << "Leaving TangoTestClass constructor" << endl;
+	cout2 << "Leaving TangoTestClass constructor" << std::endl;
 }
 
 //--------------------------------------------------------
@@ -127,10 +127,10 @@ TangoTestClass *TangoTestClass::init(const char *name)
 	{
 		try
 		{
-			string s(name);
+			std::string s(name);
 			_instance = new TangoTestClass(s);
 		}
-		catch (bad_alloc &)
+		catch (std::bad_alloc &)
 		{
 			throw;
 		}
@@ -149,7 +149,7 @@ TangoTestClass *TangoTestClass::instance()
 {
 	if (_instance == NULL)
 	{
-		cerr << "Class is not initialised !!" << endl;
+		std::cerr << "Class is not initialised !!" << std::endl;
 		exit(-1);
 	}
 	return _instance;
@@ -173,7 +173,7 @@ TangoTestClass *TangoTestClass::instance()
 //--------------------------------------------------------
 CORBA::Any *CrashFromDevelopperThreadClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
-	cout2 << "CrashFromDevelopperThreadClass::execute(): arrived" << endl;
+	cout2 << "CrashFromDevelopperThreadClass::execute(): arrived" << std::endl;
 	((static_cast<TangoTest *>(device))->crash_from_developper_thread());
 	return new CORBA::Any();
 }
@@ -191,7 +191,7 @@ CORBA::Any *CrashFromDevelopperThreadClass::execute(Tango::DeviceImpl *device, T
 //--------------------------------------------------------
 CORBA::Any *CrashFromOmniThreadClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
-	cout2 << "CrashFromOmniThreadClass::execute(): arrived" << endl;
+	cout2 << "CrashFromOmniThreadClass::execute(): arrived" << std::endl;
 	((static_cast<TangoTest *>(device))->crash_from_omni_thread());
 	return new CORBA::Any();
 }
@@ -209,7 +209,7 @@ CORBA::Any *CrashFromOmniThreadClass::execute(Tango::DeviceImpl *device, TANGO_U
 //--------------------------------------------------------
 CORBA::Any *DevBooleanClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevBooleanClass::execute(): arrived" << endl;
+	cout2 << "DevBooleanClass::execute(): arrived" << std::endl;
 	Tango::DevBoolean argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_boolean(argin));
@@ -228,7 +228,7 @@ CORBA::Any *DevBooleanClass::execute(Tango::DeviceImpl *device, const CORBA::Any
 //--------------------------------------------------------
 CORBA::Any *DevDoubleClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevDoubleClass::execute(): arrived" << endl;
+	cout2 << "DevDoubleClass::execute(): arrived" << std::endl;
 	Tango::DevDouble argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_double(argin));
@@ -247,7 +247,7 @@ CORBA::Any *DevDoubleClass::execute(Tango::DeviceImpl *device, const CORBA::Any 
 //--------------------------------------------------------
 CORBA::Any *DevFloatClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevFloatClass::execute(): arrived" << endl;
+	cout2 << "DevFloatClass::execute(): arrived" << std::endl;
 	Tango::DevFloat argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_float(argin));
@@ -266,7 +266,7 @@ CORBA::Any *DevFloatClass::execute(Tango::DeviceImpl *device, const CORBA::Any &
 //--------------------------------------------------------
 CORBA::Any *DevLongClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevLongClass::execute(): arrived" << endl;
+	cout2 << "DevLongClass::execute(): arrived" << std::endl;
 	Tango::DevLong argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_long(argin));
@@ -285,7 +285,7 @@ CORBA::Any *DevLongClass::execute(Tango::DeviceImpl *device, const CORBA::Any &i
 //--------------------------------------------------------
 CORBA::Any *DevLong64Class::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevLong64Class::execute(): arrived" << endl;
+	cout2 << "DevLong64Class::execute(): arrived" << std::endl;
 	Tango::DevLong64 argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_long64(argin));
@@ -304,7 +304,7 @@ CORBA::Any *DevLong64Class::execute(Tango::DeviceImpl *device, const CORBA::Any 
 //--------------------------------------------------------
 CORBA::Any *DevShortClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevShortClass::execute(): arrived" << endl;
+	cout2 << "DevShortClass::execute(): arrived" << std::endl;
 	Tango::DevShort argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_short(argin));
@@ -323,7 +323,7 @@ CORBA::Any *DevShortClass::execute(Tango::DeviceImpl *device, const CORBA::Any &
 //--------------------------------------------------------
 CORBA::Any *DevStringClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevStringClass::execute(): arrived" << endl;
+	cout2 << "DevStringClass::execute(): arrived" << std::endl;
 	Tango::DevString argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_string(argin));
@@ -342,7 +342,7 @@ CORBA::Any *DevStringClass::execute(Tango::DeviceImpl *device, const CORBA::Any 
 //--------------------------------------------------------
 CORBA::Any *DevULongClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevULongClass::execute(): arrived" << endl;
+	cout2 << "DevULongClass::execute(): arrived" << std::endl;
 	Tango::DevULong argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_ulong(argin));
@@ -361,7 +361,7 @@ CORBA::Any *DevULongClass::execute(Tango::DeviceImpl *device, const CORBA::Any &
 //--------------------------------------------------------
 CORBA::Any *DevULong64Class::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevULong64Class::execute(): arrived" << endl;
+	cout2 << "DevULong64Class::execute(): arrived" << std::endl;
 	Tango::DevULong64 argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_ulong64(argin));
@@ -380,7 +380,7 @@ CORBA::Any *DevULong64Class::execute(Tango::DeviceImpl *device, const CORBA::Any
 //--------------------------------------------------------
 CORBA::Any *DevUShortClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevUShortClass::execute(): arrived" << endl;
+	cout2 << "DevUShortClass::execute(): arrived" << std::endl;
 	Tango::DevUShort argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_ushort(argin));
@@ -399,7 +399,7 @@ CORBA::Any *DevUShortClass::execute(Tango::DeviceImpl *device, const CORBA::Any 
 //--------------------------------------------------------
 CORBA::Any *DevVarCharArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarCharArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarCharArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarCharArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_char_array(argin));
@@ -418,7 +418,7 @@ CORBA::Any *DevVarCharArrayClass::execute(Tango::DeviceImpl *device, const CORBA
 //--------------------------------------------------------
 CORBA::Any *DevVarDoubleArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarDoubleArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarDoubleArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarDoubleArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_double_array(argin));
@@ -437,7 +437,7 @@ CORBA::Any *DevVarDoubleArrayClass::execute(Tango::DeviceImpl *device, const COR
 //--------------------------------------------------------
 CORBA::Any *DevVarDoubleStringArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarDoubleStringArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarDoubleStringArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarDoubleStringArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_double_string_array(argin));
@@ -456,7 +456,7 @@ CORBA::Any *DevVarDoubleStringArrayClass::execute(Tango::DeviceImpl *device, con
 //--------------------------------------------------------
 CORBA::Any *DevVarFloatArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarFloatArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarFloatArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarFloatArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_float_array(argin));
@@ -475,7 +475,7 @@ CORBA::Any *DevVarFloatArrayClass::execute(Tango::DeviceImpl *device, const CORB
 //--------------------------------------------------------
 CORBA::Any *DevVarLong64ArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarLong64ArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarLong64ArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarLong64Array *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_long64_array(argin));
@@ -494,7 +494,7 @@ CORBA::Any *DevVarLong64ArrayClass::execute(Tango::DeviceImpl *device, const COR
 //--------------------------------------------------------
 CORBA::Any *DevVarLongArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarLongArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarLongArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarLongArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_long_array(argin));
@@ -513,7 +513,7 @@ CORBA::Any *DevVarLongArrayClass::execute(Tango::DeviceImpl *device, const CORBA
 //--------------------------------------------------------
 CORBA::Any *DevVarLongStringArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarLongStringArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarLongStringArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarLongStringArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_long_string_array(argin));
@@ -532,7 +532,7 @@ CORBA::Any *DevVarLongStringArrayClass::execute(Tango::DeviceImpl *device, const
 //--------------------------------------------------------
 CORBA::Any *DevVarShortArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarShortArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarShortArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarShortArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_short_array(argin));
@@ -551,7 +551,7 @@ CORBA::Any *DevVarShortArrayClass::execute(Tango::DeviceImpl *device, const CORB
 //--------------------------------------------------------
 CORBA::Any *DevVarStringArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarStringArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarStringArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarStringArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_string_array(argin));
@@ -570,7 +570,7 @@ CORBA::Any *DevVarStringArrayClass::execute(Tango::DeviceImpl *device, const COR
 //--------------------------------------------------------
 CORBA::Any *DevVarULong64ArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarULong64ArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarULong64ArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarULong64Array *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_ulong64_array(argin));
@@ -589,7 +589,7 @@ CORBA::Any *DevVarULong64ArrayClass::execute(Tango::DeviceImpl *device, const CO
 //--------------------------------------------------------
 CORBA::Any *DevVarULongArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarULongArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarULongArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarULongArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_ulong_array(argin));
@@ -608,7 +608,7 @@ CORBA::Any *DevVarULongArrayClass::execute(Tango::DeviceImpl *device, const CORB
 //--------------------------------------------------------
 CORBA::Any *DevVarUShortArrayClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "DevVarUShortArrayClass::execute(): arrived" << endl;
+	cout2 << "DevVarUShortArrayClass::execute(): arrived" << std::endl;
 	const Tango::DevVarUShortArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoTest *>(device))->dev_var_ushort_array(argin));
@@ -627,7 +627,7 @@ CORBA::Any *DevVarUShortArrayClass::execute(Tango::DeviceImpl *device, const COR
 //--------------------------------------------------------
 CORBA::Any *DevVoidClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
-	cout2 << "DevVoidClass::execute(): arrived" << endl;
+	cout2 << "DevVoidClass::execute(): arrived" << std::endl;
 	((static_cast<TangoTest *>(device))->dev_void());
 	return new CORBA::Any();
 }
@@ -645,7 +645,7 @@ CORBA::Any *DevVoidClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const 
 //--------------------------------------------------------
 CORBA::Any *DumpExecutionStateClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
-	cout2 << "DumpExecutionStateClass::execute(): arrived" << endl;
+	cout2 << "DumpExecutionStateClass::execute(): arrived" << std::endl;
 	((static_cast<TangoTest *>(device))->dump_execution_state());
 	return new CORBA::Any();
 }
@@ -663,7 +663,7 @@ CORBA::Any *DumpExecutionStateClass::execute(Tango::DeviceImpl *device, TANGO_UN
 //--------------------------------------------------------
 CORBA::Any *SwitchStatesClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
-	cout2 << "SwitchStatesClass::execute(): arrived" << endl;
+	cout2 << "SwitchStatesClass::execute(): arrived" << std::endl;
 	((static_cast<TangoTest *>(device))->switch_states());
 	return new CORBA::Any();
 }
@@ -678,7 +678,7 @@ CORBA::Any *SwitchStatesClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(c
  *	Description : Get the class property for specified name.
  */
 //--------------------------------------------------------
-Tango::DbDatum TangoTestClass::get_class_property(string &prop_name)
+Tango::DbDatum TangoTestClass::get_class_property(std::string &prop_name)
 {
 	for (unsigned int i=0 ; i<cl_prop.size() ; i++)
 		if (cl_prop[i].name == prop_name)
@@ -693,7 +693,7 @@ Tango::DbDatum TangoTestClass::get_class_property(string &prop_name)
  *	Description : Return the default value for device property.
  */
 //--------------------------------------------------------
-Tango::DbDatum TangoTestClass::get_default_device_property(string &prop_name)
+Tango::DbDatum TangoTestClass::get_default_device_property(std::string &prop_name)
 {
 	for (unsigned int i=0 ; i<dev_def_prop.size() ; i++)
 		if (dev_def_prop[i].name == prop_name)
@@ -708,7 +708,7 @@ Tango::DbDatum TangoTestClass::get_default_device_property(string &prop_name)
  *	Description : Return the default value for class property.
  */
 //--------------------------------------------------------
-Tango::DbDatum TangoTestClass::get_default_class_property(string &prop_name)
+Tango::DbDatum TangoTestClass::get_default_class_property(std::string &prop_name)
 {
 	for (unsigned int i=0 ; i<cl_def_prop.size() ; i++)
 		if (cl_def_prop[i].name == prop_name)
@@ -729,10 +729,10 @@ Tango::DbDatum TangoTestClass::get_default_class_property(string &prop_name)
 //--------------------------------------------------------
 void TangoTestClass::set_default_property()
 {
-	string	prop_name;
-	string	prop_desc;
-	string	prop_def;
-	vector<string>	vect_data;
+	std::string	prop_name;
+	std::string	prop_desc;
+	std::string	prop_def;
+	std::vector<std::string>	vect_data;
 
 	//	Set Default Class Properties
 
@@ -792,19 +792,19 @@ void TangoTestClass::write_class_property()
 		return;
 
 	Tango::DbData	data;
-	string	classname = get_name();
-	string	header;
-	string::size_type	start, end;
+	std::string	classname = get_name();
+	std::string	header;
+	std::string::size_type	start, end;
 
 	//	Put title
 	Tango::DbDatum	title("ProjectTitle");
-	string	str_title("TANGO Device Server for testing generic clients");
+	std::string	str_title("TANGO Device Server for testing generic clients");
 	title << str_title;
 	data.push_back(title);
 
 	//	Put Description
 	Tango::DbDatum	description("Description");
-	vector<string>	str_desc;
+	std::vector<std::string>	str_desc;
 	str_desc.push_back("A device to test generic clients. It offers a \"echo\" like command for");
 	str_desc.push_back("each TANGO data type (i.e. each command returns an exact copy of <argin>).");
 	description << str_desc;
@@ -812,7 +812,7 @@ void TangoTestClass::write_class_property()
 
 	//  Put inheritance
 	Tango::DbDatum	inher_datum("InheritedFrom");
-	vector<string> inheritance;
+	std::vector<std::string> inheritance;
 	inheritance.push_back("TANGO_BASE_CLASS");
 	inher_datum << inheritance;
 	data.push_back(inher_datum);
@@ -843,7 +843,7 @@ void TangoTestClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
 	//	Create devices and add it into the device list
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
 	{
-		cout4 << "Device name : " << (*devlist_ptr)[i].in() << endl;
+		cout4 << "Device name : " << (*devlist_ptr)[i].in() << std::endl;
 		device_list.push_back(new TangoTest(this, (*devlist_ptr)[i]));
 	}
 
@@ -877,7 +877,7 @@ void TangoTestClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
  *                and store them in the attribute list
  */
 //--------------------------------------------------------
-void TangoTestClass::attribute_factory(vector<Tango::Attr *> &att_list)
+void TangoTestClass::attribute_factory(std::vector<Tango::Attr *> &att_list)
 {
 	/*----- PROTECTED REGION ID(TangoTestClass::attribute_factory_before) ENABLED START -----*/
 	
@@ -2669,16 +2669,16 @@ void TangoTestClass::command_factory()
  * @param	att_list	the ceated attribute list
  */
 //--------------------------------------------------------
-void TangoTestClass::create_static_attribute_list(vector<Tango::Attr *> &att_list)
+void TangoTestClass::create_static_attribute_list(std::vector<Tango::Attr *> &att_list)
 {
 	for (unsigned long i=0 ; i<att_list.size() ; i++)
 	{
-		string att_name(att_list[i]->get_name());
+		std::string att_name(att_list[i]->get_name());
 		transform(att_name.begin(), att_name.end(), att_name.begin(), ::tolower);
 		defaultAttList.push_back(att_name);
 	}
 
-	cout2 << defaultAttList.size() << " attributes in default list" << endl;
+	cout2 << defaultAttList.size() << " attributes in default list" << std::endl;
 
 	/*----- PROTECTED REGION ID(TangoTestClass::create_static_att_list) ENABLED START -----*/
 	
@@ -2695,26 +2695,26 @@ void TangoTestClass::create_static_attribute_list(vector<Tango::Attr *> &att_lis
  * @param	list of all attributes
  */
 //--------------------------------------------------------
-void TangoTestClass::erase_dynamic_attributes(const Tango::DevVarStringArray *devlist_ptr, vector<Tango::Attr *> &att_list)
+void TangoTestClass::erase_dynamic_attributes(const Tango::DevVarStringArray *devlist_ptr, std::vector<Tango::Attr *> &att_list)
 {
 	Tango::Util *tg = Tango::Util::instance();
 
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
 	{
-		Tango::DeviceImpl *dev_impl = tg->get_device_by_name(((string)(*devlist_ptr)[i]).c_str());
+		Tango::DeviceImpl *dev_impl = tg->get_device_by_name(((std::string)(*devlist_ptr)[i]).c_str());
 		TangoTest *dev = static_cast<TangoTest *> (dev_impl);
 
-		vector<Tango::Attribute *> &dev_att_list = dev->get_device_attr()->get_attribute_list();
-		vector<Tango::Attribute *>::iterator ite_att;
+		std::vector<Tango::Attribute *> &dev_att_list = dev->get_device_attr()->get_attribute_list();
+		std::vector<Tango::Attribute *>::iterator ite_att;
 		for (ite_att=dev_att_list.begin() ; ite_att != dev_att_list.end() ; ++ite_att)
 		{
-			string att_name((*ite_att)->get_name_lower());
+			std::string att_name((*ite_att)->get_name_lower());
 			if ((att_name == "state") || (att_name == "status"))
 				continue;
-			vector<string>::iterator ite_str = find(defaultAttList.begin(), defaultAttList.end(), att_name);
+			std::vector<std::string>::iterator ite_str = find(defaultAttList.begin(), defaultAttList.end(), att_name);
 			if (ite_str == defaultAttList.end())
 			{
-				cout2 << att_name << " is a UNWANTED dynamic attribute for device " << (*devlist_ptr)[i] << endl;
+				cout2 << att_name << " is a UNWANTED dynamic attribute for device " << (*devlist_ptr)[i] << std::endl;
 				Tango::Attribute &att = dev->get_device_attr()->get_attr_by_name(att_name.c_str());
 				dev->remove_attribute(att_list[att.get_attr_idx()], true, false);
 				--ite_att;
@@ -2728,13 +2728,13 @@ void TangoTestClass::erase_dynamic_attributes(const Tango::DevVarStringArray *de
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoTestClass::get_attr_by_name()
+ *	Method      : TangoTestClass::get_attr_object_by_name()
  *	Description : returns Tango::Attr * object found by name
  */
 //--------------------------------------------------------
-Tango::Attr *TangoTestClass::get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname)
+Tango::Attr *TangoTestClass::get_attr_object_by_name(std::vector<Tango::Attr *> &att_list, std::string attname)
 {
-	vector<Tango::Attr *>::iterator it;
+	std::vector<Tango::Attr *>::iterator it;
 	for (it=att_list.begin() ; it<att_list.end() ; ++it)
 		if ((*it)->get_name()==attname)
 			return (*it);
