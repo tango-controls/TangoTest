@@ -1773,7 +1773,7 @@ void TangoTest::write_enum_scalar(Tango::WAttribute &attr)
 	enum_scalarEnum	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(TangoTest::write_enum_scalar) ENABLED START -----*/
-	
+	*attr_enum_scalar_read = w_val;
 	
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_enum_scalar
 }
