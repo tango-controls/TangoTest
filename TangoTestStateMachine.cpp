@@ -446,6 +446,26 @@ bool TangoTest::is_ulong_scalar_allowed(TANGO_UNUSED(Tango::AttReqType type))
 
 //--------------------------------------------------------
 /**
+ *	Method      : TangoTest::is_enum_scalar_allowed()
+ *	Description : Execution allowed for enum_scalar attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_enum_scalar_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for enum_scalar attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::enum_scalarStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::enum_scalarStateAllowed_WRITE
+
+	//	Not any excluded states for enum_scalar attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::enum_scalarStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::enum_scalarStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
  *	Method      : TangoTest::is_boolean_spectrum_allowed()
  *	Description : Execution allowed for boolean_spectrum attribute
  */
@@ -1147,7 +1167,7 @@ bool TangoTest::is_string_long_short_ro_allowed(TANGO_UNUSED(Tango::PipeReqType 
 	/*----- PROTECTED REGION ID(TangoTest::string_long_short_roStateAllowed_READ) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::string_long_short_roStateAllowed_READ
-    return true;
+	return true;
 }
 
 //=================================================
@@ -1558,5 +1578,12 @@ bool TangoTest::is_SwitchStates_allowed(TANGO_UNUSED(const CORBA::Any &any))
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::SwitchStatesStateAllowed
 	return true;
 }
+
+
+/*----- PROTECTED REGION ID(TangoTest::TangoTestStateAllowed.AdditionalMethods) ENABLED START -----*/
+
+//	Additional Methods
+
+/*----- PROTECTED REGION END -----*/	//	TangoTest::TangoTestStateAllowed.AdditionalMethods
 
 }	//	End of namespace
