@@ -359,6 +359,23 @@ public:
 		{return (static_cast<TangoTest *>(dev))->is_ulong_scalar_allowed(ty);}
 };
 
+//	Attribute enum_scalar class definition
+class enum_scalarAttrib: public Tango::Attr
+{
+public:
+	enum_scalarAttrib():Attr("enum_scalar",
+			Tango::DEV_ENUM, Tango::READ_WRITE) {};
+	~enum_scalarAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<TangoTest *>(dev))->read_enum_scalar(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<TangoTest *>(dev))->write_enum_scalar(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<TangoTest *>(dev))->is_enum_scalar_allowed(ty);}
+	virtual bool same_type(const type_info &in_type) {return typeid(enum_scalarEnum) == in_type;}
+	virtual string get_enum_type() {return string("enum_scalarEnum");}
+};
+
 //	Attribute boolean_spectrum class definition
 class boolean_spectrumAttrib: public Tango::SpectrumAttr
 {
@@ -906,7 +923,7 @@ public:
 class string_long_short_roClass: public Tango::Pipe
 {
 public:
-	string_long_short_roClass(const std::string &name, Tango::DispLevel level)
+	string_long_short_roClass(const string &name, Tango::DispLevel level)
 		:Pipe(name, level) {};
 
 	~string_long_short_roClass() {};
@@ -1568,28 +1585,28 @@ class TangoTestClass : public Tango::DeviceClass
 		static TangoTestClass *init(const char *);
 		static TangoTestClass *instance();
 		~TangoTestClass();
-		Tango::DbDatum	get_class_property(std::string &);
-		Tango::DbDatum	get_default_device_property(std::string &);
-		Tango::DbDatum	get_default_class_property(std::string &);
+		Tango::DbDatum	get_class_property(string &);
+		Tango::DbDatum	get_default_device_property(string &);
+		Tango::DbDatum	get_default_class_property(string &);
 	
 	protected:
-		TangoTestClass(std::string &);
+		TangoTestClass(string &);
 		static TangoTestClass *_instance;
 		void command_factory();
-		void attribute_factory(std::vector<Tango::Attr *> &);
+		void attribute_factory(vector<Tango::Attr *> &);
 		void pipe_factory();
 		void write_class_property();
 		void set_default_property();
 		void get_class_property();
-		std::string get_cvstag();
-		std::string get_cvsroot();
+		string get_cvstag();
+		string get_cvsroot();
 	
 	private:
 		void device_factory(const Tango::DevVarStringArray *);
-		void create_static_attribute_list(std::vector<Tango::Attr *> &);
-		void erase_dynamic_attributes(const Tango::DevVarStringArray *,std::vector<Tango::Attr *> &);
-		std::vector<std::string>	defaultAttList;
-		Tango::Attr *get_attr_object_by_name(std::vector<Tango::Attr *> &att_list, std::string attname);
+		void create_static_attribute_list(vector<Tango::Attr *> &);
+		void erase_dynamic_attributes(const Tango::DevVarStringArray *,vector<Tango::Attr *> &);
+		vector<string>	defaultAttList;
+		Tango::Attr *get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname);
 };
 
 }	//	End of namespace
