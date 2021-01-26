@@ -446,6 +446,26 @@ bool TangoTest::is_ulong_scalar_allowed(TANGO_UNUSED(Tango::AttReqType type))
 
 //--------------------------------------------------------
 /**
+ *	Method      : TangoTest::is_enum_scalar_allowed()
+ *	Description : Execution allowed for enum_scalar attribute
+ */
+//--------------------------------------------------------
+bool TangoTest::is_enum_scalar_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for enum_scalar attribute in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::enum_scalarStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::enum_scalarStateAllowed_WRITE
+
+	//	Not any excluded states for enum_scalar attribute in read access.
+	/*----- PROTECTED REGION ID(TangoTest::enum_scalarStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::enum_scalarStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
  *	Method      : TangoTest::is_boolean_spectrum_allowed()
  *	Description : Execution allowed for boolean_spectrum attribute
  */

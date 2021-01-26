@@ -67,6 +67,13 @@
 
 namespace TangoTest_ns
 {
+enum _enum_scalarEnum {
+	_LABEL0,
+	_LABEL1,
+	_LABEL2,
+} ;
+typedef _enum_scalarEnum enum_scalarEnum;
+
 /*----- PROTECTED REGION ID(TangoTest::Additional Class Declarations) ENABLED START -----*/
 
 //	Additional Class Declarations
@@ -142,6 +149,7 @@ public:
 	Tango::DevULong64	*attr_ulong64_scalar_read;
 	Tango::DevUShort	*attr_ushort_scalar_read;
 	Tango::DevULong	*attr_ulong_scalar_read;
+	enum_scalarEnum	*attr_enum_scalar_read;
 	Tango::DevBoolean	*attr_boolean_spectrum_read;
 	Tango::DevBoolean	*attr_boolean_spectrum_ro_read;
 	Tango::DevDouble	*attr_double_spectrum_read;
@@ -452,6 +460,16 @@ public:
 	virtual void read_ulong_scalar(Tango::Attribute &attr);
 	virtual void write_ulong_scalar(Tango::WAttribute &attr);
 	virtual bool is_ulong_scalar_allowed(Tango::AttReqType type);
+/**
+ *	Attribute enum_scalar related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevEnum
+ *	Attr type:	Scalar
+ */
+	virtual void read_enum_scalar(Tango::Attribute &attr);
+	virtual void write_enum_scalar(Tango::WAttribute &attr);
+	virtual bool is_enum_scalar_allowed(Tango::AttReqType type);
 /**
  *	Attribute boolean_spectrum related methods
  *	Description: 

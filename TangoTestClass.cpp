@@ -1388,6 +1388,37 @@ void TangoTestClass::attribute_factory(std::vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(ulong_scalar);
 
+	//	Attribute : enum_scalar
+	enum_scalarAttrib	*enum_scalar = new enum_scalarAttrib();
+	Tango::UserDefaultAttrProp	enum_scalar_prop;
+	//	description	not set for enum_scalar
+	//	label	not set for enum_scalar
+	//	unit	not set for enum_scalar
+	//	standard_unit	not set for enum_scalar
+	//	display_unit	not set for enum_scalar
+	//	format	not set for enum_scalar
+	//	max_value	not set for enum_scalar
+	//	min_value	not set for enum_scalar
+	//	max_alarm	not set for enum_scalar
+	//	min_alarm	not set for enum_scalar
+	//	max_warning	not set for enum_scalar
+	//	min_warning	not set for enum_scalar
+	//	delta_t	not set for enum_scalar
+	//	delta_val	not set for enum_scalar
+	
+	{
+		vector<std::string> labels;
+		labels.push_back("LABEL0");
+		labels.push_back("LABEL1");
+		labels.push_back("LABEL2");
+		enum_scalar_prop.set_enum_labels(labels);
+	}
+	enum_scalar->set_default_properties(enum_scalar_prop);
+	//	Not Polled
+	enum_scalar->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(enum_scalar);
+
 	//	Attribute : boolean_spectrum
 	boolean_spectrumAttrib	*boolean_spectrum = new boolean_spectrumAttrib();
 	Tango::UserDefaultAttrProp	boolean_spectrum_prop;

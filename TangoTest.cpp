@@ -122,6 +122,7 @@ static const long kImagLen = 251;
 //  ulong64_scalar       |  Tango::DevULong64	Scalar
 //  ushort_scalar        |  Tango::DevUShort	Scalar
 //  ulong_scalar         |  Tango::DevULong	Scalar
+//  enum_scalar          |  Tango::DevEnum	Scalar
 //  boolean_spectrum     |  Tango::DevBoolean	Spectrum  ( max = 4096)
 //  boolean_spectrum_ro  |  Tango::DevBoolean	Spectrum  ( max = 4096)
 //  double_spectrum      |  Tango::DevDouble	Spectrum  ( max = 4096)
@@ -590,6 +591,10 @@ void TangoTest::delete_device()
     attr_wave_read = 0;
   }
 
+  if (attr_enum_scalar_read) {
+    delete attr_enum_scalar_read;
+    attr_enum_scalar_read = 0;
+  }
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::delete_device
 }
 
@@ -691,6 +696,9 @@ void TangoTest::init_device()
 	attr_ushort_scalar_read = new Tango::DevUShort;
 	*attr_ushort_scalar_read = 0;
 	attr_ushort_scalar_write = 0;
+
+  attr_enum_scalar_read = new enum_scalarEnum;
+  *attr_enum_scalar_read = enum_scalarEnum::_LABEL0;
 
   //- Spectrum
 	attr_short_spectrum_ro_read = new Tango::DevShort[kSpecLen];
@@ -1731,6 +1739,44 @@ void TangoTest::write_ulong_scalar(Tango::WAttribute &attr)
 	attr_ulong_scalar_write = w_val;
 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_ulong_scalar
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute enum_scalar related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevEnum (enum_scalarEnum)
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::read_enum_scalar(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::read_enum_scalar(Tango::Attribute &attr) entering... " << std::endl;
+	/*----- PROTECTED REGION ID(TangoTest::read_enum_scalar) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_enum_scalar_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_enum_scalar
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute enum_scalar related method
+ *	Description: 
+ *
+ *	Data type:	Tango::DevEnum (enum_scalarEnum)
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void TangoTest::write_enum_scalar(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "TangoTest::write_enum_scalar(Tango::WAttribute &attr) entering... " << std::endl;
+	//	Retrieve write value
+	enum_scalarEnum	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(TangoTest::write_enum_scalar) ENABLED START -----*/
+  *attr_enum_scalar_read = w_val;
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_enum_scalar
 }
 //--------------------------------------------------------
 /**
