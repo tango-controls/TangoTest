@@ -1149,6 +1149,24 @@ bool TangoTest::is_string_long_short_ro_allowed(TANGO_UNUSED(Tango::PipeReqType 
 	/*----- PROTECTED REGION END -----*/	//	TangoTest::string_long_short_roStateAllowed_READ
 	return true;
 }
+//--------------------------------------------------------
+/**
+ *	Method      : TangoTest::is_generic_blob_rw_allowed()
+ *	Description : Execution allowed for generic_blob_rw pipe
+ */
+//--------------------------------------------------------
+bool TangoTest::is_generic_blob_rw_allowed(TANGO_UNUSED(Tango::PipeReqType type))
+{
+	//	Not any excluded states for generic_blob_rw pipe in Write access.
+	/*----- PROTECTED REGION ID(TangoTest::generic_blob_rwStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::generic_blob_rwStateAllowed_WRITE
+	//	Not any excluded states for generic_blob_rw pipe in read access.
+	/*----- PROTECTED REGION ID(TangoTest::generic_blob_rwStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::generic_blob_rwStateAllowed_READ
+	return true;
+}
 
 //=================================================
 //		Commands Allowed Methods

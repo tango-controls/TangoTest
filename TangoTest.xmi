@@ -703,6 +703,7 @@
       <properties description="An unsigned short image attribute" label="ushort_image_ro" unit="" standardUnit="" displayUnit="" format="" maxValue="255" minValue="0" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <pipes name="string_long_short_ro" description="Pipe example" label="" rwType="READ" displayLevel="OPERATOR"/>
+    <pipes name="generic_blob_rw" description="Pipe to write and read dynamic data structure" label="" rwType="READ_WRITE" displayLevel="OPERATOR"/>
     <states name="FAULT" description="This state disables all commands">
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
     </states>

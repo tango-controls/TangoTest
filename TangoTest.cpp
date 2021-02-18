@@ -3005,6 +3005,50 @@ void TangoTest::read_string_long_short_ro(Tango::Pipe &pipe)
 }
 //--------------------------------------------------------
 /**
+ *	Read pipe generic_blob_rw related method
+ *	Description: Pipe to write and read dynamic data structure
+ */
+//--------------------------------------------------------
+void TangoTest::read_generic_blob_rw(Tango::Pipe &pipe)
+{
+	DEBUG_STREAM << "TangoTest::read_generic_blob_rw(Tango::Pipe &pipe) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoTest::read_generic_blob_rw) ENABLED START -----*/
+
+	if (generic_blob_rw_has_value)
+	{
+		auto names = generic_blob_rw_data.get_data_elt_names();
+		pipe.get_blob().set_data_elt_names(names);
+		pipe.set_value_flag(true);
+		for (int i=0; i< generic_blob_rw_data.get_data_elt_nb(); ++i)
+		{
+			(*(pipe.get_blob().get_insert_data()))[i] = (*(generic_blob_rw_data.get_extract_data()))[i];
+		}
+	}
+	else
+	{
+		vector<string> de_names {"NO BLOB"};
+		pipe.get_blob().set_data_elt_names(de_names);
+		int generic_blob_rw_status = 0;
+		pipe << generic_blob_rw_status;
+	}
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::read_generic_blob_rw
+}
+//--------------------------------------------------------
+/**
+ *	Write pipe generic_blob_rw related method
+ *	Description: Pipe to write and read dynamic data structure
+ */
+//--------------------------------------------------------
+void TangoTest::write_generic_blob_rw(Tango::WPipe &pipe)
+{
+	DEBUG_STREAM << "TangoTest::write_generic_blob_rw(Tango::WPipe &pipe) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoTest::write_generic_blob_rw) ENABLED START -----*/
+	generic_blob_rw_data = pipe.get_blob();
+	generic_blob_rw_has_value = true;
+	/*----- PROTECTED REGION END -----*/	//	TangoTest::write_generic_blob_rw
+}
+//--------------------------------------------------------
+/**
  *	Command CrashFromDevelopperThread related method
  *	Description: Crashes the device!
  *
